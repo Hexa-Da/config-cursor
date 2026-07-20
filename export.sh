@@ -65,7 +65,19 @@ export_dot_dir plugins
 export_dot_dir commands
 export_dot_dir agents
 
-[[ -f "$CURSOR_USER/settings.json" ]] && cp "$CURSOR_USER/settings.json" "$USER_DST/settings.json"
+# Settings : copie sans remote.SSH* (plus utilisé)
+if [[ -f "$CURSOR_USER/settings.json" ]]; then
+  python3 - "$CURSOR_USER/settings.json" "$USER_DST/settings.json" <<'PY'
+import json, sys
+from pathlib import Path
+src, dst = Path(sys.argv[1]), Path(sys.argv[2])
+data = json.loads(src.read_text(encoding="utf-8"))
+if isinstance(data, dict):
+    data = {k: v for k, v in data.items() if not str(k).startswith("remote.SSH")}
+dst.write_text(json.dumps(data, indent=4, ensure_ascii=False) + "\n", encoding="utf-8")
+print("→ settings.json (remote.SSH filtré)")
+PY
+fi
 [[ -f "$CURSOR_USER/keybindings.json" ]] && cp "$CURSOR_USER/keybindings.json" "$USER_DST/keybindings.json"
 
 # Extensions IDs
