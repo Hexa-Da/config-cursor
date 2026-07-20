@@ -32,12 +32,12 @@ echo "→ Dotcursor: $CURSOR_DOT"
 
 mkdir -p "$CURSOR_DOT/hooks" "$CURSOR_USER/snippets"
 
-# ~/.cursor (hooks, skills, …) — ne pas écraser mcp.json s'il existe déjà
+# ~/.cursor (hooks) — ne pas écraser mcp.json s'il existe déjà
 cp "$DOT_SRC/hooks.json" "$CURSOR_DOT/hooks.json"
 cp "$DOT_SRC/hooks/garde-fou.py" "$CURSOR_DOT/hooks/garde-fou.py"
 chmod +x "$CURSOR_DOT/hooks/garde-fou.py" 2>/dev/null || true
 
-if [[ -d "$DOT_SRC/skills" ]]; then
+if [[ -d "$DOT_SRC/skills" ]] && [[ -n "$(find "$DOT_SRC/skills" -type f ! -name '.DS_Store' 2>/dev/null | head -1)" ]]; then
   mkdir -p "$CURSOR_DOT/skills"
   rsync -a --exclude '.DS_Store' "$DOT_SRC/skills/" "$CURSOR_DOT/skills/" 2>/dev/null \
     || cp -R "$DOT_SRC/skills/." "$CURSOR_DOT/skills/"
@@ -55,5 +55,18 @@ if [[ -d "$USER_SRC/snippets" ]]; then
   cp -R "$USER_SRC/snippets/." "$CURSOR_USER/snippets/" 2>/dev/null || true
 fi
 
+# Extensions (IDs dans extensions.txt)
+if [[ -f "$ROOT/extensions.txt" ]]; then
+  if command -v cursor >/dev/null 2>&1; then
+    echo "→ Installation des extensions…"
+    while IFS= read -r line || [[ -n "$line" ]]; do
+      [[ -z "$line" || "$line" =~ ^# ]] && continue
+      cursor --install-extension "$line" || echo "  ! échec: $line"
+    done < "$ROOT/extensions.txt"
+  else
+    echo "→ CLI 'cursor' introuvable — installe manuellement les IDs de extensions.txt"
+  fi
+fi
+
 echo "OK — redémarre Cursor si les hooks ne se rechargent pas."
-echo "Note: réinstalle les extensions via le marketplace (non versionnées ici)."
+echo "Repo privé recommandé (settings.json peut contenir des hosts SSH)."
