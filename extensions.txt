@@ -1,7 +1,4 @@
 # Extensions Cursor à réinstaller (marketplace)
-# Usage: cursor --install-extension <id>
-#   ou:  pour chaque ligne → Install Extensions dans Cursor
 
-anysphere.remote-ssh
 pkief.material-icon-theme
 tomoki1207.pdf
