@@ -1,0 +1,23 @@
+# Secrets & machine-local
+mcp.json
+**/auth.json
+**/api_key.txt
+**/*.pem
+**/*.key
+.env
+.env.*
+
+# Caches / OS
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+
+# Do not vendor Cursor state
+projects/
+ai-tracking/
+extensions/
+statsig-cache.json
+ide_state.json
+state.vscdb
+*.vscdb

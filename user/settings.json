@@ -1,0 +1,26 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "files.autoSave": "afterDelay",
+    "workbench.editor.showTabs": "single",
+    "workbench.editorAssociations": {
+        "*.pdf": "pdf.preview",
+        "*.md": "workbench.editor.markdownPlan"
+    },
+    "cursor.composer.usageSummaryDisplay": "always",
+    "remote.SSH.remotePlatform": {
+        "": "linux",
+        "": "linux",
+        "": "linux"
+    },
+    "window.autoDetectColorScheme": false,
+    "cursor.composer.editorConversationDensity": "compact-all-grouped",
+    "workbench.editor.enablePreview": false,
+    "cursor.cpp.enablePartialAccepts": true,
+    "git.autofetch": true,
+    "git.openRepositoryInParentFolders": "never",
+    "kotlin.languageServer.enabled": false,
+    "kotlin.debugAdapter.enabled": false,
+    "redhat.telemetry.enabled": true,
+    "workbench.agentsWindowButton.enabled": false,
+    "workbench.statusBar.visible": false
+}

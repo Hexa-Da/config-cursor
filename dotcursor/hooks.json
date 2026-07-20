@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": "./hooks/garde-fou.py",
+        "failClosed": true,
+        "timeout": 15
+      }
+    ],
+    "preToolUse": [
+      {
+        "command": "./hooks/garde-fou.py",
+        "matcher": "Write|Delete|StrReplace",
+        "failClosed": true,
+        "timeout": 15
+      }
+    ]
+  }
+}
