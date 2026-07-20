@@ -17,5 +17,6 @@
     "kotlin.debugAdapter.enabled": false,
     "redhat.telemetry.enabled": true,
     "workbench.agentsWindowButton.enabled": false,
-    "workbench.statusBar.visible": false
+    "workbench.statusBar.visible": false,
+    "terminal.integrated.suggest.enabled": true
 }
