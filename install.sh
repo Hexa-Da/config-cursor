@@ -30,7 +30,7 @@ CURSOR_DOT="$HOME/.cursor"
 echo "→ User dir : $CURSOR_USER"
 echo "→ Dotcursor: $CURSOR_DOT"
 
-mkdir -p "$CURSOR_DOT/hooks"
+mkdir -p "$CURSOR_DOT/hooks" "$CURSOR_USER"
 
 # ~/.cursor (hooks, skills, plugins, commands, agents)
 # — ne pas écraser mcp.json s'il existe déjà
@@ -57,7 +57,6 @@ if [[ ! -f "$CURSOR_DOT/mcp.json" && -f "$DOT_SRC/mcp.json.example" ]]; then
   echo "→ mcp.json créé depuis l'exemple (vide)"
 fi
 
-# settings / keybindings
 [[ -f "$USER_SRC/settings.json" ]] && cp "$USER_SRC/settings.json" "$CURSOR_USER/settings.json"
 [[ -f "$USER_SRC/keybindings.json" ]] && cp "$USER_SRC/keybindings.json" "$CURSOR_USER/keybindings.json"
 
@@ -75,4 +74,3 @@ if [[ -f "$ROOT/extensions.txt" ]]; then
 fi
 
 echo "OK — redémarre Cursor si les hooks ne se rechargent pas."
-echo "Repo privé recommandé (settings.json peut contenir des hosts SSH)."

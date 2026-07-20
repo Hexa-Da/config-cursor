@@ -7,11 +7,6 @@
         "*.md": "workbench.editor.markdownPlan"
     },
     "cursor.composer.usageSummaryDisplay": "always",
-    "remote.SSH.remotePlatform": {
-        "": "linux",
-        "": "linux",
-        "": "linux"
-    },
     "window.autoDetectColorScheme": false,
     "cursor.composer.editorConversationDensity": "compact-all-grouped",
     "workbench.editor.enablePreview": false,
