@@ -32,16 +32,25 @@ echo "→ Dotcursor: $CURSOR_DOT"
 
 mkdir -p "$CURSOR_DOT/hooks"
 
-# ~/.cursor (hooks, skills) — ne pas écraser mcp.json s'il existe déjà
+# ~/.cursor (hooks, skills, plugins, commands, agents)
+# — ne pas écraser mcp.json s'il existe déjà
 cp "$DOT_SRC/hooks.json" "$CURSOR_DOT/hooks.json"
 cp "$DOT_SRC/hooks/garde-fou.py" "$CURSOR_DOT/hooks/garde-fou.py"
 chmod +x "$CURSOR_DOT/hooks/garde-fou.py" 2>/dev/null || true
 
-if [[ -d "$DOT_SRC/skills" ]]; then
-  mkdir -p "$CURSOR_DOT/skills"
-  rsync -a --exclude '.DS_Store' --exclude '.gitkeep' "$DOT_SRC/skills/" "$CURSOR_DOT/skills/" 2>/dev/null \
-    || cp -R "$DOT_SRC/skills/." "$CURSOR_DOT/skills/"
-fi
+sync_dot_dir() {
+  local name="$1"
+  if [[ -d "$DOT_SRC/$name" ]]; then
+    mkdir -p "$CURSOR_DOT/$name"
+    rsync -a --exclude '.DS_Store' --exclude '.gitkeep' "$DOT_SRC/$name/" "$CURSOR_DOT/$name/" 2>/dev/null \
+      || cp -R "$DOT_SRC/$name/." "$CURSOR_DOT/$name/"
+  fi
+}
+
+sync_dot_dir skills
+sync_dot_dir plugins
+sync_dot_dir commands
+sync_dot_dir agents
 
 if [[ ! -f "$CURSOR_DOT/mcp.json" && -f "$DOT_SRC/mcp.json.example" ]]; then
   cp "$DOT_SRC/mcp.json.example" "$CURSOR_DOT/mcp.json"
