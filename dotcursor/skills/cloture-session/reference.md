@@ -67,32 +67,9 @@ Pour chaque changement significatif :
 
 ---
 
-## Template INDEX
+## INDEX — format de ligne
 
-Fichier cible : `memoire/session/INDEX.md` — à créer **une seule fois** au bootstrap du projet (ou à la première clôture si absent). Ensuite, n'ajouter que des lignes en tête du tableau.
-
-Adapter la légende de tags au domaine du projet (remplacer ou compléter les tags génériques ci-dessous).
-
-```markdown
-# Index des sessions
-
-> Une ligne par session, la plus récente en haut.
-
-**Tags** (plusieurs par session, séparés par des virgules) :
-
-| Tag           | Signification                              |
-| ------------- | ------------------------------------------ |
-| `backend`     | API, services, modèles, base de données    |
-| `frontend`    | UI, composants, routing                    |
-| `tests`       | Tests unitaires, intégration, CI           |
-| `docs`        | Documentation, mémoire, règles agent       |
-| `infra-agent` | Outils et workflow agent IA                |
-
-| Date       | Tags | Session | Résumé |
-| ---------- | ---- | ------- | ------ |
-```
-
-Ligne à ajouter à chaque clôture (en **première ligne** du tableau, sous l'en-tête) :
+Dans le fichier `memoire/session/INDEX.md`, ajouter une ligne **en première position** du tableau (sous l'en-tête) :
 
 ```markdown
 | AAAA-MM-JJ | `tag1`, `tag2` | [Titre de la session](AAAA-MM-JJ_titre-de-la-session.md) | Résumé en une phrase. |
