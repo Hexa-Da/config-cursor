@@ -1,5 +1,6 @@
-# Extensions Cursor à réinstaller (marketplace)
-# Usage: cursor --install-extension <id>
+# Extensions Cursor — liste indicative (varie selon la machine)
+# install.sh ne les installe PAS automatiquement.
+# Usage manuel: cursor --install-extension <id>
 
 fwcd.kotlin
 pkief.material-icon-theme

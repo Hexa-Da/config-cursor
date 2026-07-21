@@ -102,8 +102,9 @@ ids = sorted({
     if (e.get("identifier") or {}).get("id")
 })
 header = (
-    "# Extensions Cursor à réinstaller (marketplace)\n"
-    "# Usage: cursor --install-extension <id>\n\n"
+    "# Extensions Cursor — liste indicative (varie selon la machine)\n"
+    "# install.sh ne les installe PAS automatiquement.\n"
+    "# Usage manuel: cursor --install-extension <id>\n\n"
 )
 dst.write_text(header + "\n".join(ids) + ("\n" if ids else ""), encoding="utf-8")
 print(f"→ extensions.txt ({len(ids)} ids)")
