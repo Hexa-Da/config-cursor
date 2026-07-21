@@ -38,12 +38,18 @@ cp "$DOT_SRC/hooks.json" "$CURSOR_DOT/hooks.json"
 cp "$DOT_SRC/hooks/garde-fou.py" "$CURSOR_DOT/hooks/garde-fou.py"
 chmod +x "$CURSOR_DOT/hooks/garde-fou.py" 2>/dev/null || true
 
+# Miroir exact du repo : --delete retire le surplus local (ex. skills orphelins).
 sync_dot_dir() {
   local name="$1"
   if [[ -d "$DOT_SRC/$name" ]]; then
     mkdir -p "$CURSOR_DOT/$name"
-    rsync -a --exclude '.DS_Store' --exclude '.gitkeep' "$DOT_SRC/$name/" "$CURSOR_DOT/$name/" 2>/dev/null \
-      || cp -R "$DOT_SRC/$name/." "$CURSOR_DOT/$name/"
+    if command -v rsync >/dev/null 2>&1; then
+      rsync -a --delete --exclude '.DS_Store' --exclude '.gitkeep' "$DOT_SRC/$name/" "$CURSOR_DOT/$name/"
+    else
+      rm -rf "$CURSOR_DOT/$name"
+      mkdir -p "$CURSOR_DOT/$name"
+      cp -R "$DOT_SRC/$name/." "$CURSOR_DOT/$name/"
+    fi
   fi
 }
 
@@ -60,17 +66,6 @@ fi
 [[ -f "$USER_SRC/settings.json" ]] && cp "$USER_SRC/settings.json" "$CURSOR_USER/settings.json"
 [[ -f "$USER_SRC/keybindings.json" ]] && cp "$USER_SRC/keybindings.json" "$CURSOR_USER/keybindings.json"
 
-# Extensions (IDs dans extensions.txt)
-if [[ -f "$ROOT/extensions.txt" ]]; then
-  if command -v cursor >/dev/null 2>&1; then
-    echo "→ Installation des extensions…"
-    while IFS= read -r line || [[ -n "$line" ]]; do
-      [[ -z "$line" || "$line" =~ ^# ]] && continue
-      cursor --install-extension "$line" || echo "  ! échec: $line"
-    done < "$ROOT/extensions.txt"
-  else
-    echo "→ CLI 'cursor' introuvable — installe manuellement les IDs de extensions.txt"
-  fi
-fi
+# Extensions : pas d'install auto — liste indicative dans extensions.txt seulement.
 
 echo "OK — redémarre Cursor si les hooks ne se rechargent pas."

@@ -53,8 +53,16 @@ src, dst = Path(sys.argv[1]), Path(sys.argv[2])
 if dst.exists():
     shutil.rmtree(dst)
 shutil.copytree(src, dst, ignore=shutil.ignore_patterns(".DS_Store", "__pycache__"))
-real = [p for p in dst.rglob("*") if p.is_file() and p.name != ".gitkeep"]
+# Drop empty skill/plugin/command/agent dirs (no real files) so they never re-enter the repo.
+for child in list(dst.iterdir()) if dst.exists() else []:
+    if not child.is_dir():
+        continue
+    real = [p for p in child.rglob("*") if p.is_file() and p.name != ".gitkeep"]
+    if not real:
+        shutil.rmtree(child)
+real = [p for p in dst.rglob("*") if p.is_file() and p.name != ".gitkeep"] if dst.exists() else []
 if not real:
+    dst.mkdir(parents=True, exist_ok=True)
     (dst / ".gitkeep").write_text("")
 PY
   fi

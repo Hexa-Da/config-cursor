@@ -21,3 +21,6 @@ statsig-cache.json
 ide_state.json
 state.vscdb
 *.vscdb
+
+# Workflow
+tasks/
