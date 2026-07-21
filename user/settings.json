@@ -8,6 +8,8 @@
     },
     "cursor.composer.usageSummaryDisplay": "always",
     "window.autoDetectColorScheme": false,
+    "window.titleBarStyle": "native",
+    "diffEditor.renderSideBySide": false,
     "cursor.composer.editorConversationDensity": "compact-all-grouped",
     "workbench.editor.enablePreview": false,
     "cursor.cpp.enablePartialAccepts": true,
@@ -18,5 +20,6 @@
     "redhat.telemetry.enabled": true,
     "workbench.agentsWindowButton.enabled": false,
     "workbench.statusBar.visible": false,
-    "terminal.integrated.suggest.enabled": true
+    "terminal.integrated.suggest.enabled": true,
+    "window.menuBarVisibility": "compact"
 }

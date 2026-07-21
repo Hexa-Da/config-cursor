@@ -1,20 +1,37 @@
-// Place your key bindings in this file to override the defaults
 [
-    {
-        "key": "cmd+m",
-        "command": "composerMode.chat"
-    },
     {
         "key": "ctrl+1",
         "command": "editor.action.blockComment",
         "when": "editorTextFocus && !editorReadonly"
     },
     {
+        "key": "cmd+m",
+        "command": "composerMode.chat",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "composerMode.chat",
+        "when": "isLinux || isWindows"
+    },
+    {
         "key": "shift+cmd+m",
-        "command": "composerMode.agent"
+        "command": "composerMode.agent",
+        "when": "isMac"
     },
     {
         "key": "ctrl+shift+m",
-        "command": "composerMode.plan"
+        "command": "composerMode.agent",
+        "when": "isLinux || isWindows"
+    },
+    {
+        "key": "ctrl+shift+m",
+        "command": "composerMode.plan",
+        "when": "isMac"
+    },
+    {
+        "key": "alt+shift+m",
+        "command": "composerMode.plan",
+        "when": "isLinux || isWindows"
     }
 ]
