@@ -1,5 +1,7 @@
 # Extensions Cursor à réinstaller (marketplace)
 # Usage: cursor --install-extension <id>
 
+fwcd.kotlin
 pkief.material-icon-theme
 tomoki1207.pdf
+vue.volar

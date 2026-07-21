@@ -1,7 +1,7 @@
 {
     "workbench.iconTheme": "material-icon-theme",
     "files.autoSave": "afterDelay",
-    "workbench.editor.showTabs": "single",
+    "workbench.editor.showTabs": "multiple",
     "workbench.editorAssociations": {
         "*.pdf": "pdf.preview",
         "*.md": "workbench.editor.markdownPlan"
@@ -10,16 +10,14 @@
     "window.autoDetectColorScheme": false,
     "window.titleBarStyle": "native",
     "diffEditor.renderSideBySide": false,
-    "cursor.composer.editorConversationDensity": "compact-all-grouped",
+    "cursor.composer.editorConversationDensity": "compact-ungrouped",
     "workbench.editor.enablePreview": false,
     "cursor.cpp.enablePartialAccepts": true,
     "git.autofetch": true,
     "git.openRepositoryInParentFolders": "never",
-    "kotlin.languageServer.enabled": false,
-    "kotlin.debugAdapter.enabled": false,
-    "redhat.telemetry.enabled": true,
     "workbench.agentsWindowButton.enabled": false,
-    "workbench.statusBar.visible": false,
+    "workbench.statusBar.visible": true,
     "terminal.integrated.suggest.enabled": true,
-    "window.menuBarVisibility": "compact"
+    "window.menuBarVisibility": "compact",
+    "diffEditor.ignoreTrimWhitespace": false
 }
