@@ -4,4 +4,4 @@
 fwcd.kotlin
 pkief.material-icon-theme
 tomoki1207.pdf
-vue.volar
+znck.vue

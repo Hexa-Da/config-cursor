@@ -19,5 +19,7 @@
     "workbench.statusBar.visible": true,
     "terminal.integrated.suggest.enabled": true,
     "window.menuBarVisibility": "compact",
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "kotlin.languageServer.enabled": false,
+    "kotlin.debugAdapter.enabled": false
 }
