@@ -2,7 +2,7 @@
 # Install this Cursor config onto the current machine (macOS / Linux / Windows+Git Bash).
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DOT_SRC="$ROOT/dotcursor"
 USER_SRC="$ROOT/user"
 

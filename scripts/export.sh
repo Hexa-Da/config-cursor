@@ -2,7 +2,7 @@
 # Export machine Cursor config → this repo (miroir de install.sh).
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DOT_DST="$ROOT/dotcursor"
 USER_DST="$ROOT/user"
 
