@@ -61,22 +61,48 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
 
 
 
-### Ne pas lancer l'environnement ni les tests lourds pour « vérifier »
+### Ne pas lancer l'environnement ni les tests lourds pour « vérifier » — dire quoi tester
 
-- **Symptôme** : l'agent démarre des services (DB, serveur dev, stack complète) ou lance des suites de tests lourdes de son propre chef, sans que l'utilisateur l'ait demandé.
-- **Cause** : réflexe de « prouver » le travail en autonomie, alors que l'environnement local de l'utilisateur (ports, secrets, données) n'est pas fiable ni disponible pour l'agent.
-- **Règle** : ne jamais lancer l'environnement complet ni les suites de tests lourdes de son propre chef. En fin de tâche, **expliquer à l'utilisateur comment tester** : commande(s) à lancer, comportement attendu à observer. Des vérifications ciblées restent possibles (lecture de code, lint, compilation, un test unitaire précis déjà identifié).
+- **Symptôme** : l'agent démarre des services (DB, serveur dev, stack complète) ou lance des suites de tests (Gradle, TI Mongo…) de son propre chef, attend un terminal qui bloque ou time out, puis reste muet ou retente en boucle — au lieu de dire à l'utilisateur quoi lancer.
+- **Cause** : réflexe de « prouver » le travail en autonomie, alors que l'environnement local de l'utilisateur (réseau interne, Gradle wrapper, IntelliJ, Mongock) n'est souvent pas fiable ni disponible pour l'agent.
+- **Règle** :
+  - Ne **jamais** lancer l'environnement complet ni les suites de tests lourdes de son propre chef, sauf demande explicite de l'utilisateur.
+  - Si la vérification runtime est nécessaire : **dire immédiatement quoi tester** (classe ou package IntelliJ, commande Gradle ciblée, résultat attendu) — ne pas attendre passivement un terminal bloqué ni enchaîner les relances Gradle sans retour à l'utilisateur.
+  - En fin de tâche, fournir une **checklist de vérif concise** : quoi lancer, combien de tests attendus, durée indicative (TU rapides vs TI Mongo).
+  - Des vérifications ciblées côté agent restent OK sans demander à l'utilisateur : lecture de code, lint, compilation locale si rapide et fiable.
+
+
+
+### Vocabulaire technique : termes courants de la communauté, pas calques ni noms de lib en prose
+
+- **Symptôme** : l'agent parle de « test de fumée », insiste sur « MockK » dans les explications, ou invente des anglicismes / traductions littérales peu usuels.
+- **Cause** : calque FR↔EN ou sur-précision (nom de lib) au lieu du terme le plus employé et compris par les devs.
+- **Règle** :
+  - En prose (chat, docs, rapports) : utiliser le **vocabulaire courant de la communauté** — ex. *smoke test* (pas « test de fumée »), *mock* (pas « MockK » à chaque phrase).
+  - Réserver le nom de lib / d'API au moment où ça compte (import, doc de stack, snippet) : MockK, `mockk`, `mockkClass`, etc.
+  - En cas de doute : préférer le terme le plus répandu chez les devs, pas la traduction littérale ni le jargon maison.
+
+
+
+### Rapports de session : uniquement à la clôture, jamais un rapport passé
+
+- **Symptôme** : l'agent crée ou édite `memoire/session/*.md` / `INDEX.md` en fin de plan (« Doc session »), ou met à jour un rapport clos, sans demande de clôture.
+- **Cause** : confusion entre Review Cherny (`tasks/todo.md`) et skill `cloture-session` ; règle projet trop centrée sur la *lecture* des annexes.
+- **Règle** :
+  - **Interdit** hors clôture explicite : toute écriture sous `memoire/session/`.
+  - Fin de plan = section Review dans `tasks/todo.md` (+ leçons durables si besoin). Pas de nouveau rapport, pas de retouche d'un ancien.
+  - Clôture = seulement si l'utilisateur le demande → skill `cloture-session` → **nouveau** fichier + ligne INDEX ; **jamais** modifier un rapport déjà écrit.
 ```
 
 ---
 
-## Template projet.mdc
+## Copie bootstrap.mdc
 
-Fichier cible : `.cursor/rules/projet.mdc`
+Fichier cible : `.cursor/rules/bootstrap.mdc` — copier **tel quel**.
 
 ```
 ---
-description: Contexte projet — attache memoire/PROJET.md et fixe quand lire les annexes memoire/
+description: Contexte projet et Méthode — attache PROJET.md + lessons.md ;
 alwaysApply: true
 ---
 
@@ -84,11 +110,16 @@ Contexte projet (source unique, attachée automatiquement) :
 
 @memoire/PROJET.md
 
-## Annexes `memoire/` — lecture à la demande, jamais par défaut
+Méthode — leçons (toujours appliquer) :
+
+@tasks/lessons.md
+
+
+## Annexes `memoire/` — lecture sur condition, jamais par défaut
 
 - `memoire/CONVENTIONS.md` : à lire **avant d'écrire du code, des migrations ou des tests**.
 - `memoire/ARCHITECTURE.md` : à lire quand la tâche touche à la **structure** (packages, patterns, flux).
-- `memoire/session/` (INDEX + rapports) : historique, seulement pour reprendre un travail passé (sur demande).
+- `memoire/session/` (INDEX + rapports) : à lire seulement pour reprendre un travail passé (sur demande explicite).
 ```
 
 ---
@@ -100,7 +131,7 @@ Fichier cible : `memoire/PROJET.md`
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
 
-> **Instructions agent** : point d'entrée unique pour comprendre le projet, attaché automatiquement via `.cursor/rules/projet.mdc` (qui fixe aussi quand lire les annexes `[CONVENTIONS.md](CONVENTIONS.md)` / `[ARCHITECTURE.md](ARCHITECTURE.md)`).
+> **Instructions agent** : point d'entrée unique pour comprendre le projet, attaché automatiquement via `.cursor/rules/bootstrap.mdc` (qui attache aussi `tasks/lessons.md` et fixe quand lire les annexes `[CONVENTIONS.md](CONVENTIONS.md)` / `[ARCHITECTURE.md](ARCHITECTURE.md)`).
 
 ## But du projet
 
