@@ -46,3 +46,12 @@
   - En cas de doute : préférer le terme le plus répandu chez les devs, pas la traduction littérale ni le jargon maison.
 
 
+
+### Rapports de session : uniquement à la clôture, jamais un rapport passé
+
+- **Symptôme** : l'agent crée ou édite `memoire/session/*.md` / `INDEX.md` en fin de plan (« Doc session »), ou met à jour un rapport clos, sans demande de clôture.
+- **Cause** : confusion entre Review Cherny (`tasks/todo.md`) et skill `cloture-session` ; règle projet trop centrée sur la *lecture* des annexes.
+- **Règle** :
+  - **Interdit** hors clôture explicite : toute écriture sous `memoire/session/`.
+  - Fin de plan = section Review dans `tasks/todo.md` (+ leçons durables si besoin). Pas de nouveau rapport, pas de retouche d'un ancien.
+  - Clôture = seulement si l'utilisateur le demande → skill `cloture-session` → **nouveau** fichier + ligne INDEX ; **jamais** modifier un rapport déjà écrit.
