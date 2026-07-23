@@ -21,5 +21,6 @@
     "window.menuBarVisibility": "compact",
     "diffEditor.ignoreTrimWhitespace": false,
     "kotlin.languageServer.enabled": false,
-    "kotlin.debugAdapter.enabled": false
+    "kotlin.debugAdapter.enabled": false,
+    "cursor.composer.codeBlockWordWrap": true
 }
