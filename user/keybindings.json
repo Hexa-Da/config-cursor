@@ -33,5 +33,15 @@
         "key": "alt+shift+m",
         "command": "composerMode.plan",
         "when": "isLinux || isWindows"
+    },
+    {
+        "key": "ctrl+cmd+shift+m",
+        "command": "composerMode.multitask",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+alt+shift+m",
+        "command": "composerMode.multitask",
+        "when": "isLinux || isWindows"
     }
 ]
