@@ -24,7 +24,7 @@
                 "mode": "inherit"
             }
         },
-        "unifiedAppLayout": "agent",
+        "unifiedAppLayout": "editor",
         "userOpenAgentsWindowOnStartupPreference": false,
         "userWindowRestorationPreference": "lastUsedWindows"
     },
