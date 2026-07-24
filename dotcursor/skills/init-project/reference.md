@@ -92,7 +92,7 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
   - **Interdit** hors clôture explicite : toute écriture sous `memoire/session/`.
   - Fin de plan = section Review dans `tasks/todo.md` (+ leçons durables si besoin). Pas de nouveau rapport, pas de retouche d'un ancien.
   - Clôture = seulement si l'utilisateur le demande → skill `cloture-session` → **nouveau** fichier + ligne INDEX ; **jamais** modifier un rapport déjà écrit.
-  - Dans le rapport : pour chaque commit, hash + message complet — template dans `cloture-session/reference.md`.
+  - Dans le rapport : pour chaque commit, hash + message complet— template dans `cloture-session/reference.md`.
 ```
 
 ---
