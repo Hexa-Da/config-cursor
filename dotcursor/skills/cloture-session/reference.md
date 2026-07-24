@@ -48,6 +48,7 @@ Pour chaque changement significatif :
 1. Expliquer le pourquoi, avec assez de contexte pour qu'une future lecture reste compréhensible.
 2. Expliquer le lien avec le reste de la chaîne (backend, frontend, Mongo, OpenAPI, export, tests...).
 3. Lister ensuite les fichiers touchés (sans que ça prenne le dessus).
+4. Si un commit existe : hash + message complet.
 
 ### [Changement 1]
 
@@ -56,6 +57,7 @@ Pour chaque changement significatif :
 - **Fichiers** :
   - `dossier/fichier1.extension`
   - `autre-dossier/fichier2.extension`
+- **Commit** : `hash` — `message de commit complet`
 
 ### [Changement 2]
 
@@ -63,6 +65,9 @@ Pour chaque changement significatif :
 - **Lien avec le reste** : ...
 - **Fichiers** :
   - `dossier/fichier3.extension`
+- **Commits** :
+  - `hash1` — `premier message`
+  - `hash2` — `second message`
 ```
 
 ---
