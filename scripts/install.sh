@@ -66,6 +66,30 @@ fi
 [[ -f "$USER_SRC/settings.json" ]] && cp "$USER_SRC/settings.json" "$CURSOR_USER/settings.json"
 [[ -f "$USER_SRC/keybindings.json" ]] && cp "$USER_SRC/keybindings.json" "$CURSOR_USER/keybindings.json"
 
+# Agents/Review + Layout (state.vscdb) — skip si Cursor tourne (sinon overwrite au quit)
+STATE_DB="$CURSOR_USER/globalStorage/state.vscdb"
+STORAGE_JSON="$USER_SRC/cursor-storage.json"
+cursor_running=0
+# Prefer ps (reliable on macOS Electron); fall back to pgrep.
+if ps -axo comm= 2>/dev/null | grep -qE '/Cursor\.app/Contents/MacOS/Cursor$|^/usr/share/cursor/cursor$|^cursor$'; then
+  cursor_running=1
+elif command -v pgrep >/dev/null 2>&1; then
+  if pgrep -f 'Cursor.app/Contents/MacOS/Cursor' >/dev/null 2>&1 \
+    || pgrep -xq Cursor >/dev/null 2>&1 \
+    || pgrep -xq cursor >/dev/null 2>&1; then
+    cursor_running=1
+  fi
+fi
+if [[ "$cursor_running" -eq 1 ]]; then
+  echo "⚠ cursor-storage: Cursor semble ouvert — import storage skippé."
+  echo "  Quitte Cursor, relance ./scripts/install.sh, puis redémarre."
+elif [[ -f "$STORAGE_JSON" ]]; then
+  python3 "$ROOT/scripts/lib/cursor_storage.py" import "$STORAGE_JSON" "$STATE_DB"
+else
+  echo "→ cursor-storage: skip (pas de $STORAGE_JSON)"
+fi
+
 # Extensions : pas d'install auto — liste indicative dans extensions.txt seulement.
 
-echo "OK — redémarre Cursor si les hooks ne se rechargent pas."
+echo "OK — redémarre Cursor si les hooks / cursor-storage ne se rechargent pas."
+echo "     Vérifie Settings → General (layout) + Agents/Review après restart."

@@ -88,6 +88,10 @@ PY
 fi
 [[ -f "$CURSOR_USER/keybindings.json" ]] && cp "$CURSOR_USER/keybindings.json" "$USER_DST/keybindings.json"
 
+# Agents/Review + Layout prefs (extrait filtré de state.vscdb)
+STATE_DB="$CURSOR_USER/globalStorage/state.vscdb"
+python3 "$ROOT/scripts/lib/cursor_storage.py" export "$STATE_DB" "$USER_DST/cursor-storage.json"
+
 # Extensions IDs
 EXT_JSON="$HOME/.cursor/extensions/extensions.json"
 if [[ -f "$EXT_JSON" ]] && command -v python3 >/dev/null 2>&1; then

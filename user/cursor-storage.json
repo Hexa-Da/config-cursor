@@ -1,0 +1,76 @@
+{
+    "_meta": {
+        "schema": 1,
+        "note": "Filtered Agents/Review + Layout prefs from state.vscdb. Not glass/session sizes. Quit Cursor before install.sh for this layer."
+    },
+    "cursor": {
+        "agentLayout.quickMenu.lastSelectedLayoutId": "default-editor",
+        "agentLayout.sidebarLocationAgentOverride": "right",
+        "attributeCommitsToAgent": false,
+        "attributePRsToAgent": false,
+        "autoFormatOnAgentFinish": true,
+        "autoHideEditorWhenEmpty": true,
+        "autoRunBugbotOnCommit": true,
+        "bugbotDeepReviewDefault": false,
+        "bugbotIncludeSubmodules": true,
+        "bugbotIncludeUntrackedFiles": true,
+        "chatSubmitOnCmdEnter": false,
+        "composerAutocompleteHeuristicsEnabled": true,
+        "noTitlebarLayout.visibility": "show",
+        "reviewControlLocation": "island",
+        "sandboxAutoRunSettingEnabled": false,
+        "subagentModelOverrides": {
+            "explore": {
+                "mode": "inherit"
+            }
+        },
+        "unifiedAppLayout": "agent",
+        "userOpenAgentsWindowOnStartupPreference": false,
+        "userWindowRestorationPreference": "lastUsedWindows"
+    },
+    "composerState": {
+        "autoAcceptGenerateImageTool": false,
+        "autoAcceptWebSearchTool": true,
+        "autoApplyFilesOutsideContext": true,
+        "autoApproveModeTransitions": true,
+        "autoApprovedModeTransitions": [],
+        "autoRejectedModeTransitions": [],
+        "codeBlockDisplayPreference": "collapsed",
+        "enableSmartAuto": false,
+        "maxOpenTabsCustomValue": 5,
+        "maxOpenTabsMode": "unlimited",
+        "mcpAuthBlocking": true,
+        "modes4": [
+            {
+                "id": "agent",
+                "autoRun": true,
+                "fullAutoRun": true,
+                "autoFix": true,
+                "smartModeAutoRun": false
+            },
+            {
+                "id": "plan",
+                "autoRun": false,
+                "autoFix": false
+            },
+            {
+                "id": "chat",
+                "autoRun": false,
+                "autoFix": true
+            },
+            {
+                "id": "debug",
+                "autoRun": false,
+                "autoFix": false
+            }
+        ],
+        "thinkingLevel": "none",
+        "webFetchDomainAllowlist": [],
+        "yoloCommandAllowlist": [],
+        "yoloCommandDenylist": [],
+        "yoloDeleteFileDisabled": false,
+        "yoloEnableRunEverything": false,
+        "yoloMcpToolsDisabled": false,
+        "yoloOutsideWorkspaceDisabled": true
+    }
+}
