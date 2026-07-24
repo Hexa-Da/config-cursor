@@ -75,8 +75,13 @@ COMPOSER_STATE_KEYS: frozenset[str] = frozenset(
 )
 
 MODES4_IDS: frozenset[str] = frozenset({"agent", "plan", "chat", "debug"})
-MODES4_FIELDS: frozenset[str] = frozenset(
-    {"autoRun", "fullAutoRun", "autoFix", "smartModeAutoRun"}
+# Tuple (not frozenset): insertion order must be stable across Python processes
+# so export JSON does not churn key order in modes4 on every run.
+MODES4_FIELDS: tuple[str, ...] = (
+    "autoRun",
+    "fullAutoRun",
+    "autoFix",
+    "smartModeAutoRun",
 )
 
 META_NOTE = (
