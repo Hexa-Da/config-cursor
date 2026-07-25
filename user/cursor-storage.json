@@ -38,7 +38,7 @@
             "agent->debug"
         ],
         "autoRejectedModeTransitions": [
-            "ask->agent"
+            "chat->agent"
         ],
         "codeBlockDisplayPreference": "collapsed",
         "enableSmartAuto": false,
@@ -61,12 +61,12 @@
             {
                 "id": "chat",
                 "autoRun": false,
-                "autoFix": true
+                "autoFix": false
             },
             {
                 "id": "debug",
-                "autoRun": false,
-                "autoFix": false
+                "autoRun": true,
+                "autoFix": true
             }
         ],
         "thinkingLevel": "none",
