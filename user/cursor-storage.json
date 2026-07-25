@@ -33,8 +33,13 @@
         "autoAcceptWebSearchTool": true,
         "autoApplyFilesOutsideContext": true,
         "autoApproveModeTransitions": true,
-        "autoApprovedModeTransitions": [],
-        "autoRejectedModeTransitions": [],
+        "autoApprovedModeTransitions": [
+            "agent->plan",
+            "agent->debug"
+        ],
+        "autoRejectedModeTransitions": [
+            "ask->agent"
+        ],
         "codeBlockDisplayPreference": "collapsed",
         "enableSmartAuto": false,
         "maxOpenTabsCustomValue": 5,
