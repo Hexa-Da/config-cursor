@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import shlex
 import sys
 from typing import Any, Final, Literal
 
@@ -125,6 +126,70 @@ _PROTECTED_TOOL_NAMES: Final[frozenset[str]] = frozenset(
     {"Write", "Delete", "StrReplace"}
 )
 
+_SHELL_SEGMENT_SPLIT: Final[re.Pattern[str]] = re.compile(r"(?:&&|\|\||[;|])")
+_MAXDEPTH_RE: Final[re.Pattern[str]] = re.compile(
+    r"(?:--maxdepth|-maxdepth)\s+(\d+)\b",
+    re.IGNORECASE,
+)
+_FIND_PRE_PATH_FLAGS: Final[frozenset[str]] = frozenset(
+    {"-H", "-L", "-P", "-X", "-x", "-E", "-s", "-q", "-d"}
+)
+_FIND_PRE_PATH_VALUE_OPTS: Final[frozenset[str]] = frozenset(
+    {"-f", "-D", "-O"}
+)
+_RG_VALUE_OPTS: Final[frozenset[str]] = frozenset(
+    {
+        "-e",
+        "--regexp",
+        "-f",
+        "--file",
+        "-g",
+        "--glob",
+        "--iglob",
+        "-t",
+        "--type",
+        "-T",
+        "--type-not",
+        "--type-add",
+        "--type-clear",
+        "-A",
+        "--after-context",
+        "-B",
+        "--before-context",
+        "-C",
+        "--context",
+        "-j",
+        "--threads",
+        "-m",
+        "--max-count",
+        "-r",
+        "--replace",
+        "--max-depth",
+        "--max-filesize",
+        "--max-columns",
+        "-d",
+        "--dereference-max-depth",
+        "--pre",
+        "--pre-glob",
+        "--encoding",
+        "--sort",
+        "--sortr",
+        "--color",
+        "--colors",
+        "--engine",
+        "--path-separator",
+    }
+)
+_RG_SHORT_VALUE_CHARS: Final[frozenset[str]] = frozenset("efgABCjtmd")
+
+_TIP_BROAD_FIND: Final[str] = (
+    "Ne relance pas ce find. Borne-le avec -maxdepth 1..3 sur un sous-dossier précis, "
+    "ou utilise l’outil Glob / Grep Cursor."
+)
+_TIP_BARE_RG: Final[str] = (
+    "Ne relance pas ce rg. Utilise `rg PAT .` (ou un sous-dossier), ou l’outil Grep intégré Cursor."
+)
+
 
 def _emit(permission: Decision, user_message: str = "", agent_message: str = "") -> None:
     payload: dict[str, str] = {"permission": permission}
@@ -140,19 +205,27 @@ def _emit_allow() -> None:
     _emit("allow")
 
 
-def _emit_deny(reason: str, command: str = "") -> None:
+def _emit_deny(reason: str, command: str = "", tip: str = "") -> None:
     preview = f"\nCommande : `{command}`" if command else ""
+    tip_user = f"\n{tip}" if tip else (
+        "\nTrop dangereux pour une confirmation agent. Lance-la toi-même hors agent si tu es sûr."
+    )
+    agent_core = (
+        f"Garde-fou DENY : {reason}. N’insiste pas et ne contourne pas. "
+        + (
+            tip
+            if tip
+            else (
+                "Explique le risque à l’utilisateur ; s’il veut vraiment, "
+                "il doit l’exécuter manuellement dans son terminal."
+            )
+        )
+        + (f" Commande bloquée : {command}" if command else "")
+    )
     _emit(
         "deny",
-        user_message=(
-            f"Garde-fou : refusé — {reason}.{preview}\n"
-            "Trop dangereux pour une confirmation agent. Lance-la toi-même hors agent si tu es sûr."
-        ),
-        agent_message=(
-            f"Garde-fou DENY : {reason}. N’insiste pas et ne contourne pas. "
-            "Explique le risque à l’utilisateur ; s’il veut vraiment, il doit l’exécuter manuellement dans son terminal."
-            + (f" Commande bloquée : {command}" if command else "")
-        ),
+        user_message=f"Garde-fou : refusé — {reason}.{preview}{tip_user}",
+        agent_message=agent_core,
     )
 
 
@@ -205,25 +278,233 @@ def _classify_rm(command: str) -> Decision | None:
     return "ask"
 
 
-def _classify_shell(command: str) -> tuple[Decision, str]:
+def _shell_segments(command: str) -> list[str]:
+    return [seg.strip() for seg in _SHELL_SEGMENT_SPLIT.split(command) if seg.strip()]
+
+
+def _safe_tokenize(segment: str) -> list[str]:
+    try:
+        return shlex.split(segment, posix=True)
+    except ValueError:
+        return segment.split()
+
+
+def _has_bounded_maxdepth(segment: str) -> bool:
+    match = _MAXDEPTH_RE.search(segment)
+    if not match:
+        return False
+    try:
+        depth = int(match.group(1))
+    except ValueError:
+        return False
+    return 1 <= depth <= 3
+
+
+def _hang_prone_roots(home: str) -> frozenset[str]:
+    roots = {
+        "/",
+        home,
+        os.path.join(home, "Library"),
+        "/Applications",
+        "/System",
+        "/Volumes",
+        "/private",
+        "/usr",
+        "/usr/local",
+        "/opt",
+        "/opt/homebrew",
+    }
+    normalized: set[str] = set()
+    for root in roots:
+        try:
+            normalized.add(os.path.realpath(root))
+        except OSError:
+            normalized.add(os.path.normpath(root))
+    return frozenset(normalized)
+
+
+def _is_hang_prone_path(raw_path: str, cwd: str) -> bool:
+    if not raw_path:
+        return False
+    try:
+        home = os.path.realpath(os.path.expanduser("~"))
+    except OSError:
+        home = os.path.expanduser("~")
+
+    expanded = os.path.expanduser(raw_path)
+    # $HOME / ${HOME} littéraux non expandés par expanduser
+    expanded = re.sub(
+        r"\$\{?HOME\}?",
+        home,
+        expanded,
+        count=1,
+    )
+    if expanded in ("~",):
+        resolved = home
+    elif os.path.isabs(expanded):
+        try:
+            resolved = os.path.realpath(expanded)
+        except OSError:
+            resolved = os.path.normpath(expanded)
+    else:
+        base = cwd if cwd else os.getcwd()
+        try:
+            resolved = os.path.realpath(os.path.join(base, expanded))
+        except OSError:
+            resolved = os.path.normpath(os.path.join(base, expanded))
+
+    return resolved in _hang_prone_roots(home)
+
+
+def _find_start_paths(tokens: list[str]) -> list[str]:
+    """Extrait les chemins de départ d’un find (défaut « . » si absent)."""
+    if not tokens:
+        return []
+    idx = 0
+    while idx < len(tokens) and re.match(r"^\w+=", tokens[idx]):
+        idx += 1
+    if idx >= len(tokens) or os.path.basename(tokens[idx]) != "find":
+        return []
+    idx += 1
+    paths: list[str] = []
+    while idx < len(tokens):
+        tok = tokens[idx]
+        if tok in _FIND_PRE_PATH_FLAGS:
+            idx += 1
+            continue
+        if tok in _FIND_PRE_PATH_VALUE_OPTS or tok.startswith("-O") or tok.startswith("-D"):
+            idx += 1
+            if tok in _FIND_PRE_PATH_VALUE_OPTS and idx < len(tokens):
+                idx += 1
+            continue
+        if tok.startswith("-") or tok in ("(", "!", ","):
+            break
+        paths.append(tok)
+        idx += 1
+    return paths if paths else ["."]
+
+
+def _classify_broad_find(command: str, cwd: str = "") -> Decision | None:
+    """deny si find sur arbre large sans -maxdepth 1..3 ; None sinon."""
+    for segment in _shell_segments(command):
+        tokens = _safe_tokenize(segment)
+        start_paths = _find_start_paths(tokens)
+        if not start_paths:
+            continue
+        if _has_bounded_maxdepth(segment):
+            continue
+        for path in start_paths:
+            if _is_hang_prone_path(path, cwd):
+                return "deny"
+    return None
+
+
+def _rg_consume_option(tokens: list[str], idx: int) -> int:
+    """Avance idx après une option rg ; idx pointe sur l’option."""
+    tok = tokens[idx]
+    if tok == "--":
+        return idx
+    if tok.startswith("--"):
+        name = tok.split("=", 1)[0]
+        if "=" in tok:
+            return idx + 1
+        if name in _RG_VALUE_OPTS:
+            nxt = idx + 1
+            if nxt < len(tokens) and not tokens[nxt].startswith("-"):
+                return nxt + 1
+            return nxt
+        return idx + 1
+    # short options, possibly clustered: -ina, -ePAT, -e PAT
+    if len(tok) == 2 and tok in _RG_VALUE_OPTS:
+        nxt = idx + 1
+        if nxt < len(tokens) and not tokens[nxt].startswith("-"):
+            return nxt + 1
+        return nxt
+    if len(tok) > 2 and tok[1] != "-":
+        # -ePAT or -ina
+        first = tok[1]
+        if first in _RG_SHORT_VALUE_CHARS:
+            # attached value already in tok, or needs next arg if exactly -X
+            return idx + 1
+        return idx + 1
+    return idx + 1
+
+
+def _classify_bare_rg(command: str) -> Decision | None:
+    """deny si rg/ripgrep sans opérande chemin après le pattern ; None sinon."""
+    for segment in _shell_segments(command):
+        tokens = _safe_tokenize(segment)
+        if not tokens:
+            continue
+        idx = 0
+        while idx < len(tokens) and re.match(r"^\w+=", tokens[idx]):
+            idx += 1
+        if idx >= len(tokens):
+            continue
+        if os.path.basename(tokens[idx]) not in ("rg", "ripgrep"):
+            continue
+        idx += 1
+        pattern_seen = False
+        has_path_after = False
+        while idx < len(tokens):
+            tok = tokens[idx]
+            if tok == "--":
+                idx += 1
+                rest = tokens[idx:]
+                if not pattern_seen:
+                    if rest:
+                        pattern_seen = True
+                        rest = rest[1:]
+                if pattern_seen and rest:
+                    has_path_after = True
+                break
+            if tok.startswith("-"):
+                idx = _rg_consume_option(tokens, idx)
+                continue
+            if not pattern_seen:
+                pattern_seen = True
+                idx += 1
+                continue
+            has_path_after = True
+            break
+        if pattern_seen and not has_path_after:
+            return "deny"
+    return None
+
+
+def _classify_shell(command: str, cwd: str = "") -> tuple[Decision, str, str]:
+    """Retourne (decision, reason, tip). tip non vide seulement pour anti-hang deny."""
     stripped: str = command.strip()
     if not stripped:
-        return "allow", ""
+        return "allow", "", ""
 
     rm_decision = _classify_rm(stripped)
     if rm_decision == "deny":
-        return "deny", "suppression récursive sur une cible système / home entière"
+        return "deny", "suppression récursive sur une cible système / home entière", ""
     if rm_decision == "ask":
-        return "ask", "suppression récursive (rm -r / rm -rf) sur un chemin ciblé"
+        return "ask", "suppression récursive (rm -r / rm -rf) sur un chemin ciblé", ""
+
+    if _classify_broad_find(stripped, cwd) == "deny":
+        return (
+            "deny",
+            "find non borné sur un arbre large (risque de hang agent)",
+            _TIP_BROAD_FIND,
+        )
+    if _classify_bare_rg(stripped) == "deny":
+        return (
+            "deny",
+            "rg/ripgrep sans chemin explicite (lit stdin → hang)",
+            _TIP_BARE_RG,
+        )
 
     lowered: str = stripped.lower()
     for pattern, reason in _DENY_SHELL_PATTERNS:
         if pattern.search(lowered):
-            return "deny", reason
+            return "deny", reason, ""
     for pattern, reason in _ASK_SHELL_PATTERNS:
         if pattern.search(lowered):
-            return "ask", reason
-    return "allow", ""
+            return "ask", reason, ""
+    return "allow", "", ""
 
 
 def _extract_tool_path(tool_input: dict[str, Any]) -> str:
@@ -314,9 +595,9 @@ def main() -> int:
         if not cmd and isinstance(data.get("tool_input"), dict):
             cmd = str(data["tool_input"].get("command") or "")
         if cmd:
-            decision, reason = _classify_shell(cmd)
+            decision, reason, tip = _classify_shell(cmd, cwd)
             if decision == "deny":
-                _emit_deny(reason, cmd)
+                _emit_deny(reason, cmd, tip=tip)
                 return 0
             if decision == "ask":
                 _emit_ask(reason, cmd)
