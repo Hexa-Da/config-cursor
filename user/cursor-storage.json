@@ -69,10 +69,6 @@
                 "autoFix": true
             }
         ],
-        "thinkingLevel": "none",
-        "webFetchDomainAllowlist": [],
-        "yoloCommandAllowlist": [],
-        "yoloCommandDenylist": [],
         "yoloDeleteFileDisabled": false,
         "yoloEnableRunEverything": false,
         "yoloMcpToolsDisabled": false,

@@ -56,7 +56,6 @@ COMPOSER_STATE_KEYS: frozenset[str] = frozenset(
         "autoRejectedModeTransitions",
         "autoAcceptWebSearchTool",
         "autoAcceptGenerateImageTool",
-        "webFetchDomainAllowlist",
         "enableSmartAuto",
         "mcpAuthBlocking",
         "autoApplyFilesOutsideContext",
@@ -64,12 +63,9 @@ COMPOSER_STATE_KEYS: frozenset[str] = frozenset(
         "yoloOutsideWorkspaceDisabled",
         "yoloDeleteFileDisabled",
         "yoloMcpToolsDisabled",
-        "yoloCommandAllowlist",
-        "yoloCommandDenylist",
         "codeBlockDisplayPreference",
         "maxOpenTabsMode",
         "maxOpenTabsCustomValue",
-        "thinkingLevel",
         "modes4",
     }
 )
