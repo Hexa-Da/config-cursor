@@ -2,7 +2,6 @@
 # install.sh ne les installe PAS automatiquement.
 # Usage manuel: cursor --install-extension <id>
 
-fwcd.kotlin
+anysphere.remote-ssh
 pkief.material-icon-theme
 tomoki1207.pdf
-znck.vue
