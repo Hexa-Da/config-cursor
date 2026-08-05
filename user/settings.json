@@ -8,6 +8,7 @@
     },
     "cursor.composer.usageSummaryDisplay": "always",
     "window.autoDetectColorScheme": false,
+    "window.restoreWindows": "none",
     "window.titleBarStyle": "native",
     "diffEditor.renderSideBySide": false,
     "cursor.composer.editorConversationDensity": "compact-ungrouped",
