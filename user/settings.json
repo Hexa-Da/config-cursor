@@ -17,7 +17,7 @@
     "git.autofetch": true,
     "git.openRepositoryInParentFolders": "never",
     "workbench.agentsWindowButton.enabled": false,
-    "workbench.statusBar.visible": true,
+    "workbench.statusBar.visible": false,
     "terminal.integrated.suggest.enabled": true,
     "window.menuBarVisibility": "compact",
     "diffEditor.ignoreTrimWhitespace": false,
