@@ -2,6 +2,5 @@
 # install.sh ne les installe PAS automatiquement.
 # Usage manuel: cursor --install-extension <id>
 
-anysphere.remote-ssh
 pkief.material-icon-theme
 tomoki1207.pdf
