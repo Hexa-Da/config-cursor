@@ -118,8 +118,8 @@ Méthode — leçons (toujours appliquer) :
 
 ## Annexes `memoire/` — lecture sur condition, jamais par défaut
 
-1. **`memoire/CONVENTIONS.md`** — lecture **systématique** avant tout code, migration ou test.
-2. **`memoire/ARCHITECTURE.md`** — lecture si la tâche touche **> 1 fichier**, un **nouveau module**, la **structure** (packages, patterns, flux) ou les **dépendances** inter-modules.
+1. **`memoire/CONVENTIONS.md`** — lecture avant d'écrire ou modifier du code **non trivial** (nouvelle fonctionnalité, nouveau fichier, migration, test) ou en cas de doute sur un pattern existant. **Ne pas lire** pour : audit / analyse en lecture seule, question ponctuelle, discussion, fix d'une ligne, typo, valeur de config. Une fois lue dans la session, ne pas la relire à chaque tour — seulement si la tâche change de domaine.
+2. **`memoire/ARCHITECTURE.md`** — lecture si la tâche implique de comprendre l'**interaction entre plusieurs composants/modules**, d'ajouter un **nouveau composant ou pattern**, ou de traverser une **frontière de module** — indépendamment du nombre de fichiers estimé au départ (ce nombre n'est souvent pas connu avant d'avoir exploré). Si la portée réelle dépasse l'estimation initiale en cours de tâche, la lire à ce moment-là plutôt que d'avoir tranché trop tôt.
 3. **`memoire/session/`** (INDEX + rapports) — à lire seulement pour reprendre un travail passé (sur demande explicite).
 ```
 
@@ -132,7 +132,7 @@ Fichier cible : `memoire/PROJET.md`
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
 
-> **Instructions agent** : point d'entrée unique pour comprendre le projet, attaché automatiquement via `.cursor/rules/bootstrap.mdc` (qui attache aussi `tasks/lessons.md` et fixe quand lire les annexes). Règles clés : `[CONVENTIONS.md](CONVENTIONS.md)` **systématique** avant tout code ; `[ARCHITECTURE.md](ARCHITECTURE.md)` si tâche **> 1 fichier** ou nouveau module.
+> **Instructions agent** : point d'entrée unique pour comprendre le projet, attaché automatiquement via `.cursor/rules/bootstrap.mdc` (qui attache aussi `tasks/lessons.md` et fixe les règles de lecture de [`CONVENTIONS.md`](CONVENTIONS.md) / [`ARCHITECTURE.md`](ARCHITECTURE.md).
 
 ## But du projet
 

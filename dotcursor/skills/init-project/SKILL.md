@@ -88,8 +88,8 @@ tasks
 Lister les fichiers créés et rappeler à l'utilisateur :
 - `.cursor/rules/bootstrap.mdc` est le point d'entrée always-on : injecte `memoire/PROJET.md` et `tasks/lessons.md`.
 - `memoire/PROJET.md` est la source de vérité projet.
-- `memoire/CONVENTIONS.md` : lecture **systématique** avant tout code (via `bootstrap.mdc`).
-- `memoire/ARCHITECTURE.md` : lecture si tâche **> 1 fichier** ou nouveau module (via `bootstrap.mdc`).
+- `memoire/CONVENTIONS.md` : lecture avant code **non trivial** (pas pour l'audit/lecture seule ni les fix triviaux) — via `bootstrap.mdc`.
+- `memoire/ARCHITECTURE.md` : lecture si la tâche touche l'**interaction entre composants/modules**, un nouveau pattern, ou si la portée dépasse l'estimation initiale — via `bootstrap.mdc`.
 - Les annexes **spécifiques au projet** (ex. doc formulaires Vue3) ne font **pas** partie du template : les ajouter à la main dans `bootstrap.mdc` et `PROJET.md` si le repo en a besoin.
 - `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
 - `tasks/lessons.md` accumule les leçons de méthode transversales (contraintes dures, pas un survol).
