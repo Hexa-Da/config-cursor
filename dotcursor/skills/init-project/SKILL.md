@@ -88,7 +88,9 @@ tasks
 Lister les fichiers créés et rappeler à l'utilisateur :
 - `.cursor/rules/bootstrap.mdc` est le point d'entrée always-on : injecte `memoire/PROJET.md` et `tasks/lessons.md`.
 - `memoire/PROJET.md` est la source de vérité projet.
-- `memoire/CONVENTIONS.md` et `memoire/ARCHITECTURE.md` sont lus à la demande (via `bootstrap.mdc`).
+- `memoire/CONVENTIONS.md` : lecture **systématique** avant tout code (via `bootstrap.mdc`).
+- `memoire/ARCHITECTURE.md` : lecture si tâche **> 1 fichier** ou nouveau module (via `bootstrap.mdc`).
+- Les annexes **spécifiques au projet** (ex. doc formulaires Vue3) ne font **pas** partie du template : les ajouter à la main dans `bootstrap.mdc` et `PROJET.md` si le repo en a besoin.
 - `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
 - `tasks/lessons.md` accumule les leçons de méthode transversales (contraintes dures, pas un survol).
 
@@ -98,3 +100,4 @@ Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
 - `memoire/` = **savoir projet** (domaine, conventions, architecture) — propre au repo.
 - `bootstrap.mdc` **câble** les deux (injection) sans fusionner leur contenu.
+- Les règles de lecture des annexes dans `bootstrap.mdc` sont **transversales** (CONVENTIONS, ARCHITECTURE, session). Les docs **propres au repo** (ex. `memoire/VEEVALIDATE.md` sur EdiThor) s'ajoutent **uniquement** dans le `bootstrap.mdc` et le `PROJET.md` de ce repo — jamais dans le template `init-project`.

@@ -118,9 +118,9 @@ Méthode — leçons (toujours appliquer) :
 
 ## Annexes `memoire/` — lecture sur condition, jamais par défaut
 
-- `memoire/CONVENTIONS.md` : à lire **avant d'écrire du code, des migrations ou des tests**.
-- `memoire/ARCHITECTURE.md` : à lire quand la tâche touche à la **structure** (packages, patterns, flux).
-- `memoire/session/` (INDEX + rapports) : à lire seulement pour reprendre un travail passé (sur demande explicite).
+1. **`memoire/CONVENTIONS.md`** — lecture **systématique** avant tout code, migration ou test.
+2. **`memoire/ARCHITECTURE.md`** — lecture si la tâche touche **> 1 fichier**, un **nouveau module**, la **structure** (packages, patterns, flux) ou les **dépendances** inter-modules.
+3. **`memoire/session/`** (INDEX + rapports) — à lire seulement pour reprendre un travail passé (sur demande explicite).
 ```
 
 ---
@@ -132,7 +132,7 @@ Fichier cible : `memoire/PROJET.md`
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
 
-> **Instructions agent** : point d'entrée unique pour comprendre le projet, attaché automatiquement via `.cursor/rules/bootstrap.mdc` (qui attache aussi `tasks/lessons.md` et fixe quand lire les annexes `[CONVENTIONS.md](CONVENTIONS.md)` / `[ARCHITECTURE.md](ARCHITECTURE.md)`).
+> **Instructions agent** : point d'entrée unique pour comprendre le projet, attaché automatiquement via `.cursor/rules/bootstrap.mdc` (qui attache aussi `tasks/lessons.md` et fixe quand lire les annexes). Règles clés : `[CONVENTIONS.md](CONVENTIONS.md)` **systématique** avant tout code ; `[ARCHITECTURE.md](ARCHITECTURE.md)` si tâche **> 1 fichier** ou nouveau module.
 
 ## But du projet
 
@@ -176,7 +176,7 @@ Fichier cible : `memoire/ARCHITECTURE.md`
 ```markdown
 # [NOM_PROJET] — Architecture détaillée
 
-> Annexe de [`PROJET.md`](PROJET.md). À lire quand une mission touche à la structure du projet.
+> Annexe de [`PROJET.md`](PROJET.md). À lire quand une mission touche **> 1 fichier**, un **nouveau module** ou la **structure** (packages, patterns, flux).
 
 <!-- Ajouter ici la cartographie des packages, les patterns structurants, les flux de données. -->
 ```
