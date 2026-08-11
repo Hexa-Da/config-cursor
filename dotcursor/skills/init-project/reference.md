@@ -73,17 +73,6 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
 
 
 
-### Vocabulaire technique : termes courants de la communauté, pas calques ni noms de lib en prose
-
-- **Symptôme** : l'agent parle de « test de fumée », insiste sur « MockK » dans les explications, ou invente des anglicismes / traductions littérales peu usuels.
-- **Cause** : calque FR↔EN ou sur-précision (nom de lib) au lieu du terme le plus employé et compris par les devs.
-- **Règle** :
-  - En prose (chat, docs, rapports) : utiliser le **vocabulaire courant de la communauté** — ex. *smoke test* (pas « test de fumée »), *mock* (pas « MockK » à chaque phrase).
-  - Réserver le nom de lib / d'API au moment où ça compte (import, doc de stack, snippet) : MockK, `mockk`, `mockkClass`, etc.
-  - En cas de doute : préférer le terme le plus répandu chez les devs, pas la traduction littérale ni le jargon maison.
-
-
-
 ### Rapports de session : uniquement à la clôture, jamais un rapport passé
 
 - **Symptôme** : l'agent crée ou édite `memoire/session/*.md` / `INDEX.md` en fin de plan (« Doc session »), ou met à jour un rapport clos, sans demande de clôture.
@@ -93,6 +82,17 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
   - Fin de plan = section Review dans `tasks/todo.md` (+ leçons durables si besoin). Pas de nouveau rapport, pas de retouche d'un ancien.
   - Clôture = seulement si l'utilisateur le demande → skill `cloture-session` → **nouveau** fichier + ligne INDEX ; **jamais** modifier un rapport déjà écrit.
   - Dans le rapport : pour chaque commit, hash + message complet — template dans `cloture-session/reference.md`.
+
+
+
+### Ne pas relire les annexes `memoire/` à chaque tour ni les ignorer par défaut
+
+- **Symptôme** : l'agent relit `memoire/CONVENTIONS.md` / `ARCHITECTURE.md` à chaque tour même pour un fix trivial (coût token inutile), ou au contraire ne les ouvre jamais avant du code non trivial, faute de critère de déclenchement clair.
+- **Cause** : pas de règle explicite distinguant les cas où lire vs ne pas lire ; ces conditions sont génériques donc relèvent de la méthode, pas du savoir projet.
+- **Règle** :
+  - `memoire/CONVENTIONS.md` — lecture avant d'écrire ou modifier du code **non trivial** (nouvelle fonctionnalité, nouveau fichier, migration, test) ou en cas de doute sur un pattern existant. **Ne pas lire** pour : audit / analyse en lecture seule, question ponctuelle, discussion, fix d'une ligne, typo, valeur de config. Une fois lue dans la session, ne pas la relire à chaque tour — seulement si la tâche change de domaine.
+  - `memoire/ARCHITECTURE.md` — lecture si la tâche implique de comprendre l'**interaction entre plusieurs composants/modules**, d'ajouter un **nouveau composant ou pattern**, ou de traverser une **frontière de module** — indépendamment du nombre de fichiers estimé au départ. Si la portée réelle dépasse l'estimation initiale en cours de tâche, la lire à ce moment-là plutôt que d'avoir tranché trop tôt.
+  - `memoire/session/` (INDEX + rapports) — à lire seulement pour reprendre un travail passé (sur demande explicite).
 ```
 
 ---
