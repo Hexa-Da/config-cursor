@@ -11,6 +11,9 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 
 # Canon lessons → tous les projets sous ~/Documents
 ./scripts/lessons-install.sh
+
+# Canon bootstrap §1–3 → tous les projets sous ~/Documents (extras §4+ préservés)
+./scripts/bootstrap-install.sh
 ```
 
 Depuis le projet en cours (`~/Documents/projet`) :
@@ -19,6 +22,10 @@ Depuis le projet en cours (`~/Documents/projet`) :
 # Projet courant → canon lessons (+ commit/push)
 # À lancer depuis un projet qui a tasks/lessons.md mise à jour
 ~/Documents/config-cursor/scripts/lessons-export.sh
+
+# Projet courant → canon bootstrap §1–3 (+ commit/push)
+# À lancer après modification des règles CONVENTIONS / ARCHITECTURE / session
+~/Documents/config-cursor/scripts/bootstrap-export.sh
 ```
 
 ## Couches de config
