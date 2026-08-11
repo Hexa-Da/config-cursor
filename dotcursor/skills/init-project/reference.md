@@ -162,7 +162,7 @@ Fichier cible : `memoire/CONVENTIONS.md`
 ```markdown
 # [NOM_PROJET] — Conventions du projet
 
-> Annexe de [`PROJET.md`](PROJET.md). À lire avant d'écrire ou modifier du code **non trivial** (nouvelle fonctionnalité, nouveau fichier, migration, test) ou en cas de doute sur un pattern existant — voir `.cursor/rules/bootstrap.mdc` pour les cas exclus.
+> Annexe de [`PROJET.md`](PROJET.md). Conditions de lecture : voir `.cursor/rules/bootstrap.mdc`.
 
 <!-- Ajouter ici les conventions au fil des sessions : style de code, nommage, patterns de test, checklists, pièges connus. -->
 ```
@@ -176,7 +176,7 @@ Fichier cible : `memoire/ARCHITECTURE.md`
 ```markdown
 # [NOM_PROJET] — Architecture détaillée
 
-> Annexe de [`PROJET.md`](PROJET.md). À lire si la tâche implique l'**interaction entre plusieurs composants/modules**, un **nouveau composant ou pattern**, ou une **frontière de module** — voir `.cursor/rules/bootstrap.mdc`.
+> Annexe de [`PROJET.md`](PROJET.md). Conditions de lecture : voir `.cursor/rules/bootstrap.mdc`.
 
 <!-- Ajouter ici la cartographie des packages, les patterns structurants, les flux de données. -->
 ```
