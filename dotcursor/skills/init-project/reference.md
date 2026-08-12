@@ -125,7 +125,11 @@ Fichier cible : `memoire/PROJET.md`
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
 
-> **Instructions agent** : point d'entrée unique pour comprendre le projet, attaché automatiquement via `.cursor/rules/bootstrap.mdc` (qui attache aussi `tasks/lessons.md`, qui fixe les règles de lecture de [`CONVENTIONS.md`](CONVENTIONS.md) / [`ARCHITECTURE.md`](ARCHITECTURE.md)).
+> **Savoir projet** (domaine, stack, concepts métier). Injecté automatiquement avec `tasks/lessons.md` (méthode) :
+> - **Cursor** : `.cursor/rules/bootstrap.mdc`
+> - **OpenCode** : `opencode.jsonc` → `instructions`
+>
+> Règles de lecture des annexes [`CONVENTIONS.md`](CONVENTIONS.md) / [`ARCHITECTURE.md`](ARCHITECTURE.md) : voir `tasks/lessons.md`.
 
 ## But du projet
 
