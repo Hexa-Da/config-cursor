@@ -118,6 +118,23 @@ Méthode — leçons (toujours appliquer) :
 
 ---
 
+## Copie opencode.jsonc
+
+Fichier cible : `opencode.jsonc` — copier **tel quel** (équivalent OpenCode de `bootstrap.mdc`).
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  // Contexte injecté à chaque session (équivalent .cursor/rules/bootstrap.mdc)
+  "instructions": [
+    "memoire/PROJET.md",
+    "tasks/lessons.md"
+  ]
+}
+```
+
+---
+
 ## Template PROJET.md
 
 Fichier cible : `memoire/PROJET.md`
