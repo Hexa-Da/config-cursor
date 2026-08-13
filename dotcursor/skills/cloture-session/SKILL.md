@@ -23,7 +23,7 @@ Procédure **générique**. Chemins repo par défaut : `memoire/session/`, `task
 
 ## Étapes
 
-1. **Rapport** : s'appuyer sur `tasks/todo.md` comme brouillon. Copier le template (voir [reference.md](reference.md) § Template rapport) vers `memoire/session/AAAA-MM-JJ_titre-de-la-session.md` et remplir. **Toujours un nouveau fichier** — même en continuation d'une session précédente. Continuité → lien en en-tête (« Suite de : [titre](fichier.md) »).
+1. **Rapport** : s'appuyer sur `tasks/todo.md` comme brouillon. Copier le template (voir [reference.md](reference.md) § Template rapport) vers `memoire/session/AAAA-MM-JJ_NN_titre-de-la-session.md` et remplir. `NN` = compteur du jour (voir [reference.md](reference.md) § Nommage). **Toujours un nouveau fichier** — même en continuation d'une session précédente. Continuité → lien en en-tête (« Suite de : [titre](fichier.md) »).
 2. **Index** : ajouter une ligne **en haut** du tableau de `memoire/session/INDEX.md` (date, tags — voir légende dans l'INDEX, titre lien, résumé une phrase). Ne pas modifier les lignes existantes.
 3. **Leçons durables** : reporter les leçons réutilisables dans le document cible (`memoire/CONVENTIONS.md`, `memoire/ARCHITECTURE.md`, annexe, ou `tasks/lessons.md` pour la méthode) avec lien `(← [session](memoire/session/….md))`. Critères, tri et anti-doublons → [reference.md](reference.md).
 4. **Langue** : français, concis (économie de tokens futures sessions).
@@ -31,4 +31,4 @@ Procédure **générique**. Chemins repo par défaut : `memoire/session/`, `task
 
 ## Référence détaillée
 
-Critères de leçons, tableau de tri, templates (rapport, index, todo) : [reference.md](reference.md).
+Nommage, critères de leçons, tableau de tri, templates (rapport, index, todo) : [reference.md](reference.md).
