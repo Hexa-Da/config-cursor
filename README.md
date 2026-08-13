@@ -4,6 +4,7 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 
 ```bash
 # Repo → machine (hooks, skills, settings, keybindings, cursor-storage)
+# + miroir des skills vers ~/.config/opencode/skills (frontmatter adapté)
 ./scripts/install.sh
 
 # Machine → repo (export config Cursor)
@@ -21,12 +22,16 @@ Depuis le projet en cours (`~/Documents/projet`) :
 ~/Documents/config-cursor/scripts/lessons-export.sh
 ```
 
+
+
 ## Couches de config
 
-| Couche | Fichier | Contenu |
-|--------|---------|---------|
-| VS Code-like | `user/settings.json` (+ `keybindings.json`) | Éditeur, `cursor.composer.*`, etc. |
-| Cursor product | `user/cursor-storage.json` | Agents/Review + Layout/General (extrait filtré de `state.vscdb`) |
-| Dotcursor | `dotcursor/` | Hooks, skills, plugins, commands, agents |
 
-`state.vscdb` brut reste **gitignoré**. Seul l’extrait allowlisté est versionné.
+| Couche            | Fichier                                     | Contenu                                                                                |
+| ----------------- | ------------------------------------------- | -------------------------------------------------------------------------------------- |
+| VS Code-like      | `user/settings.json` (+ `keybindings.json`) | Éditeur, `cursor.composer.*`, etc.                                                     |
+| Cursor product    | `user/cursor-storage.json`                  | Agents/Review + Layout/General (extrait filtré de `state.vscdb`)                       |
+| Dotcursor         | `dotcursor/`                                | Hooks, skills, plugins, commands, agents                                               |
+| OpenCode (skills) | `~/.config/opencode/skills/`                | Miroir de `dotcursor/skills/` via `install.sh` (frontmatter `compatibility: opencode`) |
+
+

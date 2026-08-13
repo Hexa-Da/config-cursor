@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Install this Cursor config onto the current machine (macOS / Linux / Windows+Git Bash).
+# Also mirrors portable skills into OpenCode (frontmatter adapted).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -24,11 +25,25 @@ detect_user_dir() {
   esac
 }
 
+# OpenCode uses XDG-style paths on every OS (including Windows):
+#   OPENCODE_CONFIG_DIR > XDG_CONFIG_HOME/opencode > ~/.config/opencode
+detect_opencode_config_dir() {
+  if [[ -n "${OPENCODE_CONFIG_DIR:-}" ]]; then
+    echo "$OPENCODE_CONFIG_DIR"
+  elif [[ -n "${XDG_CONFIG_HOME:-}" ]]; then
+    echo "$XDG_CONFIG_HOME/opencode"
+  else
+    echo "$HOME/.config/opencode"
+  fi
+}
+
 CURSOR_USER="$(detect_user_dir)"
 CURSOR_DOT="$HOME/.cursor"
+OPENCODE_CONFIG="$(detect_opencode_config_dir)"
 
 echo "→ User dir : $CURSOR_USER"
 echo "→ Dotcursor: $CURSOR_DOT"
+echo "→ OpenCode : $OPENCODE_CONFIG"
 
 mkdir -p "$CURSOR_DOT/hooks" "$CURSOR_USER"
 
@@ -57,6 +72,14 @@ sync_dot_dir skills
 sync_dot_dir plugins
 sync_dot_dir commands
 sync_dot_dir agents
+
+# OpenCode skills: même contenu que dotcursor/skills, frontmatter adapté
+# (description une ligne + compatibility: opencode). Skills OpenCode-only
+# hors du repo ne sont pas effacés.
+if [[ -d "$DOT_SRC/skills" ]]; then
+  python3 "$ROOT/scripts/lib/sync_opencode_skills.py" \
+    "$DOT_SRC/skills" "$OPENCODE_CONFIG/skills"
+fi
 
 if [[ ! -f "$CURSOR_DOT/mcp.json" && -f "$DOT_SRC/mcp.json.example" ]]; then
   cp "$DOT_SRC/mcp.json.example" "$CURSOR_DOT/mcp.json"
@@ -93,3 +116,4 @@ fi
 
 echo "OK — redémarre Cursor si les hooks / cursor-storage ne se rechargent pas."
 echo "     Vérifie Settings → General (layout) + Agents/Review après restart."
+echo "     Skills OpenCode mis à jour dans $OPENCODE_CONFIG/skills (si applicable)."
