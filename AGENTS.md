@@ -9,9 +9,11 @@ This is a real environment with full shell access and network, not a simulated o
 
 ## Relation avec `tasks/lessons.md`
 
-When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, heavy tests, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, **`lessons.md` wins**.
+When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, heavy tests, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**.
 
 ## Cherny's Rules
+
+
 
 ### 1. Plan Mode Default
 
@@ -20,6 +22,8 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 - Use plan mode for verification steps, not just building.
 - Write detailed specs upfront to reduce ambiguity.
 
+
+
 ### 2. Subagent Strategy
 
 - Use subagents liberally to keep the main context window clean.
@@ -27,11 +31,15 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 - For complex problems, throw more compute at it via subagents.
 - One task per subagent for focused execution.
 
+
+
 ### 3. Self-Improvement Loop
 
 - After ANY correction from the user: update `tasks/lessons.md` with the pattern (see Task Management #6 — single source, don't restate).
 - Ruthlessly prune and merge lessons, not just append — a duplicate or stale entry costs every future session.
 - Review `tasks/lessons.md` at session start if present; if the repo has no `tasks/`, propose running the `init-project` skill rather than assuming the convention.
+
+
 
 ### 4. Verification Before Done
 
@@ -40,6 +48,8 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 - Ask yourself: "Would a staff engineer approve this?"
 - Run tests, check logs, demonstrate correctness.
 
+
+
 ### 5. Demand Elegance (Balanced)
 
 - For non-trivial changes: pause and ask "is there a more elegant way?"
@@ -47,15 +57,15 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 - Skip this for simple, obvious fixes — don't over-engineer.
 - Challenge your own work before presenting it.
 
+
+
 ### 6. Autonomous Bug Fixing
 
 - When given a bug report: just fix it. Don't ask for hand-holding.
 - Point at logs, errors, failing tests — then resolve them.
 - Go fix failing CI tests without being told how.
 
-### 7. Git: Read Freely, Never Write
 
-See `tasks/lessons.md` when injected.
 
 ## Task Management
 
@@ -66,17 +76,14 @@ See `tasks/lessons.md` when injected.
 5. **Document Results**: Add a review section to `tasks/todo.md`.
 6. **Capture Lessons**: Update `tasks/lessons.md` after corrections — dedupe/merge before appending.
 
+
+
 ## Core Principles
 
 - **Simplicity First**: Make every change as simple as possible. Impact minimal code.
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
 
-## Pull requests
 
-- Use `gh` for GitHub issues, PRs, checks, releases.
-- Before `gh pr create`: run `git status`, `git diff`, `git log`, and diff vs base branch in parallel; check remote tracking.
-- Never push; the user pushes.
-- Return the PR URL when done.
 
 ## Code
 
@@ -85,6 +92,8 @@ See `tasks/lessons.md` when injected.
 3. **Use existing conventions** — read surrounding code; match naming, types, patterns, imports.
 4. **Comments** — only for non-obvious business logic or deep technical detail.
 5. **Useful tests only** — when requested or they add meaningful real behavior coverage.
+
+
 
 ## Communication
 
@@ -95,6 +104,8 @@ See `tasks/lessons.md` when injected.
 - Avoid "§" in user-facing text.
 - Use mermaid or ASCII for complex flows when helpful.
 - No engagement baiting at the end of responses.
+
+
 
 ## Instructions générales
 
