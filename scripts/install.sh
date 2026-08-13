@@ -81,6 +81,18 @@ if [[ -d "$DOT_SRC/skills" ]]; then
     "$DOT_SRC/skills" "$OPENCODE_CONFIG/skills"
 fi
 
+# OpenCode AGENTS.md (= user rules) : install-only, ne pas écraser s'il existe.
+# Source repo à la racine (aussi utilisée comme Cursor User Rules).
+if [[ -f "$ROOT/AGENTS.md" ]]; then
+  mkdir -p "$OPENCODE_CONFIG"
+  if [[ ! -f "$OPENCODE_CONFIG/AGENTS.md" ]]; then
+    cp "$ROOT/AGENTS.md" "$OPENCODE_CONFIG/AGENTS.md"
+    echo "→ OpenCode AGENTS.md créé"
+  else
+    echo "→ OpenCode AGENTS.md: déjà présent — skip (pas d'écrasement)"
+  fi
+fi
+
 if [[ ! -f "$CURSOR_DOT/mcp.json" && -f "$DOT_SRC/mcp.json.example" ]]; then
   cp "$DOT_SRC/mcp.json.example" "$CURSOR_DOT/mcp.json"
   echo "→ mcp.json créé depuis l'exemple (vide)"
@@ -117,3 +129,4 @@ fi
 echo "OK — redémarre Cursor si les hooks / cursor-storage ne se rechargent pas."
 echo "     Vérifie Settings → General (layout) + Agents/Review après restart."
 echo "     Skills OpenCode mis à jour dans $OPENCODE_CONFIG/skills (si applicable)."
+echo "     AGENTS.md OpenCode : créé seulement s'il était absent."
