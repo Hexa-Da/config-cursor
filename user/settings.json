@@ -4,7 +4,7 @@
     "workbench.editor.showTabs": "multiple",
     "workbench.editorAssociations": {
         "*.pdf": "pdf.preview",
-        "*.md": "workbench.editor.markdownPlan"
+        "*.md": "workbench.editor.markdown"
     },
     "cursor.composer.usageSummaryDisplay": "always",
     "window.autoDetectColorScheme": false,
@@ -12,7 +12,6 @@
     "window.titleBarStyle": "native",
     "diffEditor.renderSideBySide": false,
     "cursor.composer.editorConversationDensity": "compact-ungrouped",
-    "workbench.editor.enablePreview": false,
     "cursor.cpp.enablePartialAccepts": true,
     "git.autofetch": true,
     "git.openRepositoryInParentFolders": "never",
