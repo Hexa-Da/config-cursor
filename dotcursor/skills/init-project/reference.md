@@ -57,7 +57,22 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
 
 - **Symptôme** : risque qu'un agent committe (ou s'abstienne de consulter git par excès de prudence).
 - **Cause** : frontière lecture/écriture non explicitée.
-- **Règle** : ne **jamais** faire de commit (ni `commit`, `push`, `rebase`, `reset`... — toute écriture dans l'historique). En revanche, consulter le worktree aussi souvent qu'utile (`git status`, `git diff`, `git log`...) est libre et encouragé. Quand c'est pertinent (fin de tâche cohérente), **proposer un message de commit** à l'utilisateur — c'est lui qui committe.
+- **Règle** : ne **jamais** faire de commit (ni `commit`, `push`, `rebase`, `reset`... — toute écriture dans l'historique) **sauf demande explicite de l'utilisateur** (« fait un commit », « committe ça ») — dans ce cas, exécuter directement plutôt que de reproposer un message à valider. En dehors de toute demande explicite : consulter le worktree aussi souvent qu'utile (`git status`, `git diff`, `git log`...) est libre et encouragé, et **proposer un message de commit** à l'utilisateur en fin de tâche cohérente — c'est lui qui committe.
+
+
+
+
+### Worktrees parallèles : un agent = un worktree = un `tasks/todo.md`
+
+- **Symptôme** : plusieurs agents lancés sur des missions/branches différentes se marchent dessus — reprise du plan d'un autre agent, écrasement de `tasks/todo.md`, mélange de contexte entre le worktree principal et un worktree secondaire.
+- **Cause** : l'agent suppose un repo unique et réutilise le `tasks/todo.md` ou le fil de travail d'une autre session, sans ancrage explicite sur **le worktree courant**.
+- **Règle** :
+  - Au démarrage d'une mission non triviale : confirmer le **worktree actif** (`Workspace Path`, `git rev-parse --show-toplevel`, branche courante). Toute action reste **strictement** dans ce répertoire — ne jamais lire/éditer un `tasks/todo.md` hors de ce root.
+  - Si l'agent est lancé dans un **worktree distinct du principal** (autre branche, autre mission parallèle) : **créer ou réinitialiser** un `tasks/todo.md` **local à ce worktree**, dédié à **cette** mission. **Ne pas** reprendre, compléter ni écraser le `tasks/todo.md` du worktree principal ni celui d'un autre agent.
+  - En tête du todo : rappeler branche + objectif de la mission (ex. `# tech/foo — …`) pour éviter toute confusion inter-agents.
+  - Ne pas fusionner plans, reviews ni todos entre agents/worktrees parallèles ; chaque agent clôt sa propre section Review dans **son** todo.
+  - En cas de doute sur quel worktree/todo utiliser : **questionner l'utilisateur** avant d'écrire dans `tasks/`.
+
 
 
 
@@ -93,6 +108,18 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
   - `memoire/CONVENTIONS.md` — lecture avant d'écrire ou modifier du code **non trivial** (nouvelle fonctionnalité, nouveau fichier, migration, test) ou en cas de doute sur un pattern existant. **Ne pas lire** pour : audit / analyse en lecture seule, question ponctuelle, discussion, fix d'une ligne, typo, valeur de config. Une fois lue dans la session, ne pas la relire à chaque tour — seulement si la tâche change de domaine.
   - `memoire/ARCHITECTURE.md` — lecture si la tâche implique de comprendre l'**interaction entre plusieurs composants/modules**, d'ajouter un **nouveau composant ou pattern**, ou de traverser une **frontière de module** — indépendamment du nombre de fichiers estimé au départ. Si la portée réelle dépasse l'estimation initiale en cours de tâche, la lire à ce moment-là plutôt que d'avoir tranché trop tôt.
   - `memoire/session/` (INDEX + rapports) — à lire seulement pour reprendre un travail passé (sur demande explicite).
+
+
+
+### Ne pas transformer une dette legacy en « convention » sans vérifier la cible à jour
+
+- **Symptôme** : l'agent justifie un choix d'implémentation en s'appuyant sur un composant existant ou un pattern répandu, alors que ce code peut justement être de la dette en cours de résorption.
+- **Cause** : confusion entre « usage courant dans le codebase » et « convention cible à jour » ; absence de vérification explicite de la source normative avant de propager le pattern.
+- **Règle** :
+  - Avant d'aligner un composant legacy sur un autre composant, **vérifier d'abord** si la convention projet à jour est documentée (`memoire/CONVENTIONS.md`, `ARCHITECTURE.md`, annexe pertinente) et distinguer clairement **cible** vs **dette existante**.
+  - Ne pas présenter un pattern observé dans le code comme une convention sans pouvoir le rattacher à une source normative récente ou à un exemple explicitement conforme.
+  - Si les conventions paraissent absentes, ambiguës, contradictoires, ou possiblement dépassées, **questionner l'utilisateur** avant de propager ce pattern à d'autres fichiers.
+  - En cas d'écart entre convention cible et implémentation legacy, privilégier l'alignement vers la cible et signaler explicitement la dette restante plutôt que de la faire persister.
 ```
 
 ---
