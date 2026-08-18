@@ -53,7 +53,7 @@ src, dst = Path(sys.argv[1]), Path(sys.argv[2])
 if dst.exists():
     shutil.rmtree(dst)
 shutil.copytree(src, dst, ignore=shutil.ignore_patterns(".DS_Store", "__pycache__"))
-# Drop empty skill/plugin/command/agent dirs (no real files) so they never re-enter the repo.
+# Drop empty skill/command/agent dirs (no real files) so they never re-enter the repo.
 for child in list(dst.iterdir()) if dst.exists() else []:
     if not child.is_dir():
         continue
@@ -69,7 +69,6 @@ PY
 }
 
 export_dot_dir skills
-export_dot_dir plugins
 export_dot_dir commands
 export_dot_dir agents
 

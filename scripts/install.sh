@@ -47,7 +47,9 @@ echo "→ OpenCode : $OPENCODE_CONFIG"
 
 mkdir -p "$CURSOR_DOT/hooks" "$CURSOR_USER"
 
-# ~/.cursor (hooks, skills, plugins, commands, agents)
+# ~/.cursor (hooks, skills, commands, agents)
+# Plugins marketplace : liés au compte Cursor, pas versionnés ici
+# (et ~/.cursor/plugins/ n'est qu'un cache de clones).
 # — ne pas écraser mcp.json s'il existe déjà
 cp "$DOT_SRC/hooks.json" "$CURSOR_DOT/hooks.json"
 cp "$DOT_SRC/hooks/garde-fou.py" "$CURSOR_DOT/hooks/garde-fou.py"
@@ -69,7 +71,6 @@ sync_dot_dir() {
 }
 
 sync_dot_dir skills
-sync_dot_dir plugins
 sync_dot_dir commands
 sync_dot_dir agents
 
