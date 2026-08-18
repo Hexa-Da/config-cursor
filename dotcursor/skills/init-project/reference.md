@@ -61,18 +61,15 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
 
 
 
+### Worktrees : rester sur le principal s'il est libre ; sinon un agent = un worktree = un `tasks/todo.md`
 
-### Worktrees parallèles : un agent = un worktree = un `tasks/todo.md`
-
-- **Symptôme** : plusieurs agents lancés sur des missions/branches différentes se marchent dessus — reprise du plan d'un autre agent, écrasement de `tasks/todo.md`, mélange de contexte entre le worktree principal et un worktree secondaire.
-- **Cause** : l'agent suppose un repo unique et réutilise le `tasks/todo.md` ou le fil de travail d'une autre session, sans ancrage explicite sur **le worktree courant**.
+- **Symptôme** : l'agent crée un worktree secondaire alors que le worktree principal est libre (aucun agent, working tree propre) — changement de branche inutilement isolé dans un nouveau worktree. À l'inverse, plusieurs agents lancés en même temps sur des missions/branches différentes se marchent dessus si on réutilise le même worktree occupé (`tasks/todo.md` écrasé, contexte mélangé).
+- **Cause** : confusion entre « besoin d'une autre branche » et « besoin d'un autre worktree » ; l'agent isole par réflexe, ou au contraire suppose un repo unique sans vérifier si le principal est occupé.
 - **Règle** :
-  - Au démarrage d'une mission non triviale : confirmer le **worktree actif** (`Workspace Path`, `git rev-parse --show-toplevel`, branche courante). Toute action reste **strictement** dans ce répertoire — ne jamais lire/éditer un `tasks/todo.md` hors de ce root.
-  - Si l'agent est lancé dans un **worktree distinct du principal** (autre branche, autre mission parallèle) : **créer ou réinitialiser** un `tasks/todo.md` **local à ce worktree**, dédié à **cette** mission. **Ne pas** reprendre, compléter ni écraser le `tasks/todo.md` du worktree principal ni celui d'un autre agent.
-  - En tête du todo : rappeler branche + objectif de la mission (ex. `# tech/foo — …`) pour éviter toute confusion inter-agents.
-  - Ne pas fusionner plans, reviews ni todos entre agents/worktrees parallèles ; chaque agent clôt sa propre section Review dans **son** todo.
-  - En cas de doute sur quel worktree/todo utiliser : **questionner l'utilisateur** avant d'écrire dans `tasks/`.
-
+  - Au démarrage : confirmer le **worktree actif** (`Workspace Path`, `git rev-parse --show-toplevel`, branche, `git status`). Toute action reste **strictement** dans ce répertoire — ne jamais lire/éditer un `tasks/todo.md` hors de ce root.
+  - **Défaut = rester sur le worktree principal.** Il est **libre** si : aucun autre agent ne l'utilise **et** le working tree est propre sans fichier non commité. Dans ce cas : changer de branche **sur place**.
+  - Créer un worktree secondaire **seulement** si le principal est **occupé** : autre agent en cours, ou working tree non propre.  Un agent = un worktree = un `tasks/todo.md` local à **cette** mission. **Ne pas** reprendre, compléter ni écraser le todo du principal ni celui d'un autre agent.
+  - **Ne surtout pas hesiter a** **questionner l'utilisateur** avant de créer un worktree ou une branche.
 
 
 
@@ -120,6 +117,7 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
   - Ne pas présenter un pattern observé dans le code comme une convention sans pouvoir le rattacher à une source normative récente ou à un exemple explicitement conforme.
   - Si les conventions paraissent absentes, ambiguës, contradictoires, ou possiblement dépassées, **questionner l'utilisateur** avant de propager ce pattern à d'autres fichiers.
   - En cas d'écart entre convention cible et implémentation legacy, privilégier l'alignement vers la cible et signaler explicitement la dette restante plutôt que de la faire persister.
+
 ```
 
 ---
