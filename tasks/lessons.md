@@ -81,3 +81,11 @@
   - Si les conventions paraissent absentes, ambiguës, contradictoires, ou possiblement dépassées, **questionner l'utilisateur** avant de propager ce pattern à d'autres fichiers.
   - En cas d'écart entre convention cible et implémentation legacy, privilégier l'alignement vers la cible et signaler explicitement la dette restante plutôt que de la faire persister.
 
+
+
+### Outils déterministes avant le LLM pour le texte structuré
+
+- **Symptôme** : l'agent colle un gros fichier (YAML, logs, JSON, code) dans le contexte pour y « trouver » des motifs répétitifs (IDs, champs, occurrences).
+- **Cause** : réflexe de tout faire lire au modèle, alors que `rg` / regex / script donne le même résultat à coût token quasi nul.
+- **Règle** : si le texte suit un motif répétitif, extraire avec `rg`, regex ou un script d'abord. Le LLM seulement pour le flou (prose, décision, diagnostic). Ne pas dumper un fichier entier pour une recherche que l'outil fait en une commande.
+
