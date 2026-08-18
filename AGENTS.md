@@ -29,7 +29,8 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 - Use subagents liberally to keep the main context window clean.
 - Offload research, exploration, and parallel analysis to subagents.
 - For complex problems, throw more compute at it via subagents.
-- One task per subagent for focused execution.
+- One task per subagent; prompt must be self-contained (the subagent does not have the parent conversation).
+- Do not dump parent context: at most 3 retrieval cycles (broad → refine from project terms → stop). Enough = a few highly relevant files, not a dump.
 
 
 
@@ -109,4 +110,4 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 
 ## Instructions générales
 
-Follow ALL user, tool, system, and skill instructions precisely. When a skill is relevant, load it (`skill` tool / explicit invocation) rather than improvising its procedure — especially `cloture-session`, `init-project`.
+Follow ALL user, tool, system, and skill instructions precisely. When a skill is relevant, load it (`skill` tool / explicit invocation) rather than improvising its procedure — especially `cloture-session`, `init-project`, `context-budget`.
