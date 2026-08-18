@@ -26,5 +26,6 @@
     "workbench.editor.autoLockGroups": {
         "terminalEditor": false,
         "mainThreadWebview-browserPreview": false
-    }
+    },
+    "git.confirmSync": false
 }
