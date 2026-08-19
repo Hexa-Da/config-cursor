@@ -43,5 +43,23 @@
         "key": "ctrl+alt+shift+m",
         "command": "composerMode.multitask",
         "when": "isLinux || isWindows"
+    },
+    {
+        "key": "cmd+;",
+        "command": "workbench.action.quickOpen",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+;",
+        "command": "workbench.action.quickOpen",
+        "when": "isLinux || isWindows"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "cmd+p",
+        "command": "-workbench.action.quickOpen"
     }
 ]
