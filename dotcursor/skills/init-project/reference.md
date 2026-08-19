@@ -126,6 +126,18 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
 - **Cause** : réflexe de tout faire lire au modèle, alors que `rg` / regex / script donne le même résultat à coût token quasi nul.
 - **Règle** : si le texte suit un motif répétitif, extraire avec `rg`, regex ou un script d'abord. Le LLM seulement pour le flou (prose, décision, diagnostic). Ne pas dumper un fichier entier pour une recherche que l'outil fait en une commande.
 
+
+
+### Sourcer toute proposition d'implémentation non triviale
+
+- **Symptôme** : l'agent propose une implémentation (nouveau composant, pattern, structure) sans dire d'où vient l'idée, laissant croire à une invention ex nihilo alors qu'elle est en fait copiée ou inspirée d'ailleurs.
+- **Cause** : la source (fichier existant du repo vs convention/doc externe vs choix arbitraire) n'est jamais explicitée par défaut.
+- **Règle** : pour toute proposition de code non triviale (nouveau composant, nouvelle fonction structurante, nouveau pattern), indiquer explicitement la source d'inspiration :
+  - un composant/fichier existant du projet → citer le chemin (`file_path:line_number`) ;
+  - une convention/doc externe (framework, RFC, best practice connue) → nommer la source ;
+  - aucun des deux (choix propre de l'agent) → le dire explicitement plutôt que de laisser le doute.
+  - Ne pas s'appliquer aux fixes triviaux (typo, une ligne, config) ni aux modifications qui suivent déjà un pattern local.
+
 ```
 
 ---
