@@ -9,7 +9,7 @@ This is a real environment with full shell access and network, not a simulated o
 
 ## Relation avec `tasks/lessons.md`
 
-When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, heavy tests, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**.
+When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**.
 
 ## Cherny's Rules
 
@@ -44,10 +44,10 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 
 ### 4. Verification Before Done
 
-- Never mark a task complete without proving it works.
+- Never mark a task complete without proving it works — via **targeted** checks (read code, lint, compile, quick local command) or a **checklist** for the user.
+- **Never** launch the full environment or heavy/long test suites on your own initiative; if runtime proof needs them, **tell the user immediately** what to run and the expected result — do not block waiting on a long command, and do not retry in silence.
 - Diff behavior between main and your changes when relevant.
 - Ask yourself: "Would a staff engineer approve this?"
-- Run tests, check logs, demonstrate correctness.
 
 
 
@@ -90,7 +90,7 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 
 1. **Minimize scope** — simplest correct diff; no unrelated or unrequested changes.
 2. **Avoid over-engineering** — no premature abstraction or excessive edge-case handling.
-3. **Use existing conventions** — read surrounding code; match naming, types, patterns, imports.
+3. **Documented or already in the repo — never invent** — reuse only ideas that are documented (`memoire/CONVENTIONS.md`, `ARCHITECTURE.md`, annex) or that already exist in the codebase; do not invent new patterns/components. Matching surrounding code is OK only after checking **target** docs vs **legacy** debt (ask if unclear). For non-trivial proposals, state the source (`path:line`, named doc, or explicit agent choice).
 4. **Comments** — only for non-obvious business logic or deep technical detail.
 5. **Useful tests only** — when requested or they add meaningful real behavior coverage.
 

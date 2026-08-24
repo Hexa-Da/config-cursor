@@ -24,12 +24,6 @@ Ne **jamais** faire de commit (ni `commit`, `push`, `rebase`, `reset`… — tou
 - Worktree secondaire **seulement** si le principal est occupé ; un agent = un worktree = un `tasks/todo.md` local — ne pas écraser celui d'un autre.
 - **Demander** avant de créer un worktree ou une branche.
 
-### Ne pas lancer l'environnement ni les tests lourds pour « vérifier » — dire quoi tester
-
-- Ne **jamais** lancer l'environnement complet ni les suites lourdes sans demande explicite.
-- Si une vérif runtime est nécessaire : **dire tout de suite** quoi tester (commande, résultat attendu) — pas d'attente muette ni de relances en boucle.
-- En fin de tâche : **checklist concise** (quoi lancer, volume, durée indicative).
-- OK sans demander : lecture, lint, compile locale rapide.
 
 ### Rapports de session : uniquement à la clôture, jamais un rapport passé
 
