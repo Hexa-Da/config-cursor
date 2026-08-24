@@ -226,24 +226,21 @@ def main() -> int:
             row(name, path, tokens(text, code=code), bucket, lines=len(text.splitlines()) if text else 0)
         )
 
-    user_rules = CONFIG / "AGENTS.md"
+    # Canon AGENTS.md = source versionnée des User Rules Cursor (UI) et miroir
+    # OpenCode (~/.config/opencode/AGENTS.md via install.sh). Même contenu,
+    # runtimes différents — compter une seule fois pour un audit Cursor.
+    canon_agents = CONFIG / "AGENTS.md"
     workspace_agents = workspace / "AGENTS.md"
-    if user_rules.is_file() and workspace_agents.is_file() and user_rules.resolve() == workspace_agents.resolve():
-        text = read(workspace_agents)
-        tok = tokens(text)
-        rows.append(
-            row(
-                "user-rules+AGENTS.md (injecté 2×)",
-                workspace_agents,
-                tok * 2,
-                "always-on",
-                lines=len(text.splitlines()),
-            )
-        )
-        counted.add(workspace_agents.resolve())
-    else:
-        add_file("user-rules", user_rules, "always-on")
-        add_file("AGENTS.md", workspace_agents, "always-on")
+    if canon_agents.is_file():
+        add_file("user-rules (canon AGENTS.md)", canon_agents, "always-on")
+    elif workspace_agents.is_file():
+        add_file("user-rules (workspace AGENTS.md)", workspace_agents, "always-on")
+    if (
+        workspace_agents.is_file()
+        and canon_agents.is_file()
+        and workspace_agents.resolve() != canon_agents.resolve()
+    ):
+        add_file("AGENTS.md (workspace, ≠ canon)", workspace_agents, "always-on")
 
     add_file("CLAUDE.md", workspace / "CLAUDE.md", "always-on")
     add_file(".cursorrules", workspace / ".cursorrules", "always-on")
@@ -302,8 +299,6 @@ def main() -> int:
             flag = "  FLAG >100 lines"
         if "skill:" in r["name"] and "body" in r["name"] and r["lines"] > 400:
             flag = "  FLAG >400 lines"
-        if "injecté 2×" in r["name"]:
-            flag = (flag + "  FLAG User Rules = AGENTS.md").rstrip()
         print(f"{r['tokens']:>8}  {r['bucket']:<12}  {r['lines']:>5}  {r['name']}{flag}")
         print(f"{'':>8}  {r['path']}")
     return 0

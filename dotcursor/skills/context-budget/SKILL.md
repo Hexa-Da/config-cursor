@@ -37,8 +37,8 @@ prose `mots × 1.3`, code/JSON `chars / 4`.
 
 | Composant | Où |
 | --- | --- |
-| User Rules | Customize → Rules (pas un fichier). Ce harness les versionne dans le `AGENTS.md` du repo config-cursor ; le script le prend comme proxy. Si le workspace *est* ce repo, Cursor injecte le même texte **deux fois** (User Rules + `AGENTS.md`). |
-| `AGENTS.md` | Racine du workspace (et `CLAUDE.md` / `.cursorrules` s'ils existent). Les `AGENTS.md` imbriqués sont on-demand (répertoire courant). |
+| User Rules | Customize → Rules (pas un fichier). Canon versionné : `AGENTS.md` à la racine de config-cursor — le script le prend comme proxy (**1×**). OpenCode lit le même texte via `~/.config/opencode/AGENTS.md` (miroir `install.sh`) : autre runtime, **ne pas compter** dans un audit Cursor. |
+| `AGENTS.md` workspace | Seulement si **distinct** du canon (chemin ou contenu projet). Dans config-cursor, le fichier racine *est* le canon → déjà compté en User Rules. Imbriqués = on-demand. Voir aussi `CLAUDE.md` / `.cursorrules`. |
 | Rules Always Apply | `.cursor/rules/**/*.mdc` avec `alwaysApply: true`, plus les fichiers `@attachés` dans le corps |
 | Attachés bootstrap | Seulement s'ils sont `@` depuis une rule always-on (ex. `memoire/PROJET.md`, `tasks/lessons.md`) |
 | Skill catalog | `name` + `description` des skills **sans** `disable-model-invocation: true`, plus le catalogue built-in `~/.cursor/skills-cursor/` (descriptions seulement ; les corps built-in ne sont pas listés) |
@@ -46,6 +46,7 @@ prose `mots × 1.3`, code/JSON `chars / 4`.
 
 **Pas dans le prompt (ne pas compter en always-on)**
 
+- `AGENTS.md` canon sur disque dans config-cursor — versioning + miroir OpenCode, pas une seconde couche Cursor si User Rules sont à jour
 - `hooks.json` / scripts de hooks — exécutés hors LLM (sauf hook qui *injecte* du contexte)
 - Corps des skills `disable-model-invocation: true` tant qu'elles ne sont pas invoquées (`/` ou `@`)
 - Rules glob / Apply Intelligently / manuelles
@@ -64,7 +65,7 @@ Skills découvertes : `~/.cursor/skills`, `~/.agents/skills`, `.cursor/skills/`,
 Signaux d'alerte :
 
 - Rule / User Rules qui répètent `tasks/lessons.md` (AGENTS.md dit déjà : ne pas restater)
-- `AGENTS.md` workspace identique aux User Rules → double injection
+- User Rules (UI) **≠** contenu du canon `AGENTS.md` (dérive après edit repo sans resync)
 - Annexe `memoire/` relue alors que la leçon « ne pas relire à chaque tour » s'applique
 - Skill **sans** `disable-model-invocation` alors qu'elle n'est utile que sur demande (son `description` reste dans le catalogue)
 - MCP avec beaucoup d'outils : souvent le plus gros levier
