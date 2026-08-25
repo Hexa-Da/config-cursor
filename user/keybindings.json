@@ -35,16 +35,6 @@
         "when": "isLinux || isWindows"
     },
     {
-        "key": "ctrl+cmd+shift+m",
-        "command": "composerMode.multitask",
-        "when": "isMac"
-    },
-    {
-        "key": "ctrl+alt+shift+m",
-        "command": "composerMode.multitask",
-        "when": "isLinux || isWindows"
-    },
-    {
         "key": "cmd+;",
         "command": "workbench.action.quickOpen",
         "when": "isMac"
@@ -55,11 +45,29 @@
         "when": "isLinux || isWindows"
     },
     {
+        "key": "cmd+p",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
         "key": "ctrl+p",
         "command": "-workbench.action.quickOpen"
     },
     {
-        "key": "cmd+p",
-        "command": "-workbench.action.quickOpen"
+        "key": "cmd+ctrl+;",
+        "command": "workbench.action.maximizeChatSize",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+alt+;",
+        "command": "workbench.action.maximizeChatSize",
+        "when": "isLinux || isWindows"
+    },
+    {
+        "key": "cmd+alt+e",
+        "command": "-workbench.action.maximizeChatSize"
+    },
+    {
+        "key": "ctrl+alt+e",
+        "command": "-workbench.action.maximizeChatSize"
     }
 ]

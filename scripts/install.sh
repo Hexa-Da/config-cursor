@@ -95,14 +95,8 @@ if [[ ! -f "$CURSOR_DOT/mcp.json" && -f "$DOT_SRC/mcp.json.example" ]]; then
   echo "→ mcp.json créé depuis l'exemple (vide)"
 fi
 
-[[ -f "$USER_SRC/settings.json" ]] && cp "$USER_SRC/settings.json" "$CURSOR_USER/settings.json"
-[[ -f "$USER_SRC/keybindings.json" ]] && cp "$USER_SRC/keybindings.json" "$CURSOR_USER/keybindings.json"
-
-# Agents/Review + Layout (state.vscdb) — skip si Cursor tourne (sinon overwrite au quit)
-STATE_DB="$CURSOR_USER/globalStorage/state.vscdb"
-STORAGE_JSON="$USER_SRC/cursor-storage.json"
-cursor_running=0
 # Prefer ps (reliable on macOS Electron); fall back to pgrep.
+cursor_running=0
 if ps -axo comm= 2>/dev/null | grep -qE '/Cursor\.app/Contents/MacOS/Cursor$|^/usr/share/cursor/cursor$|^cursor$'; then
   cursor_running=1
 elif command -v pgrep >/dev/null 2>&1; then
@@ -112,6 +106,35 @@ elif command -v pgrep >/dev/null 2>&1; then
     cursor_running=1
   fi
 fi
+
+install_user_file() {
+  local name="$1"
+  local src="$USER_SRC/$name"
+  local dst="$CURSOR_USER/$name"
+  if [[ ! -f "$src" ]]; then
+    return 0
+  fi
+  cp "$src" "$dst"
+  if cmp -s "$src" "$dst"; then
+    echo "→ $name OK (identique au repo)"
+  else
+    echo "⚠ $name: copie divergente après cp — vérifie $dst" >&2
+    return 1
+  fi
+}
+
+if [[ "$cursor_running" -eq 1 ]]; then
+  echo "⚠ Cursor semble ouvert — settings/keybindings seront copiés, mais :"
+  echo "  si keybindings.json (ou settings.json) est ouvert en dirty (M), Discard / ferme sans sauver,"
+  echo "  puis Command Palette → Developer: Reload Window."
+fi
+
+install_user_file settings.json
+install_user_file keybindings.json
+
+# Agents/Review + Layout (state.vscdb) — skip si Cursor tourne (sinon overwrite au quit)
+STATE_DB="$CURSOR_USER/globalStorage/state.vscdb"
+STORAGE_JSON="$USER_SRC/cursor-storage.json"
 if [[ "$cursor_running" -eq 1 ]]; then
   echo "⚠ cursor-storage: Cursor semble ouvert — import storage skippé."
   echo "  Quitte Cursor, relance ./scripts/install.sh, puis redémarre."
@@ -123,7 +146,7 @@ fi
 
 # Extensions : pas d'install auto — liste indicative dans extensions.txt seulement.
 
-echo "OK — redémarre Cursor si les hooks / cursor-storage ne se rechargent pas."
-echo "     Vérifie Settings → General (layout) + Agents/Review après restart."
+echo "OK — Reload Window si settings/keybindings / hooks ne se rechargent pas."
+echo "     Vérifie Settings → General (layout) + Agents/Review après restart (storage)."
 echo "     Skills OpenCode mis à jour dans $OPENCODE_CONFIG/skills (si applicable)."
 echo "     AGENTS.md OpenCode mis à jour (si présent dans le repo)."
