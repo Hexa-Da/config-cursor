@@ -105,9 +105,3 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 - Avoid "§" in user-facing text.
 - Use mermaid or ASCII for complex flows when helpful.
 - No engagement baiting at the end of responses.
-
-
-
-## Instructions générales
-
-Follow ALL user, tool, system, and skill instructions precisely. When a skill is relevant, load it (`skill` tool / explicit invocation) rather than improvising its procedure — especially `cloture-session`, `init-project`, `context-budget`.
