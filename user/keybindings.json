@@ -15,7 +15,7 @@
         "when": "isLinux || isWindows"
     },
     {
-        "key": "shift+cmd+m",
+        "key": "cmd+shift+m",
         "command": "composerMode.agent",
         "when": "isMac"
     },
@@ -76,8 +76,18 @@
         "when": "isMac"
     },
     {
-        "key": "ctrl+:",
+        "key": "ctrl+[Period]",
         "command": "workbench.action.toggleMaximizedPanel",
+        "when": "isLinux || isWindows"
+    },
+    {
+        "key": "cmd+shift+g",
+        "command": "workbench.view.scm",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "workbench.view.scm",
         "when": "isLinux || isWindows"
     }
 ]
