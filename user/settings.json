@@ -3,8 +3,7 @@
     "files.autoSave": "afterDelay",
     "workbench.editor.showTabs": "multiple",
     "workbench.editorAssociations": {
-        "*.pdf": "pdf.preview",
-        "*.md": "workbench.editor.markdown"
+        "*.pdf": "pdf.preview"
     },
     "cursor.composer.usageSummaryDisplay": "always",
     "window.autoDetectColorScheme": false,
