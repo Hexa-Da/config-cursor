@@ -36,29 +36,11 @@
     },
     {
         "key": "cmd+;",
-        "command": "workbench.action.quickOpen",
-        "when": "isMac"
-    },
-    {
-        "key": "ctrl+;",
-        "command": "workbench.action.quickOpen",
-        "when": "isLinux || isWindows"
-    },
-    {
-        "key": "cmd+p",
-        "command": "-workbench.action.quickOpen"
-    },
-    {
-        "key": "ctrl+p",
-        "command": "-workbench.action.quickOpen"
-    },
-    {
-        "key": "cmd+ctrl+;",
         "command": "workbench.action.maximizeChatSize",
         "when": "isMac"
     },
     {
-        "key": "ctrl+alt+;",
+        "key": "ctrl+;",
         "command": "workbench.action.maximizeChatSize",
         "when": "isLinux || isWindows"
     },
@@ -89,5 +71,21 @@
         "key": "ctrl+shift+g",
         "command": "workbench.view.scm",
         "when": "isLinux || isWindows"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-cursor.toggleAgentWindowIDEUnification"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-cursor.toggleAgentWindowIDEUnification"
+    },
+    {
+        "key": "cmd+p",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-workbench.action.quickOpen"
     }
 ]
