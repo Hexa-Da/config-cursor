@@ -81,11 +81,13 @@
         "command": "-cursor.toggleAgentWindowIDEUnification"
     },
     {
-        "key": "cmd+p",
-        "command": "-workbench.action.quickOpen"
+        "key": "cmd+e",
+        "command": "workbench.action.quickOpen",
+        "when": "isMac"
     },
     {
-        "key": "ctrl+p",
-        "command": "-workbench.action.quickOpen"
+        "key": "ctrl+e",
+        "command": "workbench.action.quickOpen",
+        "when": "isLinux || isWindows"
     }
 ]
