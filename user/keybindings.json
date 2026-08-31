@@ -60,14 +60,6 @@
         "when": "isLinux || isWindows"
     },
     {
-        "key": "cmd+alt+e",
-        "command": "-workbench.action.maximizeChatSize"
-    },
-    {
-        "key": "ctrl+alt+e",
-        "command": "-workbench.action.maximizeChatSize"
-    },
-    {
         "key": "cmd+[Period]",
         "command": "workbench.action.toggleMaximizedPanel",
         "when": "isMac"
