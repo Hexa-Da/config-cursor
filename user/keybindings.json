@@ -15,6 +15,11 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
+        "key": "ctrl+4",
+        "command": "editor.action.formatSelection",
+        "when": "editorTextFocus && !editorReadonly && editorHasSelection"
+    },
+    {
         "key": "cmd+m",
         "command": "composerMode.chat",
         "when": "isMac"
