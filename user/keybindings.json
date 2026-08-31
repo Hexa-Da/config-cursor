@@ -80,6 +80,26 @@
         "when": "isLinux || isWindows"
     },
     {
+        "key": "cmd+g",
+        "command": "-editor.action.nextMatchFindAction",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "-editor.action.nextMatchFindAction",
+        "when": "isLinux || isWindows"
+    },
+    {
+        "key": "cmd+g",
+        "command": "git.viewChanges",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "git.viewChanges",
+        "when": "isLinux || isWindows"
+    },
+    {
         "key": "ctrl+e",
         "command": "-cursor.toggleAgentWindowIDEUnification"
     },
