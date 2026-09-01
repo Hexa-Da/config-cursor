@@ -15,7 +15,12 @@ Une leçon réutilisable est promue si elle répond en plus **oui** à au moins 
 `memoire/CONVENTIONS.md` / `memoire/ARCHITECTURE.md` sont lus à (presque) chaque session, quel que soit son sujet : chaque ligne ajoutée est un coût pour toutes les sessions futures, même sans rapport avec le sujet traité. Avant de reporter :
 
 1. **Chercher un doublon** : si le sujet existe déjà (même partiellement) dans le document cible, mettre à jour la section existante au lieu d'en créer une nouvelle — jamais deux endroits pour la même notion.
-2. **Rester au niveau du document cible** : dans `ARCHITECTURE.md`, s'arrêter au niveau package/pattern/flux (pas de détail composant par composant d'une seule page ou feature) ; dans `CONVENTIONS.md`, une entrée doit valoir pour n'importe quelle feature future, pas une seule.
+2. **Rafraîchir l'état documenté** : si la session a changé un fait déjà écrit (valeur de conf, branche désormais mergée, compteur de migration, pattern remplacé), corriger le passage existant — ne pas laisser un état périmé parce que le sujet « existe déjà ».
+3. **Rester au niveau du document cible** : dans `ARCHITECTURE.md`, s'arrêter au niveau package/pattern/flux (pas de détail composant par composant d'une seule page ou feature) ; dans `CONVENTIONS.md`, une entrée doit valoir pour n'importe quelle feature future, pas une seule.
+
+## Chiffres et état figé
+
+**Dater ou éviter les chiffres figés** — préférer renvoyer au code comme source de vérité (chemin de fichier, commande de vérification, critère reproductible) plutôt qu'un compteur ou un statut qui vieillit après le prochain merge. Si un chiffre ou un statut doit rester dans `memoire/`, le dater explicitement (« au 2025-08-31 ») ou le qualifier (« N entités migrées à ce jour »).
 
 ## Où reporter une leçon durable
 
