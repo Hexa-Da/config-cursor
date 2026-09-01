@@ -38,3 +38,7 @@ Ne **jamais** faire de commit (ni de `push`, `rebase`, `reset`… — toute écr
 ### Outils déterministes avant le LLM pour le texte structuré
 
 Si le texte suit un motif répétitif : `rg` / regex / script d'abord. LLM seulement pour le flou (prose, décision, diagnostic). Ne pas dumper un fichier entier pour une recherche outil.
+
+### Vérifier à la source avant d'affirmer
+
+Ne jamais affirmer un fait vérifiable (contenu d'un doc ou d'une règle, version, comportement runtime) de mémoire ou par déduction : le vérifier à la source **actuelle** avant de l'écrire — une doc peut être en retard sur la réalité. Un contre-indice terrain apporté par l'utilisateur prime sur le raisonnement : re-vérifier au lieu de défendre la conclusion.
