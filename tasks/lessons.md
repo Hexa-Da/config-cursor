@@ -41,4 +41,8 @@ Si le texte suit un motif répétitif : `rg` / regex / script d'abord. LLM seule
 
 ### Vérifier à la source avant d'affirmer
 
-Ne jamais affirmer un fait vérifiable (contenu d'un doc ou d'une règle, version, comportement runtime) de mémoire ou par déduction : le vérifier à la source **actuelle** avant de l'écrire — une doc peut être en retard sur la réalité. Un contre-indice terrain apporté par l'utilisateur prime sur le raisonnement : re-vérifier au lieu de défendre la conclusion.
+Ne jamais affirmer un fait vérifiable (contenu d'un doc ou d'une rule, version, comportement runtime) de mémoire ou par déduction : le vérifier à la source **actuelle** avant de l'écrire — une doc peut être en retard sur la réalité. Un **fait terrain** observé par l'utilisateur (log, écran, résultat de commande) prime : re-vérifier au lieu de défendre la conclusion. Une **interprétation / verdict** de l'utilisateur n'est pas un fait terrain — la leçon suivante s'applique.
+
+### Être critique avec l'utilisateur, pas complaisant
+
+Traiter chaque affirmation de l'utilisateur comme une **hypothèse à tester**, pas comme une vérité à valider. Ne jamais acquiescer pour faire plaisir. Chercher activement le contre-exemple (code, doc cible, autre couche, gabarit contraire) avant de conclure ; si l'utilisateur a tort ou est trop absolu, le dire clairement avec la preuve. Ne pas être contradictoire sur le trivia (typo, reformulation) — viser les claims qui orientent une décision technique.
