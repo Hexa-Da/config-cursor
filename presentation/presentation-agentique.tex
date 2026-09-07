@@ -95,10 +95,10 @@
     \end{columns}
     \vspace{0.6cm}
     \begin{block}{Warning}
-        Passer à l'agentique, c'est une nouvelle manière de travailler, il n'y a pu de code a proprement parler. 
-        Ca demande beaucoup de comprehension du code généré et de la documentation tres bien construite.
-        La charge cognitive est tres elevee si on ne controle pas bien ses agents.
-        Il n'y a pu de moments chill ou on pisse des lignes de code. C'est l'agent qui code maintenant.
+        Passer à l'agentique, c'est une nouvelle manière de travailler : il n'y a plus de code à proprement parler.
+        Ça demande beaucoup de compréhension du code généré et une documentation très bien construite.
+        La charge cognitive est très élevée si on ne contrôle pas bien ses agents.
+        Il n'y a plus de moments chill où on pisse des lignes de code. C'est l'agent qui code maintenant.
     \end{block}
 \end{frame}
 
@@ -120,7 +120,7 @@
 \end{frame}
 
 % ============================================================
-\section{Qu'est ce qu'un Harnais frugal}
+\section{Qu'est-ce qu'un harness frugal}
 % ============================================================
 
 \begin{frame}{Harness : le cockpit de l'agent}
@@ -141,7 +141,7 @@
         \textbf{CLI / multi-agent}
         \begin{itemize}
             \item Claude Code, OpenCode, Codex\dots
-            \item Parallèle, worktrees, manageur d'agents
+            \item Parallèle, worktrees, manager d'agents
         \end{itemize}
     \end{columns}
     \vspace{0.4cm}
@@ -170,8 +170,8 @@
     \vspace{0.4cm}
     \centering
     \Large
-    Même modèle, même context, même tâche : écart énorme \\ 
-    $\Rightarrow$ \textbf{le harness compte énormement}.
+    Même modèle, même contexte, même tâche : écart énorme \\ 
+    $\Rightarrow$ \textbf{le harness compte énormément}.
 \end{frame}
 
 \begin{frame}{Qu'est-ce qui fait un bon harness ?}
@@ -205,16 +205,17 @@
     \begin{itemize}
         \item \textbf{Bootstrap} --- injection initiale 
         \item \textbf{Rules} --- contraintes permanentes 
-        \item \textbf{Lessons} --- mémoire opérationnelle inter-project
+        \item \textbf{Lessons} --- mémoire opérationnelle inter-projets
         \item \textbf{Router} --- quand lire quelle doc 
         \item \textbf{Docs spé} --- support agent + utilisateur pour une tâche précise
     \end{itemize}
     \vspace{0.4cm}
     \begin{block}{C'est ici que votre matière grise compte}
-        C'est ici que vous allez passer le plus de temps, rédigez une \textbf{documentation de qualité} n'est pas facile. 
-        A chaque fois que votre agent va divergé de votre intention initiale cest que votre documentation n'est pas assez bonne.
-        De plus, si elle est trop longue, elle consomera trop. \\
-        C'est comme si vous deviez redigerles spec de tous les ticket d'edithor d'un coup avec le moins de caractère que possible et que sa reste clair.
+        C'est ici que vous allez passer le plus de temps : rédiger une \textbf{documentation de qualité} n'est pas facile.
+        À chaque fois que votre agent divergera de votre intention initiale, c'est que votre documentation n'est pas assez bonne.
+        De plus, si elle est trop longue, elle consommera trop.\\
+        C'est comme si vous deviez rédiger les specs de tous les tickets d'éditeur d'un coup,
+        avec le moins de caractères possible, tout en restant clair.
     \end{block}
 \end{frame}
 
@@ -247,13 +248,13 @@
         \column{0.48\textwidth}
         \textbf{À faire}
         \begin{itemize}
-            \item Coopérer avec l'agent, l'accompagner 
-            \item Crée une confiance par itération
+            \item Coopérer avec l'agent, l'accompagner
+            \item Créer une confiance par itération
         \end{itemize}
         \column{0.48\textwidth}
         \textbf{Anti-pattern}
         \begin{itemize}
-            \item Rules qui s'empilent sans prunning
+            \item Rules qui s'empilent sans pruning
             \item Une leçon stale coûte \emph{chaque} session
         \end{itemize}
     \end{columns}
@@ -267,9 +268,9 @@
     \begin{itemize}
         \item \textbf{1 agent = 1 worktree = 1 plan}
         \item Subagents pour \textbf{isoler} le contexte 
-        \item intégration MCP --- TU/TI BE/FE et meme Tests manuelles
+        \item Intégration MCP --- TU/TI BE/FE et même tests manuels
         \item Review via \textbf{\texttt{git diff}} --- pas de confiance aveugle
-        \item code review -- bugbot (ex. codeRabbit)
+        \item Code review --- Bugbot (ex.\ CodeRabbit)
     \end{itemize}
     \vspace{0.5cm}
     \begin{block}{Discipline}
@@ -285,16 +286,16 @@
             \toprule
             \textbf{Cadre} & \textbf{Angle} \\
             \midrule
-            Spec-kit & Spec d'abord, code ensuite (crée par github) \\
+            Spec-kit & Spec d'abord, code ensuite (créé par GitHub) \\
             ECC & Config partagée, skills, conventions d'équipe (62 agents spécialisés) \\
-            Matt Pocock & Discipline utilisateur dans le workflows agent \\
+            Matt Pocock & Discipline utilisateur dans le workflow agent \\
             Cherny & Plan mode, subagents, lessons, verify before done \\
             \bottomrule
         \end{tabular}
     \end{table}
     \vspace{0.4cm}
     \centering
-     Pour l'instant chacun a la sienne --- Pas de standard.\\
+     Pour l'instant chacun a la sienne --- pas de standard.\\
     {\small Sur un projet il faut choisir une méthode et s'y tenir en équipe.}
 \end{frame}
 
@@ -310,11 +311,11 @@
     \end{itemize}
     \vspace{0.4cm}
     \begin{alertblock}{Paradoxe}
-        C'est l'étape du workflow la moins différenciante au-dela d'un seuil minimal de performance qui a été atteint depuis un moment par les plus gros labo (Sonnet 4.5, GLM 5.2 --- il y a 1 an).
+        C'est l'étape du workflow la moins différenciante au-delà d'un seuil minimal de performance qui a été atteint depuis un moment par les plus gros labos (Sonnet 4.5, GLM 5.2 --- il y a 1 an).
     \end{alertblock}
     \vspace{0.3cm}
     \begin{block}{Message}
-        On choisit un modèle \textbf{compatible avec le harness}, et dont le pricing n'est pas abusé. 
+        On choisit un modèle \textbf{compatible avec le harness}, et dont le pricing n'est pas abusif. 
     \end{block}
 \end{frame}
 
@@ -323,7 +324,7 @@
     \begin{itemize}
         \item \textbf{Ollama} --- lancer et modifier un LLM sur sa machine
         \item \textbf{vLLM} --- serveur de LLM performant et multi-utilisateur  
-        \item \textbf{Hugging Face} --- github des differents modèle
+        \item \textbf{Hugging Face} --- GitHub des différents modèles
     \end{itemize}
     \textbf{Réalité}
     \begin{itemize}
@@ -335,7 +336,7 @@
 
     \vspace{0.5cm}
     \begin{block}{Cas d'usage}
-        Code sensible, offline, personalisation modèles --- accepter le trade-off sur qualité/performance.
+        Code sensible, offline, personnalisation modèles --- accepter le trade-off sur qualité/performance.
     \end{block}
 \end{frame}
 
@@ -354,12 +355,12 @@
         \column{0.48\textwidth}
         \begin{itemize}
             \item \textbf{Sécurité} --- injection, MCP, secrets
-            \item \textbf{Tracabilité} --- transcripts, traces outils
+            \item \textbf{Traçabilité} --- transcripts, traces outils
             \item \textbf{Adaptation} --- owners vs users 
         \end{itemize}
     \end{columns}
     \vspace{0.6cm}
-    \begin{block}{Fail encore d'actuallité}
+    \begin{block}{Fails encore d'actualité}
         Mauvaise ou sur-utilisation d'outils $\cdot$ boucles infinies $\cdot$ contexte saturé $\cdot$ rules qui pourrissent  
     \end{block}
 \end{frame}
