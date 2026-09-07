@@ -45,14 +45,14 @@
 % --- INFORMATIONS (à personnaliser) ---
 \title[IA gen $\rightarrow$ Agentique]{Du chat à l'agent :\\workflow d'une IA agentique}
 \subtitle{Provider $\cdot$ Harness $\cdot$ Context $\cdot$ Orchestration}
-\author[]{À compléter}
-\institute[]{À compléter}
+\author[]{Paris Paul-Antoine}
+\institute[]{Orange}
 \date{}
 
-% \titlegraphic{
-%     \vspace{-0.5cm}
-%     \includegraphics[align=c, height=1.2cm]{logo.png}
-% }
+\titlegraphic{
+    \vspace{-1cm}
+    \includegraphics[align=c, height=2.5cm]{logo.png}
+}
 
 \begin{document}
 
@@ -82,7 +82,7 @@
             \item Conversation, texte in / texte out
             \item Pas d'outils sur le dépôt
             \item Pas de boucle plan $\rightarrow$ verify
-            \item Contexte = ce que l'on colle à la main
+            \item Contexte = le prompt
         \end{itemize}
         \column{0.48\textwidth}
         \textbf{IA agentique}
@@ -94,9 +94,11 @@
         \end{itemize}
     \end{columns}
     \vspace{0.6cm}
-    \begin{block}{Message clé}
-        Passer à l'agentique, ce n'est pas « un meilleur LLM ».\\
-        C'est un \textbf{runtime} (harness), un \textbf{contexte projet}, et une \textbf{boucle d'amélioration}.
+    \begin{block}{Warning}
+        Passer à l'agentique, c'est une nouvelle manière de travailler, il n'y a pu de code a proprement parler. 
+        Ca demande beaucoup de comprehension du code généré et de la documentation tres bien construite.
+        La charge cognitive est tres elevee si on ne controle pas bien ses agents.
+        Il n'y a pu de moments chill ou on pisse des lignes de code. C'est l'agent qui code maintenant.
     \end{block}
 \end{frame}
 
@@ -114,11 +116,11 @@
 
     \vspace{0.35cm}
     {\small Le modèle est \textbf{nécessaire} mais peu différenciant.
-    Le ROI vient du \textbf{harness} + du \textbf{contexte}.}
+    Le ROI vient surtout du \textbf{harness} + du \textbf{contexte}.}
 \end{frame}
 
 % ============================================================
-\section{Harness --- le runtime}
+\section{Qu'est ce qu'un Harnais frugal}
 % ============================================================
 
 \begin{frame}{Harness : le cockpit de l'agent}
@@ -158,37 +160,41 @@
         \centering
         \begin{tabular}{lcc}
             \toprule
-            \textbf{Harness} & \textbf{Score} & \textbf{Idée} \\
+            \textbf{Harness} & \textbf{Score} \\
             \midrule
-            Standard (neutre) & $\approx$\,62,7\,\% & Notes visibles, interface minimale \\
-            Provider Adapter & $\approx$\,99,9\,\% & État de raisonnement + compaction \\
+            Standard (neutre) & $\approx$\,62,7\,\%  \\
+            Provider Adapter & $\approx$\,99,9\,\%  \\
             \bottomrule
         \end{tabular}
     \end{table}
     \vspace{0.4cm}
     \centering
     \Large
-    Même poids $\Rightarrow$ écart énorme $\Rightarrow$ \textbf{le runtime compte}.
+    Même modèle, même context, même tâche : écart énorme \\ 
+    $\Rightarrow$ \textbf{le harness compte énormement}.
 \end{frame}
 
-\begin{frame}{Contre-exemple : mauvais harness = budget brûlé}
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \textbf{Cas JetBrains + Copilot}
-        \begin{itemize}
-            \item Harness faible / coûteux
-            \item Pricing agressif sur des tâches simples
-            \item Crédits qui s'envolent ($\sim$400\,\$ rapidement)
-        \end{itemize}
-        \vspace{0.3cm}
-        \begin{alertblock}{Analogie}
-            C'est à peu près comme du copier-coller depuis ChatGPT.com --- sans levier agentique réel.
-        \end{alertblock}
-        \column{0.42\textwidth}
-        \begin{block}{Leçon}
-            Avant de « upgrader le modèle », audit du harness : outils, boucles, coût par tâche simple.
-        \end{block}
-    \end{columns}
+\begin{frame}{Qu'est-ce qui fait un bon harness ?}
+    \textbf{Capacités}
+    \begin{itemize}
+        \item Tool calling fiable (shell, diff, lint, MCP)
+        \item Gestion d'état : raisonnement, compaction, mémoire de session
+        \item Boucles de feedback dans l'outil (pas hors de l'éditeur)
+        \item Extensibilité : skills, rules, hooks, subagents
+    \end{itemize}
+    \vspace{0.25cm}
+    \textbf{Signaux d'un harness faible}
+    \begin{itemize}
+        \item Peu d'outils, ou outils mal branchés
+        \item Pas de compaction $\Rightarrow$ contexte saturé
+        \item Pas de verify (lint / tests) dans la boucle
+        \item Coût élevé même sur une tâche simple
+    \end{itemize}
+    \vspace{0.35cm}
+    \begin{block}{Critère pratique}
+        Un bon harness \textbf{amplifie} le modèle.
+        Un mauvais harness le \textbf{gaspille} (tokens, temps, crédits).
+    \end{block}
 \end{frame}
 
 % ============================================================
@@ -197,21 +203,24 @@
 
 \begin{frame}{Context : la mémoire projet}
     \begin{itemize}
-        \item \textbf{Bootstrap} --- injection initiale (conventions, architecture)
-        \item \textbf{Rules} --- contraintes permanentes (git, plan mode, implémentation)
-        \item \textbf{Lessons} --- mémoire opérationnelle après correction humaine
-        \item \textbf{Router} --- quand lire quelle doc (\textit{pas tout dumper})
-        \item \textbf{Docs spécifiques} --- support agent + humain pour une tâche précise
+        \item \textbf{Bootstrap} --- injection initiale 
+        \item \textbf{Rules} --- contraintes permanentes 
+        \item \textbf{Lessons} --- mémoire opérationnelle inter-project
+        \item \textbf{Router} --- quand lire quelle doc 
+        \item \textbf{Docs spé} --- support agent + utilisateur pour une tâche précise
     \end{itemize}
     \vspace{0.4cm}
-    \begin{block}{Règle d'or}
-        Moins de contexte, \textbf{mieux ciblé} $>$ dump du dépôt entier.
+    \begin{block}{C'est ici que votre matière grise compte}
+        C'est ici que vous allez passer le plus de temps, rédigez une \textbf{documentation de qualité} n'est pas facile. 
+        A chaque fois que votre agent va divergé de votre intention initiale cest que votre documentation n'est pas assez bonne.
+        De plus, si elle est trop longue, elle consomera trop. \\
+        C'est comme si vous deviez redigerles spec de tous les ticket d'edithor d'un coup avec le moins de caractère que possible et que sa reste clair.
     \end{block}
 \end{frame}
 
 \begin{frame}{Amélioration continue}
     \centering
-    \vspace{0.4cm}
+    \vspace{0.2cm}
     \begin{tikzpicture}[
       box/.style={
         draw=structure.fg, fill=structure.fg!12, rounded corners=3pt,
@@ -228,18 +237,23 @@
       \draw[-latex, thick, gray] (c.south) -- ++(0,-0.45) -| (p.south);
     \end{tikzpicture}
 
-    \vspace{0.7cm}
+    \vspace{0.45cm}
+    \begin{block}{Le sujet du moment : le graphe}
+        \textbf{Loop} --- cycle fixe répété : plan $\rightarrow$ act $\rightarrow$ verify $\rightarrow$ capturer.\\
+        \textbf{Graphe} --- chemins conditionnels (branches, retries, liens docs/leçons) 
+    \end{block} 
+    \vspace{0.35cm}
     \begin{columns}[T]
         \column{0.48\textwidth}
         \textbf{À faire}
         \begin{itemize}
-            \item Feedback $\rightarrow$ leçon $\rightarrow$ réinjection
-            \item Prune agressif des rules stale
+            \item Coopérer avec l'agent, l'accompagner 
+            \item Crée une confiance par itération
         \end{itemize}
         \column{0.48\textwidth}
         \textbf{Anti-pattern}
         \begin{itemize}
-            \item Rules qui s'empilent sans triage
+            \item Rules qui s'empilent sans prunning
             \item Une leçon stale coûte \emph{chaque} session
         \end{itemize}
     \end{columns}
@@ -251,80 +265,77 @@
 
 \begin{frame}{Orchestration : le chantier}
     \begin{itemize}
-        \item \textbf{1 agent = 1 worktree = 1 plan} (\texttt{tasks/todo.md})
-        \item Subagents pour \textbf{isoler} le contexte (prompt auto-contenu)
+        \item \textbf{1 agent = 1 worktree = 1 plan}
+        \item Subagents pour \textbf{isoler} le contexte 
+        \item intégration MCP --- TU/TI BE/FE et meme Tests manuelles
         \item Review via \textbf{\texttt{git diff}} --- pas de confiance aveugle
-        \item Vérification ciblée avant de dire « done »
+        \item code review -- bugbot (ex. codeRabbit)
     \end{itemize}
     \vspace{0.5cm}
     \begin{block}{Discipline}
-        L'agent propose et exécute ; l'humain valide ce qui est irréversible\\
-        (merge, prod, secrets, données).
+        L'agent propose et exécute ; l'humain valide ce qui est irréversible
     \end{block}
 \end{frame}
 
-\begin{frame}{Méthodes (cadres, pas des produits)}
+\begin{frame}{Méthodes (cadres, encore expérimental)}
     \begin{table}
         \centering
         \small
-        \begin{tabular}{lp{8.2cm}}
+        \begin{tabular}{lp{10cm}}
             \toprule
             \textbf{Cadre} & \textbf{Angle} \\
             \midrule
-            Spec-kit & Spec d'abord, code ensuite \\
-            ECC & Config partagée, skills, conventions d'équipe \\
-            Matt Pocock & Discipline TS / workflows agent éducatifs \\
+            Spec-kit & Spec d'abord, code ensuite (crée par github) \\
+            ECC & Config partagée, skills, conventions d'équipe (62 agents spécialisés) \\
+            Matt Pocock & Discipline utilisateur dans le workflows agent \\
             Cherny & Plan mode, subagents, lessons, verify before done \\
             \bottomrule
         \end{tabular}
     \end{table}
     \vspace{0.4cm}
     \centering
-    Ce sont des \textbf{méthodes} --- pas un « meilleur modèle ».\\
-    {\small Choisir une méthode et s'y tenir en équipe.}
+     Pour l'instant chacun a la sienne --- Pas de standard.\\
+    {\small Sur un projet il faut choisir une méthode et s'y tenir en équipe.}
 \end{frame}
 
 % ============================================================
 \section{Provider, privacy, coûts}
 % ============================================================
 
-\begin{frame}{Provider : nécessaire, peu différenciant}
+\begin{frame}{Provider : nécessaire}
     \begin{itemize}
         \item LLM plus ou moins fort : fenêtre de contexte, pricing, latence
         \item Critères utiles : qualité du \textbf{tool-calling}, rate limits, rétention data
-        \item Cloud $\Rightarrow$ soumis au \textbf{paramétrage labo} (allowlist, DLP)
+        \item Cloud $\Rightarrow$ soumis au \textbf{paramétrage labo}
     \end{itemize}
     \vspace{0.4cm}
     \begin{alertblock}{Paradoxe}
-        C'est souvent la \textbf{dernière} étape du workflow --- et la moins différenciante ---\\
-        mais tout part d'un modèle au-dessus d'un seuil minimal.
+        C'est l'étape du workflow la moins différenciante au-dela d'un seuil minimal de performance qui a été atteint depuis un moment par les plus gros labo (Sonnet 4.5, GLM 5.2 --- il y a 1 an).
     \end{alertblock}
     \vspace{0.3cm}
     \begin{block}{Message}
-        On choisit un modèle \textbf{compatible avec le harness}, pas l'inverse.
+        On choisit un modèle \textbf{compatible avec le harness}, et dont le pricing n'est pas abusé. 
     \end{block}
 \end{frame}
 
-\begin{frame}{Privacy \& self-host}
-    \begin{columns}[T]
-        \column{0.5\textwidth}
-        \textbf{Outils}
-        \begin{itemize}
-            \item \textbf{Ollama} --- UX locale simple
-            \item \textbf{vLLM} --- serving perf / multi-user
-            \item \textbf{Hugging Face} --- modèles, Modelfile, quantization
-        \end{itemize}
-        \column{0.48\textwidth}
-        \textbf{Réalité}
-        \begin{itemize}
-            \item Hardware conséquent (tokens/s)
-            \item Contrôle du \textbf{flux de données}, pas « privé magique »
-            \item Tool-use local encore derrière le cloud top-tier
-        \end{itemize}
-    \end{columns}
+\begin{frame}{Privacy \& self-host}    
+    \textbf{Outils}
+    \begin{itemize}
+        \item \textbf{Ollama} --- lancer et modifier un LLM sur sa machine
+        \item \textbf{vLLM} --- serveur de LLM performant et multi-utilisateur  
+        \item \textbf{Hugging Face} --- github des differents modèle
+    \end{itemize}
+    \textbf{Réalité}
+    \begin{itemize}
+        \item Hardware conséquent --- \textbf{Qwen3.6-27B} (Q4) $\approx$\,17\,Go VRAM ; \\
+              $\Rightarrow$ GPU type \textbf{RTX 4090 24\,Go} (souvent 35--55\,tok/s)
+        \item Modèle open-weights $\neq$\ open-source
+        \item Tool-use local encore derrière le cloud top-tier
+    \end{itemize}
+
     \vspace{0.5cm}
     \begin{block}{Cas d'usage}
-        Code sensible, air-gap, POC offline --- accepter le trade-off qualité / contrôle.
+        Code sensible, offline, personalisation modèles --- accepter le trade-off sur qualité/performance.
     \end{block}
 \end{frame}
 
@@ -343,28 +354,16 @@
         \column{0.48\textwidth}
         \begin{itemize}
             \item \textbf{Sécurité} --- injection, MCP, secrets
-            \item \textbf{Observabilité} --- transcripts, traces outils
-            \item \textbf{Adoption} --- ownership rules / lessons
+            \item \textbf{Tracabilité} --- transcripts, traces outils
+            \item \textbf{Adaptation} --- owners vs users 
         \end{itemize}
     \end{columns}
     \vspace{0.6cm}
-    \begin{block}{Fail modes à nommer}
-        Hallucination d'outils $\cdot$ boucles infinies $\cdot$ contexte saturé $\cdot$ rules qui pourrissent
+    \begin{block}{Fail encore d'actuallité}
+        Mauvaise ou sur-utilisation d'outils $\cdot$ boucles infinies $\cdot$ contexte saturé $\cdot$ rules qui pourrissent  
     \end{block}
 \end{frame}
 
-\begin{frame}{Checklist « demain matin »}
-    \begin{enumerate}
-        \item Un \textbf{bootstrap} projet (conventions + archi) --- pas 40 rules
-        \item $\leq$\,5 \textbf{rules} permanentes vraiment utiles
-        \item Un \textbf{skill} métier (la tâche répétitive de l'équipe)
-        \item Une boucle \textbf{verify} (lint / test ciblé / checklist)
-        \item Capturer 1 \textbf{lesson} après la prochaine correction
-    \end{enumerate}
-    \vspace{0.5cm}
-    \centering
-    \textbf{Ne pas} commencer par changer de modèle.
-\end{frame}
 
 \begin{frame}{Conclusion}
     \begin{block}{En une phrase}
@@ -372,7 +371,7 @@
     \end{block}
     \vspace{0.4cm}
     \begin{enumerate}
-        \item \textbf{Harness} --- où se joue l'expérience (preuve Astra)
+        \item \textbf{Harness} --- où se joue l'expérience 
         \item \textbf{Context} --- où se joue le métier
         \item \textbf{Boucle} --- plan $\rightarrow$ act $\rightarrow$ verify $\rightarrow$ capturer
         \item \textbf{Provider} --- dernier réglage, compatible avec le reste
