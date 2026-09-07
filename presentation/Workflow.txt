@@ -1,0 +1,53 @@
+Présentation workflow : IA gen --> Agentic
+
+Provider - LLM plus ou moins fort avec leur fenêtre de contexte et leur pricing
+--> screen des different abonnement, liste des provider
+Tant que on parle de modèle cloud ==> soumis au paramètrage des labo 
+Il s'agit en réalité de la dernière étape du workflow
+ET même de la moins importante mais tout part de la 
+Message : « On choisit un modèle compatible avec le harness, pas l’inverse »
+
+Harness - tool calling, implementation des skill, rules, subagents, MCP, hooks
+--> liste des different harness qui existe :
+IDE-agents : Cursor, Windsurf, Continue…
+CLI / multi-agent : Claude Code, OpenCode, Codex…
+Les benchmark ne prennent pas en compte ce paramètre ultra important, ex Astra ARC-AGI-3 : 
+~62,7% avec le harness standard (neutre)
+~99,9% avec le harness Provider Adapter (état de raisonnement + compaction)
+Selon l'outils choisi, fock VS code ou manageur d'agent, l'expérience est radicalement différente
+éditeur fort (diff, lint, terminal) vs orchestrateur d’agents (parallèle, worktrees)
+
+Context - router, convention, architecture et docs spécifique @Methodes
+--> graphe des liens entre les differente doc et explication de leur injection dans le context de l'agent
+Bootstrap : injection initiale
+Rules : contraintes permanentes (git, implementation, plan mode)
+Lessons : mémoire opérationnelle après correction de l'agent @Amélioration_continue
+Router : quand lire quelle doc (pas tout dumper)
+Convention de projet : mémoire opérationnel spécifique au projet @Amélioration_continue
+Doc spécifique : support pour l'agent et l'utilisateur pour une tache précise
+
+Amélioration continue - loop/graphe, espace de travail des agents user_rules/lessons
+plan → act → verify → capturer
+Anti-pattern : règles qui s’accumulent sans prune
+
+Methodes - spec-kit, ECC, matt pocok, Cherny
+
+Orchestration - worktree, IDE ou git diff
+1 agent = 1 worktree = 1 plan (tasks/todo.md)
+Subagents pour isoler le context
+Review via git diff, pas « confiance aveugle »
+
+Privacy - ollama, vLLM, hardware conséquent nécésaire (métrique tokens/sec)
+Ollama = UX locale simple ; vLLM = serving perf / multi-user
+Trade-off : qualité tool-use locale encore derrière le cloud top-tier
+
+ML - hugging face, modelfile
+Hugging Face = modèles + Modelfile / quantization
+
+
+
+Le cas Jetbrains : tres mauvais harness, un licence github copilot avec un pricing aberant, 
+resultat pour des demandes simple votre agent va cramer bcp trop de credit 
+et vous aller atteindre 400$ de credit en un claquement de doigt 
+
+C'est un eu pres comme si vous fesiez du copié collé depuis chatGPT.com

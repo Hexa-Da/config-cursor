@@ -1,0 +1,385 @@
+\documentclass[aspectratio=169]{beamer}
+
+% --- PAQUETS ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{graphbox}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{tabularx}
+
+% --- THÈME ---
+\usetheme{Madrid}
+\usecolortheme{whale}
+
+% --- CHEMINS DES IMAGES ---
+\graphicspath{{images/}}
+
+% TikZ styles pour le schéma en couches
+\tikzset{
+  layer/.style={
+    draw=structure.fg!70!black,
+    fill=structure.fg!8,
+    rounded corners=2pt,
+    minimum height=0.72cm,
+    text width=0.88\textwidth,
+    align=left,
+    inner xsep=8pt,
+    font=\small
+  },
+  layeremph/.style={
+    layer,
+    fill=structure.fg!22,
+    draw=structure.fg,
+    line width=0.8pt
+  },
+  arrowlbl/.style={font=\scriptsize\color{gray}}
+}
+
+% --- INFORMATIONS (à personnaliser) ---
+\title[IA gen $\rightarrow$ Agentique]{Du chat à l'agent :\\workflow d'une IA agentique}
+\subtitle{Provider $\cdot$ Harness $\cdot$ Context $\cdot$ Orchestration}
+\author[]{À compléter}
+\institute[]{À compléter}
+\date{}
+
+% \titlegraphic{
+%     \vspace{-0.5cm}
+%     \includegraphics[align=c, height=1.2cm]{logo.png}
+% }
+
+\begin{document}
+
+% ============================================================
+% TITRE
+% ============================================================
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% ============================================================
+% SOMMAIRE
+% ============================================================
+\begin{frame}{Sommaire}
+    \tableofcontents
+\end{frame}
+
+% ============================================================
+\section{De l'IA générative à l'agentique}
+% ============================================================
+
+\begin{frame}{Problème : chat $\neq$ agent}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \textbf{IA générative (chat)}
+        \begin{itemize}
+            \item Conversation, texte in / texte out
+            \item Pas d'outils sur le dépôt
+            \item Pas de boucle plan $\rightarrow$ verify
+            \item Contexte = ce que l'on colle à la main
+        \end{itemize}
+        \column{0.48\textwidth}
+        \textbf{IA agentique}
+        \begin{itemize}
+            \item Tool calling (shell, diff, lint, MCP\dots)
+            \item Boucle : plan $\rightarrow$ act $\rightarrow$ verify
+            \item Mémoire projet (rules, docs, lessons)
+            \item Orchestration (worktrees, subagents)
+        \end{itemize}
+    \end{columns}
+    \vspace{0.6cm}
+    \begin{block}{Message clé}
+        Passer à l'agentique, ce n'est pas « un meilleur LLM ».\\
+        C'est un \textbf{runtime} (harness), un \textbf{contexte projet}, et une \textbf{boucle d'amélioration}.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Stack en couches}
+    \centering
+    \begin{tikzpicture}[node distance=1pt]
+        \node[layer] (m) {\textbf{Méthodes} \hfill {\scriptsize cadre} --- spec-kit · ECC · Pocock · Cherny};
+        \node[layer, below=of m] (o) {\textbf{Orchestration} \hfill {\scriptsize chantier} --- worktrees · subagents · git diff};
+        \node[layer, below=of o] (a) {\textbf{Amélioration continue} \hfill {\scriptsize boucle} --- plan $\rightarrow$ act $\rightarrow$ verify $\rightarrow$ capturer};
+        \node[layeremph, below=of a] (c) {\textbf{Context} \hfill {\scriptsize levier élevé} --- bootstrap · rules · docs · router};
+        \node[layeremph, below=of c] (h) {\textbf{Harness} \hfill {\scriptsize levier élevé} --- tools · skills · MCP · hooks};
+        \node[layer, below=of h] (p) {\textbf{Provider} \hfill {\scriptsize levier faible} --- LLM · fenêtre · pricing · labo};
+        \node[layer, below=of p] (pr) {\textbf{Privacy / ML} \hfill {\scriptsize périmètre} --- Ollama · vLLM · Hugging Face};
+    \end{tikzpicture}
+
+    \vspace{0.35cm}
+    {\small Le modèle est \textbf{nécessaire} mais peu différenciant.
+    Le ROI vient du \textbf{harness} + du \textbf{contexte}.}
+\end{frame}
+
+% ============================================================
+\section{Harness --- le runtime}
+% ============================================================
+
+\begin{frame}{Harness : le cockpit de l'agent}
+    \textbf{Ce que le harness apporte :}
+    \begin{itemize}
+        \item Tool calling, skills, rules, hooks, subagents, MCP
+        \item Intégration IDE (diff, lint, terminal) ou orchestration multi-agents
+    \end{itemize}
+    \vspace{0.3cm}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \textbf{IDE-agents}
+        \begin{itemize}
+            \item Cursor, Windsurf, Continue\dots
+            \item Éditeur fort : diff, lint, terminal
+        \end{itemize}
+        \column{0.48\textwidth}
+        \textbf{CLI / multi-agent}
+        \begin{itemize}
+            \item Claude Code, OpenCode, Codex\dots
+            \item Parallèle, worktrees, manageur d'agents
+        \end{itemize}
+    \end{columns}
+    \vspace{0.4cm}
+    \begin{alertblock}{Point souvent oublié}
+        Les benchmarks « modèle seul » sous-estiment le scaffolding.\\
+        Selon l'outil choisi, l'expérience est \textbf{radicalement} différente.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Preuve : Astra et le poids du harness}
+    \begin{block}{ARC-AGI-3 --- même modèle, deux harness}
+        Source : ARC Prize / OpenAI GPT-6 Astra
+    \end{block}
+    \vspace{0.3cm}
+    \begin{table}
+        \centering
+        \begin{tabular}{lcc}
+            \toprule
+            \textbf{Harness} & \textbf{Score} & \textbf{Idée} \\
+            \midrule
+            Standard (neutre) & $\approx$\,62,7\,\% & Notes visibles, interface minimale \\
+            Provider Adapter & $\approx$\,99,9\,\% & État de raisonnement + compaction \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+    \vspace{0.4cm}
+    \centering
+    \Large
+    Même poids $\Rightarrow$ écart énorme $\Rightarrow$ \textbf{le runtime compte}.
+\end{frame}
+
+\begin{frame}{Contre-exemple : mauvais harness = budget brûlé}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \textbf{Cas JetBrains + Copilot}
+        \begin{itemize}
+            \item Harness faible / coûteux
+            \item Pricing agressif sur des tâches simples
+            \item Crédits qui s'envolent ($\sim$400\,\$ rapidement)
+        \end{itemize}
+        \vspace{0.3cm}
+        \begin{alertblock}{Analogie}
+            C'est à peu près comme du copier-coller depuis ChatGPT.com --- sans levier agentique réel.
+        \end{alertblock}
+        \column{0.42\textwidth}
+        \begin{block}{Leçon}
+            Avant de « upgrader le modèle », audit du harness : outils, boucles, coût par tâche simple.
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% ============================================================
+\section{Context \& amélioration continue}
+% ============================================================
+
+\begin{frame}{Context : la mémoire projet}
+    \begin{itemize}
+        \item \textbf{Bootstrap} --- injection initiale (conventions, architecture)
+        \item \textbf{Rules} --- contraintes permanentes (git, plan mode, implémentation)
+        \item \textbf{Lessons} --- mémoire opérationnelle après correction humaine
+        \item \textbf{Router} --- quand lire quelle doc (\textit{pas tout dumper})
+        \item \textbf{Docs spécifiques} --- support agent + humain pour une tâche précise
+    \end{itemize}
+    \vspace{0.4cm}
+    \begin{block}{Règle d'or}
+        Moins de contexte, \textbf{mieux ciblé} $>$ dump du dépôt entier.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Amélioration continue}
+    \centering
+    \vspace{0.4cm}
+    \begin{tikzpicture}[
+      box/.style={
+        draw=structure.fg, fill=structure.fg!12, rounded corners=3pt,
+        minimum width=2.1cm, minimum height=0.9cm, align=center, font=\small\bfseries
+      }
+    ]
+      \node[box] (p) {Plan};
+      \node[box, right=0.55cm of p] (a) {Act\\{\scriptsize\normalfont tools}};
+      \node[box, right=0.55cm of a] (v) {Verify};
+      \node[box, right=0.55cm of v] (c) {Capturer\\{\scriptsize\normalfont lessons}};
+      \draw[-latex, thick] (p) -- (a);
+      \draw[-latex, thick] (a) -- (v);
+      \draw[-latex, thick] (v) -- (c);
+      \draw[-latex, thick, gray] (c.south) -- ++(0,-0.45) -| (p.south);
+    \end{tikzpicture}
+
+    \vspace{0.7cm}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \textbf{À faire}
+        \begin{itemize}
+            \item Feedback $\rightarrow$ leçon $\rightarrow$ réinjection
+            \item Prune agressif des rules stale
+        \end{itemize}
+        \column{0.48\textwidth}
+        \textbf{Anti-pattern}
+        \begin{itemize}
+            \item Rules qui s'empilent sans triage
+            \item Une leçon stale coûte \emph{chaque} session
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% ============================================================
+\section{Orchestration \& méthodes}
+% ============================================================
+
+\begin{frame}{Orchestration : le chantier}
+    \begin{itemize}
+        \item \textbf{1 agent = 1 worktree = 1 plan} (\texttt{tasks/todo.md})
+        \item Subagents pour \textbf{isoler} le contexte (prompt auto-contenu)
+        \item Review via \textbf{\texttt{git diff}} --- pas de confiance aveugle
+        \item Vérification ciblée avant de dire « done »
+    \end{itemize}
+    \vspace{0.5cm}
+    \begin{block}{Discipline}
+        L'agent propose et exécute ; l'humain valide ce qui est irréversible\\
+        (merge, prod, secrets, données).
+    \end{block}
+\end{frame}
+
+\begin{frame}{Méthodes (cadres, pas des produits)}
+    \begin{table}
+        \centering
+        \small
+        \begin{tabular}{lp{8.2cm}}
+            \toprule
+            \textbf{Cadre} & \textbf{Angle} \\
+            \midrule
+            Spec-kit & Spec d'abord, code ensuite \\
+            ECC & Config partagée, skills, conventions d'équipe \\
+            Matt Pocock & Discipline TS / workflows agent éducatifs \\
+            Cherny & Plan mode, subagents, lessons, verify before done \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+    \vspace{0.4cm}
+    \centering
+    Ce sont des \textbf{méthodes} --- pas un « meilleur modèle ».\\
+    {\small Choisir une méthode et s'y tenir en équipe.}
+\end{frame}
+
+% ============================================================
+\section{Provider, privacy, coûts}
+% ============================================================
+
+\begin{frame}{Provider : nécessaire, peu différenciant}
+    \begin{itemize}
+        \item LLM plus ou moins fort : fenêtre de contexte, pricing, latence
+        \item Critères utiles : qualité du \textbf{tool-calling}, rate limits, rétention data
+        \item Cloud $\Rightarrow$ soumis au \textbf{paramétrage labo} (allowlist, DLP)
+    \end{itemize}
+    \vspace{0.4cm}
+    \begin{alertblock}{Paradoxe}
+        C'est souvent la \textbf{dernière} étape du workflow --- et la moins différenciante ---\\
+        mais tout part d'un modèle au-dessus d'un seuil minimal.
+    \end{alertblock}
+    \vspace{0.3cm}
+    \begin{block}{Message}
+        On choisit un modèle \textbf{compatible avec le harness}, pas l'inverse.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Privacy \& self-host}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \textbf{Outils}
+        \begin{itemize}
+            \item \textbf{Ollama} --- UX locale simple
+            \item \textbf{vLLM} --- serving perf / multi-user
+            \item \textbf{Hugging Face} --- modèles, Modelfile, quantization
+        \end{itemize}
+        \column{0.48\textwidth}
+        \textbf{Réalité}
+        \begin{itemize}
+            \item Hardware conséquent (tokens/s)
+            \item Contrôle du \textbf{flux de données}, pas « privé magique »
+            \item Tool-use local encore derrière le cloud top-tier
+        \end{itemize}
+    \end{columns}
+    \vspace{0.5cm}
+    \begin{block}{Cas d'usage}
+        Code sensible, air-gap, POC offline --- accepter le trade-off qualité / contrôle.
+    \end{block}
+\end{frame}
+
+% ============================================================
+\section{Angles transverses \& conclusion}
+% ============================================================
+
+\begin{frame}{Angles utiles en plus}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{itemize}
+            \item \textbf{Éval \& preuve} --- checks, golden tasks
+            \item \textbf{Coût \& budgets} --- tokens / session
+            \item \textbf{HITL} --- humain sur l'irréversible
+        \end{itemize}
+        \column{0.48\textwidth}
+        \begin{itemize}
+            \item \textbf{Sécurité} --- injection, MCP, secrets
+            \item \textbf{Observabilité} --- transcripts, traces outils
+            \item \textbf{Adoption} --- ownership rules / lessons
+        \end{itemize}
+    \end{columns}
+    \vspace{0.6cm}
+    \begin{block}{Fail modes à nommer}
+        Hallucination d'outils $\cdot$ boucles infinies $\cdot$ contexte saturé $\cdot$ rules qui pourrissent
+    \end{block}
+\end{frame}
+
+\begin{frame}{Checklist « demain matin »}
+    \begin{enumerate}
+        \item Un \textbf{bootstrap} projet (conventions + archi) --- pas 40 rules
+        \item $\leq$\,5 \textbf{rules} permanentes vraiment utiles
+        \item Un \textbf{skill} métier (la tâche répétitive de l'équipe)
+        \item Une boucle \textbf{verify} (lint / test ciblé / checklist)
+        \item Capturer 1 \textbf{lesson} après la prochaine correction
+    \end{enumerate}
+    \vspace{0.5cm}
+    \centering
+    \textbf{Ne pas} commencer par changer de modèle.
+\end{frame}
+
+\begin{frame}{Conclusion}
+    \begin{block}{En une phrase}
+        L'agentique, c'est un système en couches --- pas un abonnement LLM.
+    \end{block}
+    \vspace{0.4cm}
+    \begin{enumerate}
+        \item \textbf{Harness} --- où se joue l'expérience (preuve Astra)
+        \item \textbf{Context} --- où se joue le métier
+        \item \textbf{Boucle} --- plan $\rightarrow$ act $\rightarrow$ verify $\rightarrow$ capturer
+        \item \textbf{Provider} --- dernier réglage, compatible avec le reste
+    \end{enumerate}
+    \vspace{0.6cm}
+    \centering
+    \Large \textbf{Merci. Questions ?}
+\end{frame}
+
+\end{document}
