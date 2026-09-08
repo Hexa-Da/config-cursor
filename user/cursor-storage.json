@@ -4,8 +4,8 @@
         "note": "Filtered Agents/Review + Layout prefs from state.vscdb. Not glass/session sizes. Quit Cursor before install.sh for this layer."
     },
     "cursor": {
-        "agentLayout.quickMenu.lastSelectedLayoutId": "default-editor",
-        "agentLayout.sidebarLocationAgentOverride": "right",
+        "agentLayout.quickMenu.lastSelectedLayoutId": "default-agent",
+        "agentLayout.sidebarLocationAgentOverride": "left",
         "attributeCommitsToAgent": false,
         "attributePRsToAgent": false,
         "autoFormatOnAgentFinish": true,

@@ -126,5 +126,15 @@
         "key": "ctrl+p",
         "command": "-workbench.action.quickOpen",
         "when": "isLinux || isWindows"
+    },
+    {
+        "key": "cmd+h",
+        "command": "workbench.action.toggleUnifiedSidebarFromKeyboard",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.toggleUnifiedSidebarFromKeyboard",
+        "when": "isLinux || isWindows"
     }
 ]
