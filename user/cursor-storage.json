@@ -5,7 +5,7 @@
     },
     "cursor": {
         "agentLayout.quickMenu.lastSelectedLayoutId": "default-agent",
-        "agentLayout.sidebarLocationAgentOverride": "left",
+        "agentLayout.sidebarLocationAgentOverride": "right",
         "attributeCommitsToAgent": false,
         "attributePRsToAgent": false,
         "autoFormatOnAgentFinish": true,
