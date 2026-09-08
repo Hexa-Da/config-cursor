@@ -254,7 +254,7 @@ def _opencode_agents(rep: Report) -> None:
     if _cmp_files(a, b):
         rep.ok("OpenCode AGENTS.md")
     else:
-        rep.drift("OpenCode AGENTS.md", "≠ repo → install.sh")
+        rep.drift("OpenCode AGENTS.md", "≠ repo → install-opencode.sh")
 
 
 def _opencode_skills(rep: Report, cursor_skill_md_to_opencode) -> None:
@@ -271,7 +271,7 @@ def _opencode_skills(rep: Report, cursor_skill_md_to_opencode) -> None:
     if missing:
         notes.append("manquant: " + ", ".join(missing))
     if extra:
-        rep.info("OpenCode skills extra", ", ".join(extra) + " (non touchés par install.sh)")
+        rep.info("OpenCode skills extra", ", ".join(extra) + " (non touchés par install-opencode.sh)")
     for name in sorted(src_names & dst_names):
         sdir, ddir = src / name, dst / name
         sfiles = _files(sdir)
@@ -292,7 +292,7 @@ def _opencode_skills(rep: Report, cursor_skill_md_to_opencode) -> None:
             elif stext != dtext:
                 notes.append(f"{name}/{rel}")
     if notes:
-        rep.drift("OpenCode skills", "; ".join(notes) + " → install.sh")
+        rep.drift("OpenCode skills", "; ".join(notes) + " → install-opencode.sh")
     else:
         rep.ok("OpenCode skills")
 

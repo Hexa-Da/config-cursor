@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # Install this Cursor config onto the current machine (macOS / Linux / Windows+Git Bash).
-# Also mirrors portable skills into OpenCode (frontmatter adapted).
+# OpenCode mirror (AGENTS.md + skills) : délégué à install-opencode.sh.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DOT_SRC="$ROOT/dotcursor"
 USER_SRC="$ROOT/user"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 detect_user_dir() {
   case "$(uname -s)" in
@@ -25,25 +26,11 @@ detect_user_dir() {
   esac
 }
 
-# OpenCode uses XDG-style paths on every OS (including Windows):
-#   OPENCODE_CONFIG_DIR > XDG_CONFIG_HOME/opencode > ~/.config/opencode
-detect_opencode_config_dir() {
-  if [[ -n "${OPENCODE_CONFIG_DIR:-}" ]]; then
-    echo "$OPENCODE_CONFIG_DIR"
-  elif [[ -n "${XDG_CONFIG_HOME:-}" ]]; then
-    echo "$XDG_CONFIG_HOME/opencode"
-  else
-    echo "$HOME/.config/opencode"
-  fi
-}
-
 CURSOR_USER="$(detect_user_dir)"
 CURSOR_DOT="$HOME/.cursor"
-OPENCODE_CONFIG="$(detect_opencode_config_dir)"
 
 echo "→ User dir : $CURSOR_USER"
 echo "→ Dotcursor: $CURSOR_DOT"
-echo "→ OpenCode : $OPENCODE_CONFIG"
 
 mkdir -p "$CURSOR_DOT/hooks" "$CURSOR_USER"
 
@@ -74,21 +61,8 @@ sync_dot_dir skills
 sync_dot_dir commands
 sync_dot_dir agents
 
-# OpenCode skills: même contenu que dotcursor/skills, frontmatter adapté
-# (description une ligne + compatibility: opencode). Skills OpenCode-only
-# hors du repo ne sont pas effacés.
-if [[ -d "$DOT_SRC/skills" ]]; then
-  python3 "$ROOT/scripts/lib/sync_opencode_skills.py" \
-    "$DOT_SRC/skills" "$OPENCODE_CONFIG/skills"
-fi
-
-# OpenCode AGENTS.md (= user rules) : miroir depuis la racine du repo
-# (même fichier que les Cursor User Rules).
-if [[ -f "$ROOT/AGENTS.md" ]]; then
-  mkdir -p "$OPENCODE_CONFIG"
-  cp "$ROOT/AGENTS.md" "$OPENCODE_CONFIG/AGENTS.md"
-  echo "→ OpenCode AGENTS.md"
-fi
+# OpenCode only (AGENTS.md + skills) — source unique
+"$SCRIPT_DIR/install-opencode.sh"
 
 if [[ ! -f "$CURSOR_DOT/mcp.json" && -f "$DOT_SRC/mcp.json.example" ]]; then
   cp "$DOT_SRC/mcp.json.example" "$CURSOR_DOT/mcp.json"
@@ -148,5 +122,4 @@ fi
 
 echo "OK — Reload Window si settings/keybindings / hooks ne se rechargent pas."
 echo "     Vérifie Settings → General (layout) + Agents/Review après restart (storage)."
-echo "     Skills OpenCode mis à jour dans $OPENCODE_CONFIG/skills (si applicable)."
-echo "     AGENTS.md OpenCode mis à jour (si présent dans le repo)."
+echo "     OpenCode : voir sortie de install-opencode.sh ci-dessus."

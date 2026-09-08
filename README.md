@@ -4,8 +4,11 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 
 ```bash
 # Repo → machine (hooks, skills, settings, keybindings, cursor-storage)
-# + miroir skills OpenCode + AGENTS.md
+# + miroir OpenCode (délègue à install-opencode.sh)
 ./scripts/install.sh
+
+# Repo → machine OpenCode only (AGENTS.md + skills)
+./scripts/install-opencode.sh
 
 # Machine → repo (export config Cursor)
 ./scripts/export.sh
@@ -25,12 +28,10 @@ Depuis le projet en cours (`~/Documents/projet`) :
 ## Couches de config
 
 
-| Couche            | Fichier                                 | Contenu                                                                                |
-| ----------------- | --------------------------------------- | -------------------------------------------------------------------------------------- |
-| VS Code-like      | `user/settings.json` `keybindings.json` | Éditeur, `cursor.composer.*`, etc.                                                     |
-| Cursor product    | `user/cursor-storage.json`              | Agents/Review + Layout/General (extrait filtré de `state.vscdb`)                       |
-| Dotcursor         | `dotcursor/`                            | Hooks, skills, commands, agents                                                        |
-| User rules        | `AGENTS.md` (racine)                    | Cursor User Rules + OpenCode `~/.config/opencode/AGENTS.md` (miroir via install)       |
-| OpenCode (skills) | `~/.config/opencode/skills/`            | Miroir de `dotcursor/skills/` via `install.sh` (frontmatter `compatibility: opencode`) |
-
-
+| Couche            | Fichier                                 | Contenu                                                                                         |
+| ----------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| VS Code-like      | `user/settings.json` `keybindings.json` | Éditeur, `cursor.composer.*`, etc.                                                              |
+| Cursor product    | `user/cursor-storage.json`              | Agents/Review + Layout/General (extrait filtré de `state.vscdb`)                                |
+| Dotcursor         | `dotcursor/`                            | Hooks, skills, commands, agents                                                                 |
+| User rules        | `AGENTS.md` (racine)                    | Cursor User Rules + OpenCode `~/.config/opencode/AGENTS.md` (via `install-opencode.sh`)         |
+| OpenCode (skills) | `~/.config/opencode/skills/`            | Miroir de `dotcursor/skills/` via `install-opencode.sh` (frontmatter `compatibility: opencode`) |

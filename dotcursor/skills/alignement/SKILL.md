@@ -3,15 +3,15 @@ name: alignement
 description: >-
   Checks config-cursor repo vs this machine (hooks, skills, settings,
   cursor-storage, OpenCode, lessons). Use when the user asks to verify
-  alignment, alignement, repo vs machine, or whether install.sh / export.sh
-  is needed.
+  alignment, alignement, repo vs machine, or whether install.sh /
+  install-opencode.sh / export.sh is needed.
 disable-model-invocation: true
 ---
 
 # Alignement repo ↔ machine
 
-Vérif **en lecture**. Ne pas lancer `install.sh` / `export.sh` /
-`lessons-install.sh` sauf demande explicite.
+Vérif **en lecture**. Ne pas lancer `install.sh` / `install-opencode.sh` /
+`export.sh` / `lessons-install.sh` sauf demande explicite.
 
 ## Checklist
 
@@ -34,7 +34,7 @@ Exit 0 = pas de `DRIFT`. Exit 1 = écart inattendu.
 | Statut | Sens |
 | --- | --- |
 | **OK** | Couche identique |
-| **DRIFT** | Écart à corriger. Le détail indique `install.sh` (repo → machine) ou `export.sh` (machine → repo) ou `lessons-install.sh` |
+| **DRIFT** | Écart à corriger. Le détail indique `install.sh` / `install-opencode.sh` (repo → machine) ou `export.sh` (machine → repo) ou `lessons-install.sh` |
 | **INFO** | Attendu : extensions indicatives, skills OpenCode-only, Cursor ouvert, worktree sale |
 | **SKIP** | Fichier / couche absente |
 

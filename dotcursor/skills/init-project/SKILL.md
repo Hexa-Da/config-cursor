@@ -91,7 +91,7 @@ opencode.jsonc
 
 Lister les fichiers créés et rappeler à l'utilisateur :
 - `.cursor/rules/bootstrap.mdc` est le point d'entrée Cursor always-on : injecte `memoire/PROJET.md` et `tasks/lessons.md`.
-- `opencode.jsonc` est l'équivalent OpenCode (`instructions` → les mêmes fichiers). Skills / `AGENTS.md` viennent de `~/.config/opencode` (via `install.sh`), pas de ce skill.
+- `opencode.jsonc` est l'équivalent OpenCode (`instructions` → les mêmes fichiers). Skills / `AGENTS.md` viennent de `~/.config/opencode` (via `install-opencode.sh` ou `install.sh`), pas de ce skill.
 - `memoire/PROJET.md` est la source de vérité projet.
 - `memoire/CONVENTIONS.md` : lecture avant code **non trivial** (pas pour l'audit/lecture seule ni les fix triviaux) — via `tasks/lessons.md`.
 - `memoire/ARCHITECTURE.md` : lecture si la tâche touche l'**interaction entre composants/modules**, un nouveau pattern, ou si la portée dépasse l'estimation initiale — via `tasks/lessons.md`.
