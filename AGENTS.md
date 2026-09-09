@@ -18,9 +18,9 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 ### 1. Plan Mode Default
 
 - Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions).
+- Write detailed specs upfront to reduce ambiguity. Use plan mode for verification steps, not just building.
+- Before implementing: state assumptions explicitly; if uncertain, ask rather than guess. If multiple interpretations exist, present them — don't pick silently. If a simpler approach exists, say so and push back when warranted. If unclear, stop: name what's confusing, then ask.
 - If something goes sideways, STOP and re-plan immediately — don't keep pushing.
-- Use plan mode for verification steps, not just building.
-- Write detailed specs upfront to reduce ambiguity.
 
 
 
@@ -53,25 +53,23 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 
 ### 5. Demand Elegance (Balanced)
 
-- For non-trivial changes: pause and ask "is there a more elegant way?"
-- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution".
-- Skip this for simple, obvious fixes — don't over-engineer.
-- Challenge your own work before presenting it.
+- On the **requested** change only: prefer the simplest elegant form. Challenge your own work before presenting it.
+- Do not widen the diff: no adjacent polish, no drive-by refactor, no "improvements" outside the ask.
+- If a fix feels hacky: replace it with the elegant solution **in the same scope**. Skip the elegance pass for trivial one-liners — don't over-engineer.
 
 
 
 ### 6. Autonomous Bug Fixing
 
-- When given a bug report: just fix it. Don't ask for hand-holding.
-- Point at logs, errors, failing tests — then resolve them.
-- Go fix failing CI tests without being told how.
+- When cause and fix path are clear: fix it (logs, errors, failing tests, CI) without hand-holding. Touch only what corrects the bug.
+- When ambiguous, multi-interpretation, or scope is unclear: apply Plan Mode Default first, then fix.
 
 
 
 ## Task Management
 
 1. **Plan First**: Write the plan to `tasks/todo.md` with checkable items (if absent, ask before creating ad hoc structure).
-2. **Verify Plan**: For non-trivial work, present the plan in `tasks/todo.md` (or in chat if no `tasks/` yet), then **proceed without waiting for explicit approval** unless the user asked for a plan-only pass, the task is high-risk (prod, security, data loss), or you are genuinely blocked on a decision only the user can make.
+2. **Verify Plan**: For non-trivial work, present the plan in `tasks/todo.md` (or in chat if no `tasks/` yet). Proceed without waiting for explicit approval **only** when the plan rests on one clear interpretation and the user did not ask for a plan-only pass and the task is not high-risk (prod, security, data loss). Otherwise present the interpretations / ask — same as Plan Mode Default.
 3. **Track Progress**: Mark items complete as you go.
 4. **Explain Changes**: High-level summary at each step.
 5. **Document Results**: Add a review section to `tasks/todo.md`.
@@ -88,7 +86,7 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 
 ## Code
 
-1. **Minimize scope** — simplest correct diff; no unrelated or unrequested changes.
+1. **Minimize scope** — every changed line must trace directly to the user's request; simplest correct diff. Don't "improve" adjacent code, comments, or formatting; don't refactor what isn't broken. Match existing style even if you'd do it differently. Unrelated dead code: mention it — don't delete it unless asked. Orphans from *your* changes (unused imports/vars/functions): remove those; leave pre-existing dead code alone.
 2. **Avoid over-engineering** — no premature abstraction or excessive edge-case handling.
 3. **Documented or already in the repo — never invent** — reuse only ideas that are documented (`memoire/CONVENTIONS.md`, `ARCHITECTURE.md`, annex) or that already exist in the codebase; do not invent new patterns/components. Matching surrounding code is OK only after checking **target** docs vs **legacy** debt (ask if unclear). For non-trivial proposals, state the source (`path:line`, named doc, or explicit agent choice).
 4. **Comments** — only for non-obvious business logic or deep technical detail.
