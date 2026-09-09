@@ -2,5 +2,6 @@
 # install.sh ne les installe PAS automatiquement.
 # Usage manuel: cursor --install-extension <id>
 
+cweijan.vscode-office
 pkief.material-icon-theme
 tomoki1207.pdf
