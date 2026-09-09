@@ -38,7 +38,7 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 
 - After ANY correction from the user: update `tasks/lessons.md` with the pattern (see Task Management #6 — single source, don't restate).
 - Ruthlessly prune and merge lessons, not just append — a duplicate or stale entry costs every future session.
-- Review `tasks/lessons.md` at session start if present; if the repo has no `tasks/`, propose running the `init-project` skill rather than assuming the convention.
+- Review `tasks/lessons.md` at session start if present; if the repo has no `tasks/`, propose running `init-project` (Cursor) or `init-project-opencode` (OpenCode) rather than assuming the convention.
 
 
 

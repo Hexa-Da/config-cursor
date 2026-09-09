@@ -35,3 +35,4 @@ Depuis le projet en cours (`~/Documents/projet`) :
 | Dotcursor         | `dotcursor/`                            | Hooks, skills, commands, agents                                                                 |
 | User rules        | `AGENTS.md` (racine)                    | Cursor User Rules + OpenCode `~/.config/opencode/AGENTS.md` (via `install-opencode.sh`)         |
 | OpenCode (skills) | `~/.config/opencode/skills/`            | Miroir de `dotcursor/skills/` via `install-opencode.sh` (frontmatter `compatibility: opencode`) |
+| OpenCode (projet) | `opencode.jsonc` (racine du repo)       | Câblage local via skill `init-project-opencode` (`instructions` → `memoire/` + `tasks/`)         |

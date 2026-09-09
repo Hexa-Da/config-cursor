@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install OpenCode-only config: AGENTS.md + skills (frontmatter adapted).
-# Does not touch Cursor hooks/settings/storage. Project opencode.jsonc = init-project.
+# Does not touch Cursor hooks/settings/storage. Project opencode.jsonc = init-project-opencode.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -48,4 +48,4 @@ else
 fi
 
 echo "OK — Skills → $OPENCODE_CONFIG/skills ; AGENTS.md → $OPENCODE_CONFIG/AGENTS.md"
-echo "     Câblage projet (opencode.jsonc) : skill init-project, pas ce script."
+echo "     Câblage projet (opencode.jsonc) : skill init-project-opencode, pas ce script."

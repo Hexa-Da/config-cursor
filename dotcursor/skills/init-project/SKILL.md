@@ -56,7 +56,6 @@ Tous les contenus sont dans [reference.md](reference.md). Deux modes :
 | `tasks/todo.md`               | Copie todo              | Plan de travail de la session en cours                      |
 | `tasks/lessons.md`            | Copie lessons           | Leçons de méthode accumulées (transversal)                  |
 | `.cursor/rules/bootstrap.mdc` | Copie bootstrap.mdc     | Always-on Cursor : attache `PROJET.md` + `lessons.md`       |
-| `opencode.jsonc`              | Copie opencode.jsonc    | Équivalent OpenCode : `instructions` → mêmes fichiers       |
 
 **Template à personnaliser** — savoir projet, adapter au repo cible :
 
@@ -82,20 +81,16 @@ Ajouter les entrées suivantes si absentes (câblage agent local, pas versionné
 .cursor
 memoire
 tasks
-
-### Adaptation OpenCode ###
-opencode.jsonc
 ```
 
 ### 6. Récapituler
 
 Lister les fichiers créés et rappeler à l'utilisateur :
 - `.cursor/rules/bootstrap.mdc` est le point d'entrée Cursor always-on : injecte `memoire/PROJET.md` et `tasks/lessons.md`.
-- `opencode.jsonc` est l'équivalent OpenCode (`instructions` → les mêmes fichiers). Skills / `AGENTS.md` viennent de `~/.config/opencode` (via `install-opencode.sh` ou `install.sh`), pas de ce skill.
 - `memoire/PROJET.md` est la source de vérité projet.
 - `memoire/CONVENTIONS.md` : lecture avant code **non trivial** (pas pour l'audit/lecture seule ni les fix triviaux) — via `tasks/lessons.md`.
 - `memoire/ARCHITECTURE.md` : lecture si la tâche touche l'**interaction entre composants/modules**, un nouveau pattern, ou si la portée dépasse l'estimation initiale — via `tasks/lessons.md`.
-- Les annexes **spécifiques au projet** (ex. doc formulaires Vue3) ne font **pas** partie du template : les ajouter à la main dans `bootstrap.mdc` / `opencode.jsonc` et `PROJET.md` si le repo en a besoin.
+- Les annexes **spécifiques au projet** (ex. doc formulaires Vue3) ne font **pas** partie du template : les ajouter à la main dans `bootstrap.mdc` et `PROJET.md` si le repo en a besoin.
 - `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
 - `tasks/lessons.md` accumule les leçons de méthode transversales (contraintes dures, pas un survol).
 
@@ -104,7 +99,5 @@ Lister les fichiers créés et rappeler à l'utilisateur :
 Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
 - `memoire/` = **savoir projet** (domaine, conventions, architecture) — propre au repo.
-- Le câblage injecte les deux sans fusionner leur contenu :
-  - **Cursor** : `.cursor/rules/bootstrap.mdc`
-  - **OpenCode** : `opencode.jsonc` → `instructions`
-- Les règles de lecture des annexes génériques (CONVENTIONS, ARCHITECTURE, session) sont **transversales** : elles vivent dans `tasks/lessons.md` (synchronisé entre projets), pas dans le câblage. `bootstrap.mdc` / `opencode.jsonc` ne portent que l'injection (`PROJET.md` + `tasks/lessons.md`) et, si besoin, les annexes **vraiment propres au repo** (ex. `memoire/VEEVALIDATE.md` sur EdiThor), qui s'ajoutent **uniquement** dans le câblage et le `PROJET.md` de ce repo — jamais dans le template `init-project`.
+- Le câblage injecte les deux sans fusionner leur contenu : `.cursor/rules/bootstrap.mdc`.
+- Les règles de lecture des annexes génériques (CONVENTIONS, ARCHITECTURE, session) sont **transversales** : elles vivent dans `tasks/lessons.md` (synchronisé entre projets), pas dans le câblage. `bootstrap.mdc` ne porte que l'injection (`PROJET.md` + `tasks/lessons.md`) et, si besoin, les annexes **vraiment propres au repo** (ex. `memoire/VEEVALIDATE.md` sur EdiThor), qui s'ajoutent **uniquement** dans le câblage et le `PROJET.md` de ce repo — jamais dans le template `init-project`.
