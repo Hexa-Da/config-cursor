@@ -35,7 +35,7 @@ Exit 0 = pas de `DRIFT`. Exit 1 = écart inattendu.
 | --- | --- |
 | **OK** | Couche identique |
 | **DRIFT** | Écart à corriger. Le détail indique `install.sh` / `install-opencode.sh` (repo → machine) ou `export.sh` (machine → repo) ou `lessons-install.sh` |
-| **INFO** | Attendu : extensions indicatives, skills OpenCode-only, Cursor ouvert, worktree sale |
+| **INFO** | Attendu : extensions indicatives, Cursor ouvert, worktree sale |
 | **SKIP** | Fichier / couche absente |
 
 - OpenCode `SKILL.md` : le script compare au **transform** (`sync_opencode_skills.py`), pas au brut Cursor.

@@ -29,9 +29,9 @@ fi
 
 mkdir -p "$OPENCODE_CONFIG"
 
-# Skills: même contenu que dotcursor/skills, frontmatter adapté
-# (description une ligne + compatibility: opencode). Skills OpenCode-only
-# hors du repo ne sont pas effacés.
+# Skills: miroir exact de dotcursor/skills, frontmatter adapté
+# (description une ligne + compatibility: opencode). Orphelins côté
+# OpenCode retirés (prune), comme rsync --delete pour ~/.cursor/skills.
 if [[ -d "$DOT_SRC/skills" ]]; then
   python3 "$SCRIPT_DIR/lib/sync_opencode_skills.py" \
     "$DOT_SRC/skills" "$OPENCODE_CONFIG/skills"

@@ -7,8 +7,8 @@ is rewritten for OpenCode:
   Cursor  : description (optionally folded) + disable-model-invocation: true
   OpenCode: description (single line) + compatibility: opencode
 
-Other files (reference.md, …) are copied as-is. Skills present only on the
-OpenCode side are left untouched.
+Other files (reference.md, …) are copied as-is. Destination dirs absent from the
+source are pruned (exact mirror of the repo skills tree).
 """
 from __future__ import annotations
 
@@ -113,23 +113,44 @@ def sync_skill(src_skill: Path, dst_skill: Path) -> None:
         skill_md.write_text(cursor_skill_md_to_opencode(original), encoding="utf-8")
 
 
-def sync_skills(src_root: Path, dst_root: Path) -> list[str]:
+def _skill_dirs_with_content(root: Path) -> list[Path]:
+    """Non-empty skill directories under root (ignore .DS_Store / .gitkeep only)."""
+    out: list[Path] = []
+    for path in sorted(p for p in root.iterdir() if p.is_dir()):
+        real = [
+            p
+            for p in path.rglob("*")
+            if p.is_file() and p.name not in {".DS_Store", ".gitkeep"}
+        ]
+        if real:
+            out.append(path)
+    return out
+
+
+def prune_skills(src_root: Path, dst_root: Path) -> list[str]:
+    """Remove destination skill dirs that are not present (with content) in src."""
+    if not dst_root.is_dir():
+        return []
+    keep = {p.name for p in _skill_dirs_with_content(src_root)}
+    pruned: list[str] = []
+    for dst_skill in sorted(p for p in dst_root.iterdir() if p.is_dir()):
+        if dst_skill.name in keep:
+            continue
+        shutil.rmtree(dst_skill)
+        pruned.append(dst_skill.name)
+    return pruned
+
+
+def sync_skills(src_root: Path, dst_root: Path) -> tuple[list[str], list[str]]:
     if not src_root.is_dir():
         raise FileNotFoundError(f"source skills dir missing: {src_root}")
     dst_root.mkdir(parents=True, exist_ok=True)
     synced: list[str] = []
-    for src_skill in sorted(p for p in src_root.iterdir() if p.is_dir()):
-        # Skip empty placeholder dirs.
-        real = [
-            p
-            for p in src_skill.rglob("*")
-            if p.is_file() and p.name not in {".DS_Store", ".gitkeep"}
-        ]
-        if not real:
-            continue
+    for src_skill in _skill_dirs_with_content(src_root):
         sync_skill(src_skill, dst_root / src_skill.name)
         synced.append(src_skill.name)
-    return synced
+    pruned = prune_skills(src_root, dst_root)
+    return synced, pruned
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -139,7 +160,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
-        synced = sync_skills(args.src, args.dst)
+        synced, pruned = sync_skills(args.src, args.dst)
     except Exception as exc:  # noqa: BLE001 — CLI boundary
         print(f"✗ opencode skills: {exc}", file=sys.stderr)
         return 1
@@ -148,6 +169,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"→ OpenCode skills: {', '.join(synced)} → {args.dst}")
     else:
         print(f"→ OpenCode skills: rien à sync ({args.src})")
+    if pruned:
+        print(f"→ OpenCode skills pruned: {', '.join(pruned)}")
     return 0
 
 

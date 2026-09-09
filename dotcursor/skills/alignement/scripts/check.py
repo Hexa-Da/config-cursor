@@ -271,7 +271,7 @@ def _opencode_skills(rep: Report, cursor_skill_md_to_opencode) -> None:
     if missing:
         notes.append("manquant: " + ", ".join(missing))
     if extra:
-        rep.info("OpenCode skills extra", ", ".join(extra) + " (non touchés par install-opencode.sh)")
+        notes.append("extra (à pruner): " + ", ".join(extra))
     for name in sorted(src_names & dst_names):
         sdir, ddir = src / name, dst / name
         sfiles = _files(sdir)
