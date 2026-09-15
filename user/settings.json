@@ -3,7 +3,8 @@
     "files.autoSave": "afterDelay",
     "workbench.editor.showTabs": "multiple",
     "workbench.editorAssociations": {
-        "*.pdf": "pdf.preview"
+        "*.pdf": "pdf.preview",
+        "*.html": "cweijan.htmlViewer"
     },
     "cursor.composer.usageSummaryDisplay": "always",
     "window.autoDetectColorScheme": false,
