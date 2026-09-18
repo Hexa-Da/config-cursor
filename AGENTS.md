@@ -9,7 +9,7 @@ This is a real environment with full shell access and network, not a simulated o
 
 ## Relation avec `tasks/lessons.md`
 
-When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**.
+When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
 
 ## Cherny's Rules
 
@@ -36,9 +36,9 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 
 ### 3. Self-Improvement Loop
 
-- After ANY correction from the user: update `tasks/lessons.md` with the pattern (see Task Management #6 — single source, don't restate).
-- Ruthlessly prune and merge lessons, not just append — a duplicate or stale entry costs every future session.
-- Review `tasks/lessons.md` at session start if present; if the repo has no `tasks/`, propose running `init-project` (Cursor) or `init-project-opencode` (OpenCode) rather than assuming the convention.
+- After ANY correction from the user: capture the pattern in the right `memoire/` doc (`CONVENTIONS.md`, `ARCHITECTURE.md`, or a named annex) — never in `tasks/lessons.md` (see Task Management #6).
+- Ruthlessly prune and merge entries in those memoire docs, not just append — a duplicate or stale entry costs every future session.
+- Review `tasks/lessons.md` at session start if present (read-only); if the repo has no `tasks/`, propose running `init-project` (Cursor) or `init-project-opencode` (OpenCode) rather than assuming the convention.
 
 
 
@@ -73,7 +73,7 @@ When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` →
 3. **Track Progress**: Mark items complete as you go.
 4. **Explain Changes**: High-level summary at each step.
 5. **Document Results**: Add a review section to `tasks/todo.md`.
-6. **Capture Lessons**: Update `tasks/lessons.md` after corrections — dedupe/merge before appending.
+6. **Capture Lessons**: After corrections, update the relevant `memoire/` doc (`CONVENTIONS.md`, `ARCHITECTURE.md`, annex) — dedupe/merge before appending. **Never** edit `tasks/lessons.md`.
 
 
 

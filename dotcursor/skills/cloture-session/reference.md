@@ -28,7 +28,7 @@ Une leçon réutilisable est promue si elle répond en plus **oui** à au moins 
 | ------------------------------------------------ | --------------------------------- | ------------------------------------------------------------------------------- |
 | Checklist procédurale, convention de code, piège | `memoire/CONVENTIONS.md`          | checklist multi-couches d'ajout d'une donnée (modèle → migration → UI → export) |
 | Rôle d'un package, pattern, flux technique       | `memoire/ARCHITECTURE.md`         | pattern de composants, flux de génération de code                               |
-| Méthode de travail (valable tous projets)        | `tasks/lessons.md`                | test de tri en tête du fichier — jamais dans `memoire/`                         |
+| Méthode de travail (valable tous projets)        | *(ne pas écrire)*                 | `tasks/lessons.md` est **lecture seule** pour l'agent — noter dans le rapport de session et signaler à l'utilisateur |
 
 ---
 

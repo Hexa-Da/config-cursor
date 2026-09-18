@@ -54,7 +54,7 @@ Tous les contenus sont dans [reference.md](reference.md). Deux modes :
 | Fichier                       | § dans reference.md     | Rôle                                                        |
 | ----------------------------- | ----------------------- | ----------------------------------------------------------- |
 | `tasks/todo.md`               | Copie todo              | Plan de travail de la session en cours                      |
-| `tasks/lessons.md`            | Copie lessons           | Leçons de méthode accumulées (transversal)                  |
+| `tasks/lessons.md`            | Copie lessons           | Socle méthode transversal (lecture seule agent)             |
 | `.cursor/rules/bootstrap.mdc` | Copie bootstrap.mdc     | Always-on Cursor : attache `PROJET.md` + `lessons.md`       |
 
 **Template à personnaliser** — savoir projet, adapter au repo cible :
@@ -92,7 +92,7 @@ Lister les fichiers créés et rappeler à l'utilisateur :
 - `memoire/ARCHITECTURE.md` : lecture si la tâche touche l'**interaction entre composants/modules**, un nouveau pattern, ou si la portée dépasse l'estimation initiale — via `tasks/lessons.md`.
 - Les annexes **spécifiques au projet** (ex. doc formulaires Vue3) ne font **pas** partie du template : les ajouter à la main dans `bootstrap.mdc` et `PROJET.md` si le repo en a besoin.
 - `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
-- `tasks/lessons.md` accumule les leçons de méthode transversales (contraintes dures, pas un survol).
+- `tasks/lessons.md` : socle de méthode transversal (contraintes dures) — **lecture seule** pour l'agent ; `lessons-install.sh`.
 
 ## Séparation méthode / savoir projet
 

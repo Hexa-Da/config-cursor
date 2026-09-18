@@ -55,7 +55,7 @@ Contenus OpenCode-only dans [reference.md](reference.md). Sections partagées (t
 | Fichier            | Source                                      | Rôle                                                      |
 | ------------------ | ------------------------------------------- | --------------------------------------------------------- |
 | `tasks/todo.md`    | init-project/reference.md → Copie todo      | Plan de travail de la session en cours                    |
-| `tasks/lessons.md` | init-project/reference.md → Copie lessons   | Leçons de méthode accumulées (transversal)                |
+| `tasks/lessons.md` | init-project/reference.md → Copie lessons   | Socle méthode transversal (lecture seule agent)           |
 | `opencode.jsonc`   | reference.md (ce skill) → Copie opencode.jsonc | Injecte `PROJET.md` + `lessons.md` via `instructions` |
 
 **Template à personnaliser** — savoir projet, adapter au repo cible :
@@ -98,7 +98,7 @@ Lister les fichiers créés et rappeler à l'utilisateur :
 - `memoire/ARCHITECTURE.md` : lecture si la tâche touche l'**interaction entre composants/modules**, un nouveau pattern, ou si la portée dépasse l'estimation initiale — via `tasks/lessons.md`.
 - Les annexes **spécifiques au projet** ne font **pas** partie du template : les ajouter à la main dans `opencode.jsonc` et `PROJET.md` si le repo en a besoin.
 - `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
-- `tasks/lessons.md` accumule les leçons de méthode transversales (contraintes dures, pas un survol).
+- `tasks/lessons.md` : socle de méthode transversal (contraintes dures) — **lecture seule** pour l'agent ; `lessons-install.sh`.
 - Besoin Cursor plus tard → skill `init-project` (ajoute `.cursor/rules/bootstrap.mdc`).
 
 ## Séparation méthode / savoir projet
