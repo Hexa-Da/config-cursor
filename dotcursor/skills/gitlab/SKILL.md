@@ -19,11 +19,12 @@ local). Ne pas les lancer sauf demande explicite de scan bugs/sécu.
 ## Checklist
 
 ```
-- [ ] 1. Parser l’URL / iid / note_  → lancer fetch.py
-- [ ] 2. Lire la sortie ; signaler si HEAD ≠ source_branch (ne pas checkout)
-- [ ] 3. Cibler la note demandée, sinon les discussions non résolues
-- [ ] 4. Analyser / plan ; n’implémenter que si la demande le dit
-- [ ] 5. Pas de commentaire GitLab, commit, branche, worktree sans demande
+- [ ] 1. Extraire iid (chiffres) ou URL MR — jamais project!iid / !iid
+- [ ] 2. Un seul fetch.py avec cette cible ; lire la sortie
+- [ ] 3. Signaler si HEAD ≠ source_branch (ne pas checkout)
+- [ ] 4. Cibler la note demandée, sinon les discussions non résolues
+- [ ] 5. Analyser / plan ; n’implémenter que si la demande le dit
+- [ ] 6. Pas de commentaire GitLab, commit, branche, worktree sans demande
 ```
 
 ## 1. Fetch déterministe
@@ -33,6 +34,18 @@ python3 ~/.cursor/skills/gitlab/scripts/fetch.py '<url-ou-iid>'
 # depuis le repo config-cursor :
 python3 ~/Documents/config-cursor/dotcursor/skills/gitlab/scripts/fetch.py '<url-ou-iid>'
 ```
+
+**Cibles acceptées uniquement** (sinon `cible invalide` — ne pas « refetch » en improvisant) :
+
+- URL `…/-/merge_requests/{iid}` avec `#note_{id}` optionnel
+- iid **numérique seul** (`123`)
+- `--note {id}` pour cibler une note sans fragment URL
+
+**Interdit** (le parseur les refuse ; ce ne sont pas des cibles `glab mr view` non plus) :
+
+- `group/project!iid` / `myshop/edithor!123` (markdown GitLab, pas une entrée CLI)
+- `!123`, nom de branche, titre de MR
+- Premier essai « shorthand » puis second essai : **choisir URL ou iid dès le premier appel**
 
 Exemples :
 
