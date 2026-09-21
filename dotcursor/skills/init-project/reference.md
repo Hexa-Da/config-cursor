@@ -54,12 +54,13 @@ Ne **jamais** faire de commit (ni de `push`, `rebase`, `reset`… — toute écr
 - Clôture = demande utilisateur → skill `cloture-session` → **nouveau** fichier + ligne INDEX ; **jamais** modifier un rapport déjà écrit. Template dans `cloture-session/reference.md`.
 - Si la clôture met à jour des docs **trackées** (`CONVENTIONS.md`, `ARCHITECTURE.md`, …) : **commit docs séparé** du commit feature (message `docs: …`), puis push si la session le demandait. Ne pas amalgamer code et mémoire dans le même commit.
 
-### Ne pas relire les annexes `memoire/` à chaque tour ni les ignorer par défaut
+### Annexes projet : appliquer le catalogue attaché
 
-- `CONVENTIONS.md` — avant code **non trivial** (feature, nouveau fichier, migration, test) ou doute de pattern ; **pas** pour audit lecture seule, question, typo, fix d'une ligne. Une fois par session, sauf changement de domaine.
-- `ARCHITECTURE.md` — interaction multi-composants, nouveau pattern, ou frontière de module.
-- Annexes nommées par bootstrap (ex. `VEEVALIDATE.md`) — lecture **immédiate** si la mission les concerne (prioritaire sur CONVENTIONS seul pour ce domaine).
-- `memoire/session/` — seulement pour reprendre un travail passé (demande explicite).
+- Le bootstrap du projet doit attacher le catalogue qui porte les conditions de lecture des annexes.
+- Lire immédiatement toutes les annexes dont le trigger correspond à la mission ; les triggers sont cumulatifs.
+- Ne pas ouvrir les autres annexes « au cas où ».
+- Les rapports de session sont historiques : les lire seulement pour reprendre explicitement un travail passé
+  ou lorsqu'une annexe déclenchée y renvoie.
 
 ### Ne pas transformer une dette legacy en « convention » sans vérifier la cible à jour
 
@@ -79,6 +80,14 @@ Ne jamais affirmer un fait vérifiable (contenu d'un doc ou d'une rule, version,
 ### Être critique avec l'utilisateur, pas complaisant
 
 Traiter chaque affirmation de l'utilisateur comme une **hypothèse à tester**, pas comme une vérité à valider. Ne jamais acquiescer pour faire plaisir. Chercher activement le contre-exemple (code, doc cible, autre couche, gabarit contraire) avant de conclure ; si l'utilisateur a tort ou est trop absolu, le dire clairement avec la preuve. Ne pas être contradictoire sur le trivia (typo, reformulation) — viser les claims qui orientent une décision technique.
+
+### Mémoire projet : préférer les invariants aux inventaires
+
+- Documenter les règles, contrats et frontières utiles à une prochaine mission.
+- Éviter les compteurs, dates d'inventaire et états de branche qui deviennent faux sans signal.
+- En conflit documentaire, conserver le contenu aligné sur le code actuel et supprimer les faits périmés.
+- Enrichir ou pruner l'annexe spécialisée pendant la mission ; ne pas dupliquer le même fait dans une spine
+  générale et une annexe.
 ```
 
 ---
