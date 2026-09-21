@@ -1,6 +1,6 @@
 # Référence — init-project-opencode
 
-Templates **OpenCode-only**. Pour todo / lessons / CONVENTIONS / ARCHITECTURE / INDEX : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
+Templates **OpenCode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE / INDEX : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
 
 ---
 
@@ -11,9 +11,10 @@ Fichier cible : `opencode.jsonc` — copier **tel quel** (câblage OpenCode ; pa
 ```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
-  // Contexte injecté à chaque session
+  // Contexte injecté à chaque session (équivalent .cursor/rules/bootstrap.mdc)
   "instructions": [
     "memoire/PROJET.md",
+    "memoire/ANNEXE.md",
     "tasks/lessons.md"
   ]
 }
@@ -28,10 +29,10 @@ Fichier cible : `memoire/PROJET.md`
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
 
-> **Savoir projet** (domaine, stack, concepts métier). Injecté automatiquement avec `tasks/lessons.md` (méthode) :
+> **Savoir projet** (domaine, stack, concepts métier). Injecté automatiquement avec [`ANNEXE.md`](ANNEXE.md) et `tasks/lessons.md` (méthode) :
 > - **OpenCode** : `opencode.jsonc` → `instructions`
 >
-> Règles de lecture des annexes [`CONVENTIONS.md`](CONVENTIONS.md) / [`ARCHITECTURE.md`](ARCHITECTURE.md) : voir `tasks/lessons.md`.
+> Conditions de lecture des annexes : [`ANNEXE.md`](ANNEXE.md) ; `tasks/lessons.md` porte uniquement la méthode inter-projet.
 
 ## But du projet
 

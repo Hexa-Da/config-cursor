@@ -98,13 +98,17 @@ Fichier cible : `.cursor/rules/bootstrap.mdc` — copier **tel quel**.
 
 ```
 ---
-description: Contexte projet et Méthode — attache PROJET.md + lessons.md ;
+description: Contexte projet, catalogue d'annexes et méthode ;
 alwaysApply: true
 ---
 
 Contexte projet (source unique, attachée automatiquement) :
 
 @memoire/PROJET.md
+
+Catalogue projet — conditions de lecture des annexes :
+
+@memoire/ANNEXE.md
 
 Méthode — leçons (toujours appliquer) :
 
@@ -120,10 +124,10 @@ Fichier cible : `memoire/PROJET.md`
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
 
-> **Savoir projet** (domaine, stack, concepts métier). Injecté automatiquement avec `tasks/lessons.md` (méthode) :
+> **Savoir projet** (domaine, stack, concepts métier). Injecté automatiquement avec [`ANNEXE.md`](ANNEXE.md) et `tasks/lessons.md` (méthode) :
 > - **Cursor** : `.cursor/rules/bootstrap.mdc`
 >
-> Règles de lecture des annexes [`CONVENTIONS.md`](CONVENTIONS.md) / [`ARCHITECTURE.md`](ARCHITECTURE.md) : voir `tasks/lessons.md`.
+> Conditions de lecture des annexes : [`ANNEXE.md`](ANNEXE.md) ; `tasks/lessons.md` porte uniquement la méthode inter-projet.
 
 ## But du projet
 
@@ -146,6 +150,49 @@ Fichier cible : `memoire/PROJET.md`
 
 ---
 
+## Template ANNEXE.md
+
+Fichier cible : `memoire/ANNEXE.md`
+
+Catalogue des conditions de lecture. Adapter les triggers au repo ; ajouter une entrée par annexe spécialisée.
+
+```markdown
+# [NOM_PROJET] — Catalogue des annexes
+
+> Source unique des conditions de lecture de `memoire/`.
+> Lire immédiatement toutes les annexes déclenchées ; les triggers sont cumulatifs.
+> Ne pas ouvrir une annexe « au cas où ».
+
+Toujours chargés par le bootstrap : [`PROJET.md`](PROJET.md), ce catalogue et `tasks/lessons.md`.
+
+## Architecture
+
+- **[`CONVENTIONS.md`](CONVENTIONS.md)** — Lire pour une implémentation non triviale transverse ou si
+  aucune annexe spécialisée ne couvre la convention. Ignorer pour question, audit ou correction triviale.
+- **[`ARCHITECTURE.md`](ARCHITECTURE.md)** — Lire pour interaction multi-modules, nouvelle frontière ou
+  nouveau pattern. Ignorer si cible et pattern sont déjà identifiés.
+
+## Cycle de vie d’une annexe
+
+- **Créer ou scinder** si un domaine possède un trigger distinct, revient dans plusieurs missions et rend
+  une annexe existante hétérogène ou conflictuelle. Ne pas créer pour un ticket, une entité isolée, un
+  inventaire ou un état temporaire.
+- Toute création doit déplacer le contenu sans duplication, ajouter ici ses triggers, exclusions et
+  dépendances, puis mettre à jour les spines concernées.
+- **Fusionner ou supprimer** si l’annexe n’a plus de trigger propre, ne contient plus de règle durable,
+  duplique une autre source ou n’est plus utile après un changement d’architecture.
+- Avant suppression, déplacer les seules règles encore valides vers l’annexe cible, retirer ici l’entrée
+  et les liens entrants, puis vérifier qu’aucune référence au fichier ne subsiste.
+- Le nom décrit un domaine stable (`CONVENTIONS.md`, `ARCHITECTURE.md`), jamais une branche, un ticket ou une date.
+
+## Historique
+
+`memoire/session/` n’est pas normatif : lire seulement pour reprendre explicitement un travail passé ou
+suivre un lien depuis une annexe déclenchée.
+```
+
+---
+
 ## Template CONVENTIONS.md
 
 Fichier cible : `memoire/CONVENTIONS.md`
@@ -153,7 +200,7 @@ Fichier cible : `memoire/CONVENTIONS.md`
 ```markdown
 # [NOM_PROJET] — Conventions du projet
 
-> Annexe de [`PROJET.md`](PROJET.md). Conditions de lecture : voir `tasks/lessons.md`.
+> Annexe de [`PROJET.md`](PROJET.md). Conditions de lecture : [`ANNEXE.md`](ANNEXE.md).
 
 <!-- Ajouter ici les conventions au fil des sessions : style de code, nommage, patterns de test, checklists, pièges connus. -->
 ```
@@ -167,7 +214,7 @@ Fichier cible : `memoire/ARCHITECTURE.md`
 ```markdown
 # [NOM_PROJET] — Architecture détaillée
 
-> Annexe de [`PROJET.md`](PROJET.md). Conditions de lecture : voir `tasks/lessons.md`.
+> Annexe de [`PROJET.md`](PROJET.md). Conditions de lecture : [`ANNEXE.md`](ANNEXE.md).
 
 <!-- Ajouter ici la cartographie des packages, les patterns structurants, les flux de données. -->
 ```
