@@ -65,7 +65,6 @@ Tous les contenus sont dans [reference.md](reference.md). Deux modes :
 | `memoire/ANNEXE.md`        | Template ANNEXE.md   | Catalogue des conditions de lecture   |
 | `memoire/CONVENTIONS.md`   | Template CONVENTIONS | Conventions code/test du repo         |
 | `memoire/ARCHITECTURE.md`  | Template ARCHITECTURE| Structure packages, patterns, flux    |
-| `memoire/session/INDEX.md` | Template INDEX       | Index des sessions agent              |
 
 ### 4. Personnalisation
 

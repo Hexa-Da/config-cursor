@@ -219,29 +219,3 @@ Fichier cible : `memoire/ARCHITECTURE.md`
 <!-- Ajouter ici la cartographie des packages, les patterns structurants, les flux de données. -->
 ```
 
----
-
-## Template INDEX
-
-Fichier cible : `memoire/session/INDEX.md`
-
-Adapter la légende de tags au domaine du projet.
-
-```markdown
-# Index des sessions
-
-> Une ligne par session, la plus récente en haut.
-
-**Tags** (plusieurs par session, séparés par des virgules) :
-
-| Tag           | Signification                              |
-| ------------- | ------------------------------------------ |
-| `backend`     | API, services, modèles, base de données    |
-| `frontend`    | UI, composants, routing                    |
-| `tests`       | Tests unitaires, intégration, CI           |
-| `docs`        | Documentation, mémoire, règles agent       |
-| `infra-agent` | Outils et workflow agent IA                |
-
-| Date       | Tags | Session | Résumé |
-| ---------- | ---- | ------- | ------ |
-```

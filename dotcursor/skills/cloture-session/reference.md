@@ -86,15 +86,6 @@ Pour chaque changement significatif :
 
 ---
 
-## INDEX — format de ligne
-
-Dans le fichier `memoire/session/INDEX.md`, ajouter une ligne **en première position** du tableau (sous l'en-tête) :
-
-```markdown
-| AAAA-MM-JJ | `tag1`, `tag2` | [Titre de la session](AAAA-MM-JJ_HHmm_slug.md) | Résumé en une phrase. |
-```
-
----
 
 ## Template todo
 

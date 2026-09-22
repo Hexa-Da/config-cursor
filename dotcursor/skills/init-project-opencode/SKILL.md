@@ -48,7 +48,7 @@ memoire/session/
 
 ### 3. Fichiers à créer
 
-Contenus OpenCode-only dans [reference.md](reference.md). Sections partagées (todo, lessons, ANNEXE, CONVENTIONS, ARCHITECTURE, INDEX) : lire [`../init-project/reference.md`](../init-project/reference.md).
+Contenus OpenCode-only dans [reference.md](reference.md). Sections partagées (todo, lessons, ANNEXE, CONVENTIONS, ARCHITECTURE) : lire [`../init-project/reference.md`](../init-project/reference.md).
 
 **Copie canonique** — socle de méthode / câblage, copier tel quel :
 
@@ -66,7 +66,6 @@ Contenus OpenCode-only dans [reference.md](reference.md). Sections partagées (t
 | `memoire/ANNEXE.md`        | init-project/reference.md → Template ANNEXE.md | Catalogue conditions de lecture |
 | `memoire/CONVENTIONS.md`   | init-project/reference.md → Template CONVENTIONS | Conventions code/test         |
 | `memoire/ARCHITECTURE.md`  | init-project/reference.md → Template ARCHITECTURE | Structure / patterns         |
-| `memoire/session/INDEX.md` | init-project/reference.md → Template INDEX     | Index des sessions agent        |
 
 ### 4. Personnalisation
 
