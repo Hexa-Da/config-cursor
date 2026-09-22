@@ -136,5 +136,15 @@
         "key": "ctrl+h",
         "command": "workbench.action.toggleUnifiedSidebarFromKeyboard",
         "when": "isLinux || isWindows"
+    },
+    {
+        "key": "cmd+d",
+        "command": "workbench.action.gotoLine",
+        "when": "isMac"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "workbench.action.gotoLine",
+        "when": "isLinux || isWindows"
     }
 ]
