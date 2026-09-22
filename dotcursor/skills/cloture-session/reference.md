@@ -34,16 +34,16 @@ Une leçon réutilisable est promue si elle répond en plus **oui** à au moins 
 
 ## Nommage
 
-Fichier : `memoire/session/AAAA-MM-JJ_NN_titre-de-la-session.md`
+Fichier : `memoire/session/AAAA-MM-JJ_HHmm_slug.md`
 
-- `NN` : compteur à 2 chiffres, **dès le premier rapport du jour** (`_01_`, `_02_`, …). Jamais renommer un rapport déjà écrit.
-- Calcul : lister `memoire/session/AAAA-MM-JJ_*.md` ; extraire les `NN` au format `_NN_` juste après la date ; nouveau = max + 1, paddé sur 2 chiffres. Aucun `NN` ce jour-là (y compris fichiers legacy sans compteur) → `01`.
+- `HHmm` : heure locale à la clôture (ex. `1631`). Source = horloge, pas de scan des autres rapports. Ordre lexicographique du nom = ordre chronologique du jour.
+- `slug` : identifiant stable du sujet (idéalement ticket / nom de la session).
 
 ---
 
 ## Template rapport
 
-Fichier cible : `memoire/session/AAAA-MM-JJ_NN_titre-de-la-session.md`
+Fichier cible : `memoire/session/AAAA-MM-JJ_HHmm_slug.md`
 
 ```markdown
 # [Titre de la session]
@@ -91,7 +91,7 @@ Pour chaque changement significatif :
 Dans le fichier `memoire/session/INDEX.md`, ajouter une ligne **en première position** du tableau (sous l'en-tête) :
 
 ```markdown
-| AAAA-MM-JJ | `tag1`, `tag2` | [Titre de la session](AAAA-MM-JJ_NN_titre-de-la-session.md) | Résumé en une phrase. |
+| AAAA-MM-JJ | `tag1`, `tag2` | [Titre de la session](AAAA-MM-JJ_HHmm_slug.md) | Résumé en une phrase. |
 ```
 
 ---
