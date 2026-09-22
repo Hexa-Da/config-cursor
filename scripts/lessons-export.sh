@@ -11,7 +11,11 @@ src="$(pwd)/tasks/lessons.md"
 [[ -f "$src" ]] || { echo "Pas de tasks/lessons.md ici"; exit 1; }
 [[ -f "$ref" ]] || { echo "Pas de reference.md: $ref"; exit 1; }
 
-cp "$src" "$canon"
+# Depuis config-cursor, src et canon sont le même fichier — cp échoue (macOS) et
+# abortait le script avant le patch du snapshot (set -e).
+if [[ ! "$src" -ef "$canon" ]]; then
+  cp "$src" "$canon"
+fi
 
 # Remplace le corps du fence ```markdown sous "## Copie lessons"
 "$root/scripts/lib/patch_lessons_snapshot.sh" "$canon" "$ref"
