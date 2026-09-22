@@ -14,8 +14,8 @@ Ne **jamais** faire de commit (ni de `push`, `rebase`, `reset`… — toute écr
 
 - **Interdit** hors clôture explicite : toute écriture sous `memoire/session/`.
 - Fin de plan = Review dans `tasks/todo.md` et màj du plan (+ leçons `memoire/` si besoin) — pas de rapport à cette étape.
-- Clôture = demande utilisateur → skill `cloture-session` → **nouveau** fichier + ligne INDEX ; **jamais** modifier un rapport déjà écrit. Template dans `cloture-session/reference.md`.
-- Si la clôture met à jour des docs **trackées** (`CONVENTIONS.md`, `ARCHITECTURE.md`, …) : **commit docs séparé** du commit feature (message `docs: …`), puis push si la session le demandait. Ne pas amalgamer code et mémoire dans le même commit.
+- Clôture = demande utilisateur → skill `cloture-session` → **nouveau** fichier ; Template dans `cloture-session/reference.md`.
+- Nommage rapport : `AAAA-MM-JJ_HHmm_slug.md` (horloge locale).
 
 ### Annexes projet : appliquer le catalogue attaché
 
