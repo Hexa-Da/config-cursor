@@ -63,7 +63,7 @@ Proposer **exactement** ce bloc (copier-coller) :
 
 …
 
-## How to test
+*How to test*
 
 1. …
    - …
@@ -85,7 +85,7 @@ parcours faux.
 Remplacement du composant legacy `InputDate` par `InputDateTime` sur
 tous les call sites frontend
 
-## How to test
+*How to test*
 
 Smoke sur une famille d’écrans (pas tout le catalogue) :
 
