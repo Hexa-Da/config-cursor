@@ -53,8 +53,7 @@ Fichier cible : `memoire/session/AAAA-MM-JJ_HHmm_slug.md`
 
 ## Contexte et objectif
 
-Pourquoi cette session ? Quel était le besoin ou le problème de départ ?
-Une à trois phrases.
+Pourquoi cette session ? Quel était le besoin ou le problème de départ ? Une à trois phrases sur la même ligne (ou un paragraphe court par idée, sans wrap).
 
 ## Changements effectués
 
