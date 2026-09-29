@@ -10,16 +10,12 @@ Ne **jamais** faire de commit (ni de `push`, `rebase`, `reset`… — toute écr
 - **Toujours demander** avant de créer un worktree **ou** une branche.
 - Worktree secondaire **seulement** si le principal est occupé ; un agent = un worktree = un `tasks/todo.md` local.
 
-
-
 ### Rapports de session : uniquement à la clôture, jamais un rapport passé
 
 - **Interdit** hors clôture explicite : toute écriture sous `memoire/session/`.
 - Fin de plan = Review dans `tasks/todo.md` et leçons dans `memoire/` si besoin — pas de rapport à cette étape.
 - Clôture = demande utilisateur → skill `cloture-session` → **nouveau** fichier.
 - Nommage rapport : `AAAA-MM-JJ_HHmm_slug.md` (horloge locale).
-
-
 
 ### Annexes projet : appliquer le catalogue attaché
 
@@ -28,16 +24,12 @@ Ne **jamais** faire de commit (ni de `push`, `rebase`, `reset`… — toute écr
 - Ne pas ouvrir les autres annexes « au cas où ».
 - Les rapports de session sont historiques : les lire seulement lorsqu'une annexe déclenchée y renvoie.
 
-
-
 ### Ne pas transformer une dette legacy en « convention » sans vérifier la cible à jour
 
 - Avant d'aligner sur un pattern existant : vérifier la convention **cible** (`CONVENTIONS.md`, `ARCHITECTURE.md`) vs **dette**.
 - Ne pas présenter un usage observé comme convention sans source normative récente ou exemple conforme.
 - Conventions absentes / ambiguës / contradictoires → **demander** avant de propager.
 - Écart cible vs legacy → aligner vers la cible et signaler la dette restante.
-
-
 
 ### Outils déterministes avant le LLM pour le texte structuré
 
@@ -46,6 +38,10 @@ Si le texte suit un motif répétitif : `rg` / regex / script d'abord. LLM seule
 ### Vérifier à la source avant d'affirmer
 
 Ne jamais affirmer un fait vérifiable (contenu d'un doc ou d'une rule, version, comportement runtime) de mémoire ou par déduction : le vérifier à la source **actuelle** avant de l'écrire — une doc peut être en retard sur la réalité. Un **fait terrain** observé par l'utilisateur (log, écran, résultat de commande) prime : re-vérifier au lieu de défendre la conclusion.
+
+### Commentaires existants : conserver ou reformuler, ne pas effacer sans raison
+
+Lors d'une réécriture : **ne pas supprimer** les commentaires métier préexistants. Si le code autour change, **reformuler** pour rester exact ; n'enlever un commentaire que s'il est faux *et* sans valeur (sinon reformuler). Les stubs « migration en cours » périmés se reformulent ou se retirent seulement s'ils ne correspondent plus à rien.
 
 ### Être critique avec l'utilisateur, pas complaisant
 
@@ -58,4 +54,3 @@ Traiter chaque affirmation de l'utilisateur comme une **hypothèse à tester**, 
 - En conflit documentaire, conserver le contenu aligné sur le code actuel et supprimer les faits périmés.
 - Enrichir ou pruner l'annexe spécialisée pendant la mission ; ne pas dupliquer le même fait dans une spine
 générale et une annexe.
-
