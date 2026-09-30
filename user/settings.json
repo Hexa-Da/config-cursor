@@ -27,5 +27,5 @@
         "terminalEditor": false,
         "mainThreadWebview-browserPreview": false
     },
-    "git.confirmSync": false
+    "cursor.composer.queueMessageDefaultBehavior": "steer"
 }
