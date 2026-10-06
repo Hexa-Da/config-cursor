@@ -60,7 +60,7 @@ Pourquoi cette session ? Quel était le besoin ou le problème de départ ? Une 
 Pour chaque changement significatif :
 1. Expliquer le pourquoi, avec assez de contexte pour qu'une future lecture reste compréhensible.
 2. Expliquer le lien avec le reste de la chaîne (backend, frontend, Mongo, OpenAPI, export, tests...).
-3. Lister ensuite les fichiers touchés (sans que ça prenne le dessus).
+3. Lister ensuite les fichiers touchés (sans que ça prenne le dessus). Chemin de package trop long pour tenir sur une ligne → tronquer le segment intermédiaire par `.../`.
 4. Si un commit existe : message complet.
 
 ### [Changement 1]
@@ -68,7 +68,7 @@ Pour chaque changement significatif :
 - **Pourquoi** : ...
 - **Lien avec le reste** : ...
 - **Fichiers** :
-  - `dossier/fichier1.extension`
+  - `module/src/main/.../package/fichier1.extension`
   - `autre-dossier/fichier2.extension`
 - **Commit** : `message de commit complet`
 
