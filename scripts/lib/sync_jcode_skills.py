@@ -40,6 +40,12 @@ def flatten_description(raw: str) -> str:
     return text.strip()
 
 
+def yaml_double_quoted(value: str) -> str:
+    """Quote a scalar so colons/commas in descriptions stay valid YAML for jcode."""
+    escaped = value.replace("\\", "\\\\").replace('"', '\\"')
+    return f'"{escaped}"'
+
+
 def parse_simple_frontmatter(fm: str) -> dict[str, str]:
     """Parse the flat skill frontmatter we author (name / description / flags)."""
     data: dict[str, str] = {}
@@ -82,10 +88,14 @@ def cursor_skill_md_to_jcode(text: str) -> str:
     if not name or not description:
         raise ValueError("SKILL.md frontmatter must include name and description")
 
-    lines = ["---", f"name: {name}", f"description: {description}"]
+    lines = [
+        "---",
+        f"name: {yaml_double_quoted(name)}",
+        f"description: {yaml_double_quoted(description)}",
+    ]
     allowed = fields.get("allowed-tools", "").strip()
     if allowed:
-        lines.append(f"allowed-tools: {allowed}")
+        lines.append(f"allowed-tools: {yaml_double_quoted(allowed)}")
     lines.append("---\n")
     new_fm = "\n".join(lines)
     body = text[match.end() :]

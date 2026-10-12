@@ -9,7 +9,23 @@ This is a real environment with full shell access and network, not a simulated o
 
 ## Relation avec `tasks/lessons.md`
 
-When `tasks/lessons.md` is injected (via `bootstrap.mdc` or `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
+When `tasks/lessons.md` is present (jcode: this file; Cursor: `bootstrap.mdc`; OpenCode: `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
+
+## Bootstrap projet (générique)
+
+Sur tout repo qui suit le harness (`memoire/` + `tasks/`), lire au démarrage **dans cet ordre** :
+
+1. `memoire/PROJET.md` — savoir projet essentiel
+2. `memoire/ANNEXE.md` — catalogue des conditions de lecture des annexes
+3. `tasks/lessons.md` — méthode inter-projet (**lecture seule**)
+
+Appliquer le catalogue `ANNEXE.md` : ouvrir immédiatement toute annexe dont le trigger correspond à la mission. Ne pas ouvrir les autres « au cas où ».
+
+Sous jcode ce bloc vit ici (`~/AGENTS.md` via `install-jcode.sh`). Un `./AGENTS.md` projet n’est utile **que** pour des exceptions locales.
+
+## jcode — skills à la demande
+
+Under jcode, installed skills (`~/.jcode/skills/`) are **not** always in context. They load via embedding similarity or explicit activation (`/skill-name`, e.g. `/cloture-session`, `/mr`). Always-on method stays in this file + `tasks/lessons.md` — never rely on a skill being silently present.
 
 ## Cherny's Rules
 

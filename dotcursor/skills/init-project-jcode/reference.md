@@ -2,27 +2,21 @@
 
 Templates **jcode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE / INDEX : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
 
+Le **bootstrap générique** (lire PROJET + ANNEXE + lessons) est dans `~/AGENTS.md` via `install-jcode.sh` / `config-cursor/AGENTS.md` — **pas** dans un `./AGENTS.md` projet par défaut.
+
 ---
 
-## Copie AGENTS.md
+## Copie AGENTS.md (optionnel — exceptions projet seulement)
 
-Fichier cible : `AGENTS.md` (racine du repo) — copier **tel quel** (câblage jcode ; équivalent de `opencode.jsonc` / `.cursor/rules/bootstrap.mdc`).
+Fichier cible : `AGENTS.md` (racine) — **ne pas créer** sauf demande explicite d’overrides locaux. Le bootstrap standard est déjà global.
 
 ```markdown
-# Agent bootstrap (jcode)
+# Overrides projet (jcode)
 
-> Câblage projet pour jcode. Les règles utilisateur globales viennent de `~/AGENTS.md`
-> (via `install-jcode.sh`). Ce fichier injecte uniquement le contexte **projet**.
+> Complément **local** à `~/AGENTS.md`. Ne pas y recopier le bootstrap générique
+> (PROJET / ANNEXE / lessons) — il est déjà injecté globalement.
 
-Toujours lire au démarrage, dans cet ordre :
-
-1. [`memoire/PROJET.md`](memoire/PROJET.md) — savoir projet essentiel
-2. [`memoire/ANNEXE.md`](memoire/ANNEXE.md) — catalogue des conditions de lecture des annexes
-3. [`tasks/lessons.md`](tasks/lessons.md) — méthode inter-projet (**lecture seule**)
-
-Appliquer le catalogue `ANNEXE.md` : ouvrir immédiatement toute annexe dont le trigger correspond à la mission. Ne pas ouvrir les autres « au cas où ».
-
-Skills installés globalement : `~/.jcode/skills/` (miroir `config-cursor` via `install-jcode.sh`).
+<!-- Exceptions propres à ce repo uniquement. -->
 ```
 
 ---
@@ -34,8 +28,9 @@ Fichier cible : `memoire/PROJET.md`
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
 
-> **Savoir projet** (domaine, stack, concepts métier). Injecté automatiquement avec [`ANNEXE.md`](ANNEXE.md) et `tasks/lessons.md` (méthode) :
-> - **jcode** : `AGENTS.md` (racine) → lit ces trois fichiers
+> **Savoir projet** (domaine, stack, concepts métier). Lu au démarrage avec [`ANNEXE.md`](ANNEXE.md) et `tasks/lessons.md` (méthode) :
+> - **jcode** : bootstrap générique dans `~/AGENTS.md` (via `install-jcode.sh`)
+> - **Cursor** : `.cursor/rules/bootstrap.mdc` · **OpenCode** : `opencode.jsonc` → `instructions`
 >
 > Conditions de lecture des annexes : [`ANNEXE.md`](ANNEXE.md) ; `tasks/lessons.md` porte uniquement la méthode inter-projet.
 

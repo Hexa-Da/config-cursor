@@ -46,4 +46,4 @@ else
 fi
 
 echo "OK — Skills → $JCODE_SKILLS ; AGENTS.md → $HOME/AGENTS.md"
-echo "     Câblage projet (AGENTS.md racine) : skill init-project-jcode, pas ce script."
+echo "     Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode."
