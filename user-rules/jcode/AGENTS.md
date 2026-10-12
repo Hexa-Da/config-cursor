@@ -11,7 +11,7 @@ This is a real environment with full shell access and network, not a simulated o
 
 ## Relation avec `tasks/lessons.md`
 
-`tasks/lessons.md` holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). Nothing injects it under jcode: read it yourself at session start (Bootstrap projet, step 3). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. It also beats a harness default: jcode's base prompt « Commit as you go » does **not** apply, so no `commit` / `push` / `rebase` / `reset` without an explicit request. That git line is the single rule restated here, because only these user rules can neutralise a base prompt. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
+`tasks/lessons.md` holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). Nothing injects it under jcode: read it yourself at session start (Bootstrap projet, step 3). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. No `commit` / `push` / `rebase` / `reset` without an explicit user request. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
 
 ## Bootstrap projet (générique)
 
