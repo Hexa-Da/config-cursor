@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install jcode-only config: ~/AGENTS.md + ~/.jcode/skills (frontmatter adapted).
-# Does not touch Cursor hooks/settings/storage. Project AGENTS.md = init-project-jcode.
+# Does not touch Cursor hooks/settings/storage. Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
