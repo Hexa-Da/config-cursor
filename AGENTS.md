@@ -9,7 +9,7 @@ This is a real environment with full shell access and network, not a simulated o
 
 ## Relation avec `tasks/lessons.md`
 
-When `tasks/lessons.md` is present (jcode: this file; Cursor: `bootstrap.mdc`; OpenCode: `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
+When `tasks/lessons.md` is present (jcode: this file; Cursor: `bootstrap.mdc`; OpenCode: `opencode.jsonc` → `instructions`), it holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. It also beats a harness default: jcode's base prompt « Commit as you go » does **not** apply, so no `commit` / `push` / `rebase` / `reset` without an explicit request. That git line is the single rule restated here, because only these user rules can neutralise a base prompt. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
 
 ## Bootstrap projet (générique)
 
@@ -104,7 +104,7 @@ Under jcode, installed skills (`~/.jcode/skills/`) are **not** always in context
 
 1. **Minimize scope** — every changed line must trace directly to the user's request; simplest correct diff. Don't "improve" adjacent code, comments, or formatting; don't refactor what isn't broken. Match existing style even if you'd do it differently. Unrelated dead code: mention it — don't delete it unless asked. Orphans from *your* changes (unused imports/vars/functions): remove those; leave pre-existing dead code alone.
 2. **Avoid over-engineering** — no premature abstraction or excessive edge-case handling.
-3. **Documented or already in the repo — never invent** — reuse only ideas that are documented (`memoire/CONVENTIONS.md`, `ARCHITECTURE.md`, annex) or that already exist in the codebase; do not invent new patterns/components. Matching surrounding code is OK only after checking **target** docs vs **legacy** debt (ask if unclear). For non-trivial proposals, state the source (`path:line`, named doc, or explicit agent choice).
+3. **Documented or already in the repo — never invent** — reuse only ideas that are documented (`memoire/CONVENTIONS.md`, `ARCHITECTURE.md`, annex) or that already exist in the codebase; do not invent new patterns/components. For non-trivial proposals, state the source (`path:line`, named doc, or explicit agent choice).
 4. **Comments** — only for non-obvious business logic or deep technical detail.
 5. **Useful tests only** — when requested or they add meaningful real behavior coverage.
 
