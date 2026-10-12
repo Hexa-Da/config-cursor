@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install jcode-only config: ~/AGENTS.md + ~/.jcode/skills (frontmatter adapted).
+# Install jcode-only config: ~/AGENTS.md (depuis user-rules/jcode/) + ~/.jcode/skills (frontmatter adapted).
 # Does not touch Cursor hooks/settings/storage. Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode.
 set -euo pipefail
 
@@ -37,9 +37,9 @@ else
   echo "→ jcode skills: skip (pas de $DOT_SRC/skills)"
 fi
 
-# ~/AGENTS.md (= user rules globales) : miroir depuis la racine du repo
-if [[ -f "$ROOT/AGENTS.md" ]]; then
-  cp "$ROOT/AGENTS.md" "$HOME/AGENTS.md"
+# ~/AGENTS.md (= user rules globales) : variante jcode de user-rules/
+if [[ -f "$ROOT/user-rules/jcode/AGENTS.md" ]]; then
+  cp "$ROOT/user-rules/jcode/AGENTS.md" "$HOME/AGENTS.md"
   echo "→ jcode ~/AGENTS.md"
 else
   echo "→ jcode ~/AGENTS.md: skip (absent du repo)"

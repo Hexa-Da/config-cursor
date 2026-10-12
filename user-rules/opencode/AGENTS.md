@@ -1,4 +1,6 @@
-# User Rules
+# User Rules — OpenCode
+
+> Source : `config-cursor/user-rules/opencode/AGENTS.md`, installé en `~/.config/opencode/AGENTS.md` par `install-opencode.sh`.
 
 ## Environnement
 
@@ -9,7 +11,7 @@ This is a real environment with full shell access and network, not a simulated o
 
 ## Relation avec `tasks/lessons.md`
 
-`tasks/lessons.md` holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). How it reaches context depends on the harness: Cursor injects it through `.cursor/rules/bootstrap.mdc`, OpenCode through `opencode.jsonc` → `instructions`, and under jcode nothing injects it — read it yourself at session start (Bootstrap projet, step 3). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. It also beats a harness default: jcode's base prompt « Commit as you go » does **not** apply, so no `commit` / `push` / `rebase` / `reset` without an explicit request. That git line is the single rule restated here, because only these user rules can neutralise a base prompt. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
+`tasks/lessons.md` holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). OpenCode injects it through `opencode.jsonc` → `instructions` (created by the `init-project-opencode` skill); without that wiring, read it yourself at session start (Bootstrap projet, step 3). **Do not restate those rules here.** If these user rules and `lessons.md` ever conflict, `lessons.md` **wins** — including against an OpenCode default (git writes stay gated on an explicit request). **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
 
 ## Bootstrap projet (générique)
 
@@ -21,11 +23,11 @@ Sur tout repo qui suit le harness (`memoire/` + `tasks/`), lire au démarrage **
 
 Appliquer le catalogue `ANNEXE.md` : ouvrir immédiatement toute annexe dont le trigger correspond à la mission. Ne pas ouvrir les autres « au cas où ».
 
-Sous jcode ce bloc vit ici (`~/AGENTS.md` via `install-jcode.sh`). Un `./AGENTS.md` projet n’est utile **que** pour des exceptions locales.
+Sous OpenCode, `opencode.jsonc` → `instructions` attache déjà ces trois fichiers par projet ; ce bloc reste le défaut quand le câblage est absent.
 
-## jcode — skills à la demande
+## OpenCode — skills à la demande
 
-Under jcode, installed skills (`~/.jcode/skills/`) are **not** always in context. They load via embedding similarity or explicit activation (`/skill-name`, e.g. `/cloture-session`, `/mr`). Always-on method stays in this file + `tasks/lessons.md` — never rely on a skill being silently present.
+Installed skills (`~/.config/opencode/skills/`) are **not** always in context: only their name and description are, and the body loads on use or on explicit activation (`/skill-name`, e.g. `/cloture-session`, `/mr`). Always-on method stays in these user rules + `tasks/lessons.md` — never rely on a skill being silently present.
 
 ## Cherny's Rules
 
@@ -54,7 +56,7 @@ Under jcode, installed skills (`~/.jcode/skills/`) are **not** always in context
 
 - After ANY correction from the user: capture the pattern in the right `memoire/` doc (`CONVENTIONS.md`, `ARCHITECTURE.md`, or a named annex) — never in `tasks/lessons.md` (see Task Management #6).
 - Ruthlessly prune and merge entries in those memoire docs, not just append — a duplicate or stale entry costs every future session.
-- Review `tasks/lessons.md` at session start if present (read-only); if the repo has no `tasks/`, propose running `init-project` (Cursor) or `init-project-opencode` (OpenCode) rather than assuming the convention.
+- Review `tasks/lessons.md` at session start if present (read-only); if the repo has no `tasks/`, propose running `init-project-opencode` rather than assuming the convention.
 
 
 
@@ -84,7 +86,7 @@ Under jcode, installed skills (`~/.jcode/skills/`) are **not** always in context
 
 ## Task Management
 
-1. **Plan First**: Write the plan to `tasks/todo.md` with checkable items (if absent, ask before creating ad hoc structure).
+1. **Plan First**: Write the plan to `tasks/todo.md` with checkable items (if absent, ask before creating ad hoc structure). The todo tool tracks the live session; `tasks/todo.md` carries the durable plan and its Review.
 2. **Verify Plan**: For non-trivial work, present the plan in `tasks/todo.md` (or in chat if no `tasks/` yet). Proceed without waiting for explicit approval **only** when the plan rests on one clear interpretation and the user did not ask for a plan-only pass and the task is not high-risk (prod, security, data loss). Otherwise present the interpretations / ask — same as Plan Mode Default.
 3. **Track Progress**: Mark items complete as you go.
 4. **Explain Changes**: High-level summary at each step.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install OpenCode-only config: AGENTS.md + skills (frontmatter adapted).
+# Install OpenCode-only config: AGENTS.md (depuis user-rules/opencode/) + skills (frontmatter adapted).
 # Does not touch Cursor hooks/settings/storage. Project opencode.jsonc = init-project-opencode.
 set -euo pipefail
 
@@ -39,9 +39,9 @@ else
   echo "→ OpenCode skills: skip (pas de $DOT_SRC/skills)"
 fi
 
-# AGENTS.md (= user rules) : miroir depuis la racine du repo
-if [[ -f "$ROOT/AGENTS.md" ]]; then
-  cp "$ROOT/AGENTS.md" "$OPENCODE_CONFIG/AGENTS.md"
+# AGENTS.md (= user rules) : variante OpenCode de user-rules/
+if [[ -f "$ROOT/user-rules/opencode/AGENTS.md" ]]; then
+  cp "$ROOT/user-rules/opencode/AGENTS.md" "$OPENCODE_CONFIG/AGENTS.md"
   echo "→ OpenCode AGENTS.md"
 else
   echo "→ OpenCode AGENTS.md: skip (absent du repo)"

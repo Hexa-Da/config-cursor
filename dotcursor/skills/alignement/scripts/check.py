@@ -246,7 +246,7 @@ def _storage(rep: Report, export_storage) -> None:
 
 
 def _opencode_agents(rep: Report) -> None:
-    a = CONFIG / "AGENTS.md"
+    a = CONFIG / "user-rules" / "opencode" / "AGENTS.md"
     b = OPENCODE / "AGENTS.md"
     if not a.is_file():
         rep.skip("OpenCode AGENTS.md", "absent du repo")

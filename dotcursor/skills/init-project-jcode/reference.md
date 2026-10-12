@@ -2,7 +2,7 @@
 
 Templates **jcode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE / INDEX : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
 
-Le **bootstrap générique** (lire PROJET + ANNEXE + lessons) est dans `~/AGENTS.md` via `install-jcode.sh` / `config-cursor/AGENTS.md` — **pas** dans un `./AGENTS.md` projet par défaut.
+Le **bootstrap générique** (lire PROJET + ANNEXE + lessons) est dans `~/AGENTS.md` via `install-jcode.sh` / `config-cursor/user-rules/jcode/AGENTS.md` — **pas** dans un `./AGENTS.md` projet par défaut.
 
 ---
 

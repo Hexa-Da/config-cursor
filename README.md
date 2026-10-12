@@ -8,10 +8,10 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 # + miroir jcode (délègue à install-jcode.sh)
 ./scripts/install.sh
 
-# Repo → machine OpenCode only (AGENTS.md + skills)
+# Repo → machine OpenCode only (user-rules/opencode/AGENTS.md + skills)
 ./scripts/install-opencode.sh
 
-# Repo → machine jcode only (~/AGENTS.md + ~/.jcode/skills)
+# Repo → machine jcode only (user-rules/jcode/AGENTS.md → ~/AGENTS.md + ~/.jcode/skills)
 ./scripts/install-jcode.sh
 
 # Machine → repo (export config Cursor)
@@ -20,6 +20,16 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 # Canon lessons → tous les projets sous ~/Documents
 ./scripts/lessons-install.sh
 ```
+
+## User rules
+
+Une variante par harness dans `user-rules/` :
+
+| Fichier | Destination |
+| --- | --- |
+| `user-rules/cursor/AGENTS.md` | Cursor → Settings → Rules (copier-coller, non scriptable) |
+| `user-rules/opencode/AGENTS.md` | `~/.config/opencode/AGENTS.md` (`install-opencode.sh`) |
+| `user-rules/jcode/AGENTS.md` | `~/AGENTS.md` (`install-jcode.sh`) |
 
 Depuis le projet en cours (`~/Documents/projet`) :
 
