@@ -11,7 +11,7 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 # Repo → machine OpenCode only (user-rules/opencode/AGENTS.md + skills)
 ./scripts/install-opencode.sh
 
-# Repo → machine jcode only (user-rules/jcode/AGENTS.md → ~/AGENTS.md + ~/.jcode/skills)
+# Repo → machine jcode only (AGENTS.md, system-prompt.md, skills → ~/.jcode)
 ./scripts/install-jcode.sh
 
 # Machine → repo (export config Cursor)
@@ -30,6 +30,7 @@ Une variante par harness dans `user-rules/` :
 | `user-rules/cursor/AGENTS.md` | Cursor → Settings → Rules (copier-coller, non scriptable) |
 | `user-rules/opencode/AGENTS.md` | `~/.config/opencode/AGENTS.md` (`install-opencode.sh`) |
 | `user-rules/jcode/AGENTS.md` | `~/AGENTS.md` (`install-jcode.sh`) |
+| `user-rules/jcode/system-prompt.md` | `~/.jcode/system-prompt.md` (`install-jcode.sh`) |
 
 Depuis le projet en cours (`~/Documents/projet`) :
 

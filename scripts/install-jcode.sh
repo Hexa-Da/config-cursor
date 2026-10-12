@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install jcode-only config: ~/AGENTS.md (depuis user-rules/jcode/) + ~/.jcode/skills (frontmatter adapted).
+# Install jcode-only config: ~/AGENTS.md + ~/.jcode/system-prompt.md (depuis user-rules/jcode/) + ~/.jcode/skills.
 # Does not touch Cursor hooks/settings/storage. Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode.
 set -euo pipefail
 
@@ -45,5 +45,13 @@ else
   echo "→ jcode ~/AGENTS.md: skip (absent du repo)"
 fi
 
-echo "OK — Skills → $JCODE_SKILLS ; AGENTS.md → $HOME/AGENTS.md"
+# Base system prompt (couche Identity embarquée : remplacement complet, voir docs/SYSTEM_PROMPT_CONFIG.md)
+if [[ -f "$ROOT/user-rules/jcode/system-prompt.md" ]]; then
+  cp "$ROOT/user-rules/jcode/system-prompt.md" "$JCODE_HOME_DIR/system-prompt.md"
+  echo "→ jcode system-prompt.md"
+else
+  echo "→ jcode system-prompt.md: skip (absent du repo)"
+fi
+
+echo "OK — Skills → $JCODE_SKILLS ; AGENTS.md → $HOME/AGENTS.md ; system-prompt → $JCODE_HOME_DIR/system-prompt.md"
 echo "     Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode."
