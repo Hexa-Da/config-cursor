@@ -5,6 +5,14 @@ root="$HOME/Documents/config-cursor"
 canon="$root/tasks/lessons.md"
 patch="$root/scripts/lib/patch_lessons_snapshot.sh"
 
+detect_jcode_home() {
+  if [[ -n "${JCODE_HOME:-}" ]]; then
+    echo "$JCODE_HOME"
+  else
+    echo "$HOME/.jcode"
+  fi
+}
+
 detect_opencode_config_dir() {
   if [[ -n "${OPENCODE_CONFIG_DIR:-}" ]]; then
     echo "$OPENCODE_CONFIG_DIR"
@@ -38,4 +46,5 @@ sync_installed_snapshot() {
 }
 
 sync_installed_snapshot "$(detect_opencode_config_dir)/skills/init-project/reference.md"
+sync_installed_snapshot "$(detect_jcode_home)/skills/init-project/reference.md"
 sync_installed_snapshot "$HOME/.cursor/skills/init-project/reference.md"

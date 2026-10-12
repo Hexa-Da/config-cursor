@@ -2,16 +2,16 @@
 name: alignement
 description: >-
   Checks config-cursor repo vs this machine (hooks, skills, settings,
-  cursor-storage, OpenCode, lessons). Use when the user asks to verify
+  cursor-storage, OpenCode, jcode, lessons). Use when the user asks to verify
   alignment, alignement, repo vs machine, or whether install.sh /
-  install-opencode.sh / export.sh is needed.
+  install-opencode.sh / install-jcode.sh / export.sh is needed.
 disable-model-invocation: true
 ---
 
 # Alignement repo ↔ machine
 
 Vérif **en lecture**. Ne pas lancer `install.sh` / `install-opencode.sh` /
-`export.sh` / `lessons-install.sh` sauf demande explicite.
+`install-jcode.sh` / `export.sh` / `lessons-install.sh` sauf demande explicite.
 
 ## Checklist
 
@@ -34,11 +34,12 @@ Exit 0 = pas de `DRIFT`. Exit 1 = écart inattendu.
 | Statut | Sens |
 | --- | --- |
 | **OK** | Couche identique |
-| **DRIFT** | Écart à corriger. Le détail indique `install.sh` / `install-opencode.sh` (repo → machine) ou `export.sh` (machine → repo) ou `lessons-install.sh` |
+| **DRIFT** | Écart à corriger. Le détail indique `install.sh` / `install-opencode.sh` / `install-jcode.sh` (repo → machine) ou `export.sh` (machine → repo) ou `lessons-install.sh` |
 | **INFO** | Attendu : extensions indicatives, Cursor ouvert, worktree sale |
 | **SKIP** | Fichier / couche absente |
 
-- OpenCode `SKILL.md` : le script compare au **transform** (`sync_opencode_skills.py`), pas au brut Cursor.
+- OpenCode et jcode `SKILL.md` : le script compare au **transform** (`sync_opencode_skills.py`, `sync_jcode_skills.py`), pas au brut Cursor.
+- Les user rules viennent de `user-rules/<harness>/AGENTS.md` : OpenCode → `~/.config/opencode/AGENTS.md`, jcode → `~/AGENTS.md`. La variante Cursor n'est pas scriptable (Settings → Rules), donc non vérifiée.
 - `extensions.txt` n'est **pas** une source de vérité (`install.sh` ne les installe pas).
 - `__pycache__` / `.gitkeep` ignorés.
 - Cursor ouvert → ne pas conclure qu'il faut `install.sh` pour `cursor-storage` (overwrite au quit).

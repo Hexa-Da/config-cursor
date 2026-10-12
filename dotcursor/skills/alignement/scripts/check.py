@@ -29,6 +29,12 @@ def _opencode_config() -> Path:
     return HOME / ".config" / "opencode"
 
 
+def _jcode_home() -> Path:
+    if os.environ.get("JCODE_HOME"):
+        return Path(os.environ["JCODE_HOME"])
+    return HOME / ".jcode"
+
+
 def _cursor_user() -> Path:
     system = os.uname().sysname
     if system == "Darwin":
@@ -42,6 +48,7 @@ def _cursor_user() -> Path:
 
 
 OPENCODE = _opencode_config()
+JCODE = _jcode_home()
 CURSOR_USER = _cursor_user()
 LIB = CONFIG / "scripts" / "lib"
 
@@ -50,9 +57,10 @@ def _load_libs() -> tuple:
     if str(LIB) not in sys.path:
         sys.path.insert(0, str(LIB))
     from cursor_storage import export_storage  # type: ignore  # noqa: PLC0415
+    from sync_jcode_skills import cursor_skill_md_to_jcode  # type: ignore  # noqa: PLC0415
     from sync_opencode_skills import cursor_skill_md_to_opencode  # type: ignore  # noqa: PLC0415
 
-    return export_storage, cursor_skill_md_to_opencode
+    return export_storage, cursor_skill_md_to_opencode, cursor_skill_md_to_jcode
 
 
 class Report:
@@ -245,23 +253,23 @@ def _storage(rep: Report, export_storage) -> None:
         tmp.unlink(missing_ok=True)
 
 
-def _opencode_agents(rep: Report) -> None:
-    a = CONFIG / "user-rules" / "opencode" / "AGENTS.md"
-    b = OPENCODE / "AGENTS.md"
+def _channel_agents(rep: Report, label: str, variant: str, machine: Path, hint: str) -> None:
+    a = CONFIG / "user-rules" / variant / "AGENTS.md"
+    name = f"{label} AGENTS.md"
     if not a.is_file():
-        rep.skip("OpenCode AGENTS.md", "absent du repo")
+        rep.skip(name, "absent du repo")
         return
-    if _cmp_files(a, b):
-        rep.ok("OpenCode AGENTS.md")
+    if _cmp_files(a, machine):
+        rep.ok(name)
     else:
-        rep.drift("OpenCode AGENTS.md", "≠ repo → install-opencode.sh")
+        rep.drift(name, f"≠ repo → {hint}")
 
 
-def _opencode_skills(rep: Report, cursor_skill_md_to_opencode) -> None:
+def _channel_skills(rep: Report, label: str, dst: Path, transform, hint: str) -> None:
     src = CONFIG / "dotcursor" / "skills"
-    dst = OPENCODE / "skills"
+    name = f"{label} skills"
     if not src.is_dir():
-        rep.skip("OpenCode skills", "pas de dotcursor/skills")
+        rep.skip(name, "pas de dotcursor/skills")
         return
     src_names = {p.name for p in src.iterdir() if p.is_dir()}
     dst_names = {p.name for p in dst.iterdir() if p.is_dir()} if dst.is_dir() else set()
@@ -272,29 +280,29 @@ def _opencode_skills(rep: Report, cursor_skill_md_to_opencode) -> None:
         notes.append("manquant: " + ", ".join(missing))
     if extra:
         notes.append("extra (à pruner): " + ", ".join(extra))
-    for name in sorted(src_names & dst_names):
-        sdir, ddir = src / name, dst / name
+    for skill in sorted(src_names & dst_names):
+        sdir, ddir = src / skill, dst / skill
         sfiles = _files(sdir)
         dfiles = _files(ddir)
         for rel in sorted(set(sfiles) - set(dfiles)):
-            notes.append(f"{name}/{rel} manquant")
+            notes.append(f"{skill}/{rel} manquant")
         for rel in sorted(set(sfiles) & set(dfiles)):
             stext = sfiles[rel].read_text(encoding="utf-8")
             dtext = dfiles[rel].read_text(encoding="utf-8")
             if Path(rel).name == "SKILL.md":
                 try:
-                    expected = cursor_skill_md_to_opencode(stext)
+                    expected = transform(stext)
                 except ValueError as exc:
-                    notes.append(f"{name}/{rel}: transform {exc}")
+                    notes.append(f"{skill}/{rel}: transform {exc}")
                     continue
                 if expected != dtext:
-                    notes.append(f"{name}/{rel} (transform)")
+                    notes.append(f"{skill}/{rel} (transform)")
             elif stext != dtext:
-                notes.append(f"{name}/{rel}")
+                notes.append(f"{skill}/{rel}")
     if notes:
-        rep.drift("OpenCode skills", "; ".join(notes) + " → install-opencode.sh")
+        rep.drift(name, "; ".join(notes) + f" → {hint}")
     else:
-        rep.ok("OpenCode skills")
+        rep.ok(name)
 
 
 def _lessons(rep: Report) -> None:
@@ -333,6 +341,7 @@ def _snapshots(rep: Report) -> None:
     patch = LIB / "patch_lessons_snapshot.sh"
     dests = [
         OPENCODE / "skills" / "init-project" / "reference.md",
+        JCODE / "skills" / "init-project" / "reference.md",
         CURSOR / "skills" / "init-project" / "reference.md",
         CONFIG / "dotcursor" / "skills" / "init-project" / "reference.md",
     ]
@@ -419,7 +428,7 @@ def main() -> int:
         print(f"✗ repo introuvable: {CONFIG}", file=sys.stderr)
         return 2
 
-    export_storage, cursor_skill_md_to_opencode = _load_libs()
+    export_storage, cursor_skill_md_to_opencode, cursor_skill_md_to_jcode = _load_libs()
     rep = Report()
     _git(rep)
     _hooks(rep)
@@ -429,8 +438,12 @@ def main() -> int:
     _settings(rep)
     _keybindings(rep)
     _storage(rep, export_storage)
-    _opencode_agents(rep)
-    _opencode_skills(rep, cursor_skill_md_to_opencode)
+    _channel_agents(rep, "OpenCode", "opencode", OPENCODE / "AGENTS.md", "install-opencode.sh")
+    _channel_skills(
+        rep, "OpenCode", OPENCODE / "skills", cursor_skill_md_to_opencode, "install-opencode.sh"
+    )
+    _channel_agents(rep, "jcode", "jcode", HOME / "AGENTS.md", "install-jcode.sh")
+    _channel_skills(rep, "jcode", JCODE / "skills", cursor_skill_md_to_jcode, "install-jcode.sh")
     _lessons(rep)
     _snapshots(rep)
     _extensions(rep)
