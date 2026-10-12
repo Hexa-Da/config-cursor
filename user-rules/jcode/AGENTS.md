@@ -86,11 +86,11 @@ Under jcode, installed skills (`~/.jcode/skills/`) are **not** always in context
 
 ## Task Management
 
-1. **Plan First**: Write the plan to `tasks/todo.md` with checkable items (if absent, ask before creating ad hoc structure). The `todo` tool tracks the live session; `tasks/todo.md` carries the durable plan and its Review.
-2. **Verify Plan**: For non-trivial work, present the plan in `tasks/todo.md` (or in chat if no `tasks/` yet). Proceed without waiting for explicit approval **only** when the plan rests on one clear interpretation and the user did not ask for a plan-only pass and the task is not high-risk (prod, security, data loss). Otherwise present the interpretations / ask — same as Cherny #1.
+1. **Plan First**: Write the plan in the `todo` tool with checkable items — it is the only plan support under jcode.
+2. **Verify Plan**: For non-trivial work, present the plan in chat. Proceed without waiting for explicit approval **only** when the plan rests on one clear interpretation and the user did not ask for a plan-only pass and the task is not high-risk (prod, security, data loss). Otherwise present the interpretations / ask — same as Cherny #1.
 3. **Track Progress**: Mark items complete as you go.
 4. **Explain Changes**: High-level summary at each step.
-5. **Document Results**: Add a review section to `tasks/todo.md`.
+5. **Document Results**: Close the plan with a review of what was done and how it was verified.
 6. **Capture Lessons**: After corrections, update the relevant `memoire/` doc (`CONVENTIONS.md`, `ARCHITECTURE.md`, annex) — dedupe/merge before appending. **Never** edit `tasks/lessons.md`.
 
 
