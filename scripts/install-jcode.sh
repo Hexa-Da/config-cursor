@@ -53,5 +53,11 @@ else
   echo "→ jcode system-prompt.md: skip (absent du repo)"
 fi
 
+# Hook pre_tool (garde-fou) : à activer dans config.toml -> [hooks] pre_tool = "~/.jcode/hooks/garde-fou-jcode.py"
+mkdir -p "$JCODE_HOME_DIR/hooks"
+cp "$DOT_SRC/hooks/garde-fou.py" "$ROOT/dotjcode/hooks/garde-fou-jcode.py" "$JCODE_HOME_DIR/hooks/"
+chmod +x "$JCODE_HOME_DIR/hooks/garde-fou.py" "$JCODE_HOME_DIR/hooks/garde-fou-jcode.py"
+echo "→ jcode hooks: garde-fou-jcode.py"
+
 echo "OK — Skills → $JCODE_SKILLS ; AGENTS.md → $HOME/AGENTS.md ; system-prompt → $JCODE_HOME_DIR/system-prompt.md"
 echo "     Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode."
