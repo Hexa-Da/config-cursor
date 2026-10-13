@@ -23,7 +23,7 @@ Sur tout repo qui suit le harness (`memoire/` + `tasks/`), lire au démarrage **
 
 Appliquer le catalogue `ANNEXE.md` : ouvrir immédiatement toute annexe dont le trigger correspond à la mission. Ne pas ouvrir les autres « au cas où ».
 
-Aucun câblage projet n’est nécessaire sous jcode : ce bloc est global (`~/AGENTS.md`). Un `./AGENTS.md` projet n’est utile **que** pour des exceptions locales.
+Aucun câblage projet n’est nécessaire sous jcode : ce bloc est global (`~/AGENTS.md`). **Jamais** de `./AGENTS.md` projet.
 
 ## jcode — skills à la demande
 

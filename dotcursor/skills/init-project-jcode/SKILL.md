@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 # Initialisation projet jcode
 
-Crée l'ossature `tasks/` et `memoire/` à la racine du repo, avec les fichiers préremplis pour le workflow agent (Cherny's rules, séparation méthode/savoir projet, clôture de session). **Ne crée pas** `.cursor/` ni `opencode.jsonc`.
+Crée l'ossature `tasks/` et `memoire/` à la racine du repo, avec les fichiers préremplis pour le workflow agent (Cherny's rules, séparation méthode/savoir projet, clôture de session). **Ne crée pas** `.cursor/`, `opencode.jsonc`, ni `./AGENTS.md`.
 
 Équivalent jcode de `init-project` (Cursor) / `init-project-opencode` (OpenCode). Aligné avec `install-jcode.sh` : skills + bootstrap générique + user rules viennent de `~/AGENTS.md` (canon `config-cursor/dotjcode/AGENTS.md`) et `~/.jcode/skills/`.
 
@@ -37,9 +37,9 @@ Copier la checklist et la cocher au fil de l'exécution :
 
 Vérifier l'existence de chaque dossier/fichier cible. Ne jamais écraser un fichier existant — signaler les conflits à l'utilisateur.
 
-Ne pas créer `.cursor/` ni `opencode.jsonc` même s'ils sont absents. Si `.cursor/rules/bootstrap.mdc` ou `opencode.jsonc` existent déjà (projet mixte) : ne pas les toucher ; ce skill ne gère que l’ossature `tasks/` + `memoire/` pour jcode.
+Ne pas créer `.cursor/`, `opencode.jsonc`, ni `./AGENTS.md` même s'ils sont absents. Si `.cursor/rules/bootstrap.mdc` ou `opencode.jsonc` existent déjà (projet mixte) : ne pas les toucher ; ce skill ne gère que l’ossature `tasks/` + `memoire/` pour jcode.
 
-**Ne pas** créer `./AGENTS.md` par défaut : le bootstrap (lire `PROJET` + `ANNEXE` + `lessons`) est **générique** et vit dans `~/AGENTS.md`. Créer un `./AGENTS.md` **seulement** si l’utilisateur demande des exceptions projet.
+Le bootstrap (lire `PROJET` + `ANNEXE` + `lessons`) est **générique** et vit uniquement dans `~/AGENTS.md` — **jamais** de `./AGENTS.md` projet.
 
 ### 2. Dossiers à créer
 
@@ -69,8 +69,6 @@ Contenus jcode-only dans [reference.md](reference.md). Sections partagées (todo
 | `memoire/CONVENTIONS.md`   | init-project/reference.md → Template CONVENTIONS | Conventions code/test         |
 | `memoire/ARCHITECTURE.md`  | init-project/reference.md → Template ARCHITECTURE | Structure / patterns         |
 
-**Optionnel** — exceptions projet seulement : [reference.md](reference.md) → Copie AGENTS.md (override).
-
 ### 4. Personnalisation
 
 Demander à l'utilisateur (ou déduire du repo) :
@@ -88,7 +86,7 @@ memoire
 tasks
 ```
 
-Ne pas ajouter `.cursor`, `opencode.jsonc`, ni `AGENTS.md` (le bootstrap jcode est global). Si un `./AGENTS.md` d’exception est créé plus tard, l’ajouter au `.gitignore` à ce moment-là.
+Ne pas ajouter `.cursor`, `opencode.jsonc`, ni `AGENTS.md` (le bootstrap jcode est global ; pas de `./AGENTS.md` projet).
 
 ### 6. Récapituler
 
