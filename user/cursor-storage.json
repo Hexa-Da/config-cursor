@@ -21,7 +21,17 @@
         "sandboxAutoRunSettingEnabled": false,
         "subagentModelOverrides": {
             "explore": {
-                "mode": "inherit"
+                "mode": "model",
+                "modelConfig": {
+                    "modelName": "composer-2.5",
+                    "maxMode": false,
+                    "selectedModels": [
+                        {
+                            "modelId": "composer-2.5",
+                            "parameters": []
+                        }
+                    ]
+                }
             }
         },
         "unifiedAppLayout": "agent",
