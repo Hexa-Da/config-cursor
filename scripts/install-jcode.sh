@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install jcode-only config: ~/AGENTS.md + ~/.jcode/system-prompt.md (depuis user-rules/jcode/) + ~/.jcode/skills.
+# Install jcode-only config: ~/AGENTS.md + ~/.jcode/system-prompt.md (depuis dotjcode/) + ~/.jcode/skills.
 # Does not touch Cursor hooks/settings/storage. Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode.
 set -euo pipefail
 
@@ -37,17 +37,17 @@ else
   echo "→ jcode skills: skip (pas de $DOT_SRC/skills)"
 fi
 
-# ~/AGENTS.md (= user rules globales) : variante jcode de user-rules/
-if [[ -f "$ROOT/user-rules/jcode/AGENTS.md" ]]; then
-  cp "$ROOT/user-rules/jcode/AGENTS.md" "$HOME/AGENTS.md"
+# ~/AGENTS.md (= user rules globales) : variante jcode de dotjcode/
+if [[ -f "$ROOT/dotjcode/AGENTS.md" ]]; then
+  cp "$ROOT/dotjcode/AGENTS.md" "$HOME/AGENTS.md"
   echo "→ jcode ~/AGENTS.md"
 else
   echo "→ jcode ~/AGENTS.md: skip (absent du repo)"
 fi
 
 # Base system prompt (couche Identity embarquée : remplacement complet, voir docs/SYSTEM_PROMPT_CONFIG.md)
-if [[ -f "$ROOT/user-rules/jcode/system-prompt.md" ]]; then
-  cp "$ROOT/user-rules/jcode/system-prompt.md" "$JCODE_HOME_DIR/system-prompt.md"
+if [[ -f "$ROOT/dotjcode/system-prompt.md" ]]; then
+  cp "$ROOT/dotjcode/system-prompt.md" "$JCODE_HOME_DIR/system-prompt.md"
   echo "→ jcode system-prompt.md"
 else
   echo "→ jcode system-prompt.md: skip (absent du repo)"

@@ -13,7 +13,7 @@ disable-model-invocation: true
 
 Crée l'ossature `tasks/` et `memoire/` à la racine du repo, avec les fichiers préremplis pour le workflow agent (Cherny's rules, séparation méthode/savoir projet, clôture de session). **Ne crée pas** `.cursor/` ni `opencode.jsonc`.
 
-Équivalent jcode de `init-project` (Cursor) / `init-project-opencode` (OpenCode). Aligné avec `install-jcode.sh` : skills + bootstrap générique + user rules viennent de `~/AGENTS.md` (canon `config-cursor/user-rules/jcode/AGENTS.md`) et `~/.jcode/skills/`.
+Équivalent jcode de `init-project` (Cursor) / `init-project-opencode` (OpenCode). Aligné avec `install-jcode.sh` : skills + bootstrap générique + user rules viennent de `~/AGENTS.md` (canon `config-cursor/dotjcode/AGENTS.md`) et `~/.jcode/skills/`.
 
 ## Prérequis
 

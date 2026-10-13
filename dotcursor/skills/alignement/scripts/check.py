@@ -254,7 +254,7 @@ def _storage(rep: Report, export_storage) -> None:
 
 
 def _channel_agents(rep: Report, label: str, variant: str, machine: Path, hint: str) -> None:
-    a = CONFIG / "user-rules" / variant / "AGENTS.md"
+    a = CONFIG / f"dot{variant}" / "AGENTS.md"
     name = f"{label} AGENTS.md"
     if not a.is_file():
         rep.skip(name, "absent du repo")

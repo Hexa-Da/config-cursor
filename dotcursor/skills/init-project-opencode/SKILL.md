@@ -13,7 +13,7 @@ disable-model-invocation: true
 
 Crée l'ossature `tasks/`, `memoire/` et `opencode.jsonc` à la racine du repo, avec les fichiers préremplis pour le workflow agent (Cherny's rules, séparation méthode/savoir projet, clôture de session). **Ne crée pas** `.cursor/`.
 
-Équivalent OpenCode de `init-project` (Cursor). Aligné avec `install-opencode.sh` : skills / `AGENTS.md` viennent de `~/.config/opencode` (canon `config-cursor/user-rules/opencode/AGENTS.md`), le câblage projet est ce skill.
+Équivalent OpenCode de `init-project` (Cursor). Aligné avec `install-opencode.sh` : skills / `AGENTS.md` viennent de `~/.config/opencode` (canon `config-cursor/dotopencode/AGENTS.md`), le câblage projet est ce skill.
 
 ## Prérequis
 

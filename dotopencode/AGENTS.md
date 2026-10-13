@@ -1,6 +1,6 @@
 # User Rules — OpenCode
 
-> Source : `config-cursor/user-rules/opencode/AGENTS.md`, installé en `~/.config/opencode/AGENTS.md` par `install-opencode.sh`.
+> Source : `config-cursor/dotopencode/AGENTS.md`, installé en `~/.config/opencode/AGENTS.md` par `install-opencode.sh`.
 
 ## Environnement
 
