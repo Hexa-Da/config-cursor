@@ -41,6 +41,10 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
 
 Ne **jamais** faire de commit (ni de `push`, `rebase`, `reset`… — toute écriture dans l'historique) **sauf demande explicite** (« fait un commit », « committe ça »). Sinon : lire librement l’état git (`status` / `diff` / `log`) quand utile ; **proposer** un message en fin de tâche.
 
+### Découpage : préférer plusieurs petites MR
+
+Découper une grosse feature en **plusieurs petites MR** qui s’enchaînent et restent livrables / vérifiables, plutôt qu’une seule grosse MR qui livre tout en une session.
+
 ### Worktrees : principal si libre ; sinon un agent = un worktree = un `tasks/todo.md`
 
 - Confirmer le **worktree actif** ; toute action reste dans ce root.
