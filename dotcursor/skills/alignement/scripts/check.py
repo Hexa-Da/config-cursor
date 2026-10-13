@@ -170,6 +170,35 @@ def _hooks(rep: Report) -> None:
         rep.ok("hooks")
 
 
+def _opencode_hooks(rep: Report) -> None:
+    """Plugin + scripts garde-fou OpenCode (install-opencode.sh)."""
+    pairs = [
+        (
+            CONFIG / "dotopencode" / "plugins" / "garde-fou.js",
+            OPENCODE / "plugins" / "garde-fou.js",
+        ),
+        (
+            CONFIG / "dotopencode" / "hooks" / "garde-fou-opencode.py",
+            OPENCODE / "hooks" / "garde-fou-opencode.py",
+        ),
+        (
+            CONFIG / "dotcursor" / "hooks" / "garde-fou.py",
+            OPENCODE / "hooks" / "garde-fou.py",
+        ),
+    ]
+    notes: list[str] = []
+    for src, dst in pairs:
+        if not src.is_file():
+            notes.append(f"absent repo: {src.name}")
+            continue
+        if not _cmp_files(src, dst):
+            notes.append(src.name)
+    if notes:
+        rep.drift("hooks OpenCode", ", ".join(notes) + " → install-opencode.sh")
+    else:
+        rep.ok("hooks OpenCode")
+
+
 def _dot_dir(rep: Report, name: str) -> None:
     notes = _dir_diff(CONFIG / "dotcursor" / name, CURSOR / name)
     if notes:
@@ -442,6 +471,7 @@ def main() -> int:
     _channel_skills(
         rep, "OpenCode", OPENCODE / "skills", cursor_skill_md_to_opencode, "install-opencode.sh"
     )
+    _opencode_hooks(rep)
     _channel_agents(rep, "jcode", "jcode", HOME / "AGENTS.md", "install-jcode.sh")
     _channel_skills(rep, "jcode", JCODE / "skills", cursor_skill_md_to_jcode, "install-jcode.sh")
     _lessons(rep)
