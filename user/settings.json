@@ -27,5 +27,6 @@
         "terminalEditor": false,
         "mainThreadWebview-browserPreview": false
     },
-    "cursor.composer.queueMessageDefaultBehavior": "steer"
+    "cursor.composer.queueMessageDefaultBehavior": "steer",
+    "cursor.composer.queueManualSendBehavior2": "steer"
 }
