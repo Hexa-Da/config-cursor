@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Merge dotjcode/config.policy.toml keys into ~/.jcode/config.toml.
 
-Only keys present in the policy file are written. Everything else in the
-machine config (display, auth, providers, …) is left untouched. Comments and
-ordering outside touched keys are preserved via line-oriented edits.
+Keys present in the policy file are upserted. An empty policy table
+(e.g. `[keybindings]`) forces that section empty on the machine (header only).
+Everything else in the machine config is left untouched. Comments and ordering
+outside touched keys are preserved via line-oriented edits.
 """
 from __future__ import annotations
 
@@ -29,23 +30,32 @@ def _toml_scalar(value: object) -> str:
     raise TypeError(f"unsupported policy value type: {type(value).__name__}")
 
 
-def _flatten_policy(policy: dict) -> dict[str, dict[str, object]]:
-    """Return {section: {key: value}} for top-level tables with scalar values."""
+def _flatten_policy(
+    policy: dict, prefix: str = ""
+) -> dict[str, dict[str, object]]:
+    """Return {section: {key: value}} for leaf tables with scalar values.
+
+    Nested TOML tables (e.g. `[display.native_scrollbars]`) become dotted
+    section names matching the machine file headers. Empty tables are kept
+    (force empty section on merge).
+    """
     out: dict[str, dict[str, object]] = {}
-    for section, body in policy.items():
+    for key, body in policy.items():
+        path = f"{prefix}.{key}" if prefix else str(key)
         if not isinstance(body, dict):
             raise SystemExit(
-                f"policy: top-level key [{section}] must be a table, got {type(body).__name__}"
+                f"policy: [{path}] must be a table, got {type(body).__name__}"
             )
-        keys: dict[str, object] = {}
-        for key, value in body.items():
-            if isinstance(value, dict):
-                raise SystemExit(
-                    f"policy: nested tables not supported ([{section}.{key}])"
-                )
-            keys[key] = value
-        if keys:
-            out[str(section)] = keys
+        nested = {k: v for k, v in body.items() if isinstance(v, dict)}
+        scalars = {k: v for k, v in body.items() if not isinstance(v, dict)}
+        if nested and scalars:
+            raise SystemExit(
+                f"policy: mixed scalar and nested keys under [{path}]"
+            )
+        if nested:
+            out.update(_flatten_policy(nested, path))
+        else:
+            out[path] = scalars
     return out
 
 
@@ -82,6 +92,10 @@ def _upsert_keys_in_section(
         return out
 
     start, end = span
+    # Empty policy table → force header-only section (drop existing keys).
+    if not keys:
+        return lines[:start] + [f"[{section}]", ""] + lines[end:]
+
     section_lines = lines[start:end]
     remaining = dict(keys)
     new_section: list[str] = [section_lines[0]]  # header
@@ -150,10 +164,13 @@ def main(argv: list[str] | None = None) -> int:
     tmp = args.machine.with_suffix(args.machine.suffix + ".tmp")
     tmp.write_text(merged, encoding="utf-8")
     tmp.replace(args.machine)
-    keys = ", ".join(
-        f"{sec}.{k}" for sec, body in policy.items() for k in body
-    )
-    print(f"→ jcode config.toml: merged policy ({keys})")
+    parts: list[str] = []
+    for sec, body in policy.items():
+        if body:
+            parts.extend(f"{sec}.{k}" for k in body)
+        else:
+            parts.append(f"{sec}.(empty)")
+    print(f"→ jcode config.toml: merged policy ({', '.join(parts)})")
     return 0
 
 
