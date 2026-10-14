@@ -11,7 +11,7 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 # Repo → machine OpenCode only (AGENTS.md + skills + plugin garde-fou)
 ./scripts/install-opencode.sh
 
-# Repo → machine jcode only (AGENTS.md, system-prompt.md, skills → ~/.jcode)
+# Repo → machine jcode only (AGENTS.md, system-prompt, config.policy merge, skills → ~/.jcode)
 ./scripts/install-jcode.sh
 
 # Machine → repo (export config Cursor)
@@ -20,18 +20,6 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 # Canon lessons → tous les projets sous ~/Documents
 ./scripts/lessons-install.sh
 ```
-
-## User rules
-
-Une variante par harness dans `dot<harness>/` :
-
-| Fichier | Destination |
-| --- | --- |
-| `dotcursor/AGENTS.md` | Cursor → Settings → Rules (copier-coller, non scriptable) |
-| `dotopencode/AGENTS.md` | `~/.config/opencode/AGENTS.md` (`install-opencode.sh`) |
-| `dotopencode/plugins/garde-fou.js` + `hooks/` | `~/.config/opencode/plugins/` + `hooks/` (auto-load) |
-| `dotjcode/AGENTS.md` | `~/AGENTS.md` (`install-jcode.sh`) |
-| `dotjcode/system-prompt.md` | `~/.jcode/system-prompt.md` (`install-jcode.sh`) |
 
 Depuis le projet en cours (`~/Documents/projet`) :
 

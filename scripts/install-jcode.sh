@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Install jcode-only config: ~/AGENTS.md + ~/.jcode/system-prompt.md (depuis dotjcode/) + ~/.jcode/skills.
+# Install jcode-only config: ~/AGENTS.md + ~/.jcode/system-prompt.md (depuis dotjcode/)
+# + merge config.policy.toml → ~/.jcode/config.toml + ~/.jcode/skills.
 # Does not touch Cursor hooks/settings/storage. Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode.
 set -euo pipefail
 
@@ -53,11 +54,19 @@ else
   echo "→ jcode system-prompt.md: skip (absent du repo)"
 fi
 
-# Hook pre_tool (garde-fou) : à activer dans config.toml -> [hooks] pre_tool = "~/.jcode/hooks/garde-fou-jcode.py"
+# Hook pre_tool (garde-fou) : scripts + câblage via config.policy.toml merge
 mkdir -p "$JCODE_HOME_DIR/hooks"
 cp "$DOT_SRC/hooks/garde-fou.py" "$ROOT/dotjcode/hooks/garde-fou-jcode.py" "$JCODE_HOME_DIR/hooks/"
 chmod +x "$JCODE_HOME_DIR/hooks/garde-fou.py" "$JCODE_HOME_DIR/hooks/garde-fou-jcode.py"
 echo "→ jcode hooks: garde-fou-jcode.py"
 
+POLICY="$ROOT/dotjcode/config.policy.toml"
+if [[ -f "$POLICY" ]]; then
+  python3 "$SCRIPT_DIR/lib/merge_jcode_config_policy.py" \
+    "$POLICY" "$JCODE_HOME_DIR/config.toml"
+else
+  echo "→ jcode config.policy: skip (absent du repo)"
+fi
+
 echo "OK — Skills → $JCODE_SKILLS ; AGENTS.md → $HOME/AGENTS.md ; system-prompt → $JCODE_HOME_DIR/system-prompt.md"
-echo "     Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode."
+echo "     config.policy → $JCODE_HOME_DIR/config.toml (merge) ; bootstrap = ~/AGENTS.md."

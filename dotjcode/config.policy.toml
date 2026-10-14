@@ -1,0 +1,7 @@
+# Canon config-cursor: merged into ~/.jcode/config.toml by install-jcode.sh.
+
+[features]
+mermaid = false
+
+[hooks]
+pre_tool = "~/.jcode/hooks/garde-fou-jcode.py"
