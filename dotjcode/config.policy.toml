@@ -2,6 +2,11 @@
 
 [keybindings]
 
+[display]
+diff_mode = "off"
+idle_animation = true
+pin_images = false
+
 [features]
 mermaid = false
 persist_memory_injections = true
@@ -20,5 +25,5 @@ turn_complete = false
 [compaction]
 mode = "semantic"
 
-[launch_hotkeys]
+[launch_hotkeys] 
 enabled = false
