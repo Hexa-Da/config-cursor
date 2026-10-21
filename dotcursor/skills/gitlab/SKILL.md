@@ -23,9 +23,16 @@ local). Ne pas les lancer sauf demande explicite de scan bugs/sécu.
 - [ ] 2. Un seul fetch.py avec cette cible ; lire la sortie
 - [ ] 3. Signaler si HEAD ≠ source_branch (ne pas checkout)
 - [ ] 4. Cibler la note demandée, sinon les discussions non résolues
-- [ ] 5. Analyser / plan ; n’implémenter que si la demande le dit
-- [ ] 6. Pas de commentaire GitLab, commit, branche, worktree sans demande
+- [ ] 5. Analyser / plan ; n’implémenter le code que si la demande le dit
+- [ ] 6. Pas de commentaire GitLab / commit / push / branche / worktree /
+        écriture memoire/session/ — sauf verbe explicite pour cet acte
 ```
+
+**Piège** : « corrige », « fais », « a faire », « report develop → … » = **code / conflits seulement**.
+Ça n’autorise **pas** `commit`, `push`, création de branche, ni édition de
+`memoire/session/`. Pour chaque acte git ou session : demande dédiée
+(« commit », « pousse », « crée la branche resolve », « mets à jour le
+rapport de session », `/cloture-session`, …).
 
 ## 1. Fetch déterministe
 
@@ -66,6 +73,11 @@ Si `HEAD` ≠ `source_branch` : le dire. **Ne pas** `checkout`, créer une
 branche ou un worktree sans accord (leçon worktrees). Rester dans le
 worktree actif.
 
+Même pour une MR robot `develop` → `develop-vue3` (procédure resolve dans
+`PROJET.md`) : **annoncer** la branche resolve dans le plan et **attendre
+l’accord** avant `checkout -B` / `--no-track`. « Report à faire » ≠
+permission de créer la branche tout seul.
+
 ## 3. Analyse puis action
 
 - **Note isolée** : résumer l’intention (2–3 lignes), fichier:ligne, fil.
@@ -73,21 +85,32 @@ worktree actif.
   pattern legacy). Puis plan court.
 - **MR entière** (« review de la MR N ») : lister les unresolved par
   fichier, ordre de traitement proposé. Pas un dump de tout le diff.
-- **Implémenter** seulement si le user le demande (corrige, applique, fais,
-  concentre-toi pour traiter…). Sinon s’arrêter au plan.
+- **Implémenter (fichiers seulement)** si le user le demande (corrige,
+  applique, fais, concentre-toi pour traiter, report à faire…). Sinon
+  s’arrêter au plan. **Implémenter ≠ committer** (voir §4).
+- Merge / conflits : résoudre le contenu des fichiers ; laisser l’index
+  prêt si utile ; **ne pas** `git commit` pour « finir le merge » —
+  proposer la commande + message, s’arrêter.
 - Code **non trivial** : `CONVENTIONS.md` une fois si le domaine le
   justifie ; annexe bootstrap (ex. `VEEVALIDATE.md`) **immédiatement** si
   le commentaire concerne ce domaine. Pas d’audit lecture seule → pas
   CONVENTIONS.
-- `memoire/session/` : lecture seulement si reprise explicite d’une session.
+- `memoire/session/` : **lecture** seulement si reprise explicite d’une
+  session. **Jamais** créer / éditer un rapport de session pendant un
+  fetch / fix MR — réservé à une demande explicite ou `/cloture-session`.
 
 ## 4. Interdits sauf demande explicite
 
 - Commentaire / reply / resolve sur GitLab (`glab mr note`, API POST)
-- `commit` / `push` / `rebase` / `reset`
+- `commit` / `push` / `rebase` / `reset` — y compris le commit qui
+  finalise un `git merge` après conflits (« il faut committer pour
+  sortir de MERGE_HEAD » n’est **pas** une exception)
+- Création de branche / worktree / `checkout` hors worktree actif
+- Écriture sous `memoire/session/`
 - Lancer Bugbot ou Security Review
 
-En fin de fix : proposer un message de commit, ne pas le faire.
+En fin de fix : **proposer** le message (et la commande `git commit` /
+`git push` / MR) en une phrase ; **ne pas** les exécuter.
 
 ## Référence projet
 
