@@ -25,5 +25,8 @@ turn_complete = false
 [compaction]
 mode = "semantic"
 
+[menubar]
+enabled = false
+
 [launch_hotkeys] 
 enabled = false
