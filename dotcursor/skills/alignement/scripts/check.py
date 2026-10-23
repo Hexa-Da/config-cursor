@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import tomllib
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
@@ -57,10 +58,26 @@ def _load_libs() -> tuple:
     if str(LIB) not in sys.path:
         sys.path.insert(0, str(LIB))
     from cursor_storage import export_storage  # type: ignore  # noqa: PLC0415
+    from merge_jcode_config_policy import _flatten_policy  # type: ignore  # noqa: PLC0415
     from sync_jcode_skills import cursor_skill_md_to_jcode  # type: ignore  # noqa: PLC0415
     from sync_opencode_skills import cursor_skill_md_to_opencode  # type: ignore  # noqa: PLC0415
 
-    return export_storage, cursor_skill_md_to_opencode, cursor_skill_md_to_jcode
+    return (
+        export_storage,
+        cursor_skill_md_to_opencode,
+        cursor_skill_md_to_jcode,
+        _flatten_policy,
+    )
+
+
+def _toml_section(root: dict, dotted: str) -> dict | None:
+    """Walk a tomllib tree for a dotted section name (`display`, `a.b`)."""
+    cur: object = root
+    for part in dotted.split("."):
+        if not isinstance(cur, dict) or part not in cur:
+            return None
+        cur = cur[part]
+    return cur if isinstance(cur, dict) else None
 
 
 class Report:
@@ -294,6 +311,52 @@ def _channel_agents(rep: Report, label: str, variant: str, machine: Path, hint: 
         rep.drift(name, f"≠ repo → {hint}")
 
 
+def _jcode_config_policy(rep: Report, flatten_policy) -> None:
+    """Policy keys from dotjcode/config.policy.toml must match ~/.jcode/config.toml.
+
+    Same contract as merge_jcode_config_policy / install-jcode.sh: only policy
+    keys are owned by the repo; other machine keys are ignored.
+    """
+    name = "jcode config.policy"
+    policy_path = CONFIG / "dotjcode" / "config.policy.toml"
+    machine_path = JCODE / "config.toml"
+    if not policy_path.is_file():
+        rep.skip(name, "absent du repo")
+        return
+    with policy_path.open("rb") as f:
+        policy = flatten_policy(tomllib.load(f))
+    if not policy:
+        rep.skip(name, "policy vide")
+        return
+    if not machine_path.is_file():
+        rep.drift(name, "config.toml absent → install-jcode.sh")
+        return
+    with machine_path.open("rb") as f:
+        machine = tomllib.load(f)
+    notes: list[str] = []
+    for section, keys in policy.items():
+        body = _toml_section(machine, section)
+        if not keys:
+            if body is None:
+                notes.append(f"{section} manquant")
+            elif body:
+                notes.append(f"{section} non vide ({', '.join(sorted(body))})")
+            continue
+        if body is None:
+            notes.append(f"{section} manquant")
+            continue
+        for key, expected in keys.items():
+            if key not in body:
+                notes.append(f"{section}.{key} manquant")
+            elif body[key] != expected:
+                notes.append(f"{section}.{key}={body[key]!r} ≠ {expected!r}")
+    if notes:
+        rep.drift(name, "; ".join(notes) + " → install-jcode.sh")
+    else:
+        n = sum(len(k) or 1 for k in policy.values())
+        rep.ok(name, f"{n} clé(s) policy")
+
+
 def _channel_skills(rep: Report, label: str, dst: Path, transform, hint: str) -> None:
     src = CONFIG / "dotcursor" / "skills"
     name = f"{label} skills"
@@ -457,7 +520,12 @@ def main() -> int:
         print(f"✗ repo introuvable: {CONFIG}", file=sys.stderr)
         return 2
 
-    export_storage, cursor_skill_md_to_opencode, cursor_skill_md_to_jcode = _load_libs()
+    (
+        export_storage,
+        cursor_skill_md_to_opencode,
+        cursor_skill_md_to_jcode,
+        flatten_policy,
+    ) = _load_libs()
     rep = Report()
     _git(rep)
     _hooks(rep)
@@ -474,6 +542,7 @@ def main() -> int:
     _opencode_hooks(rep)
     _channel_agents(rep, "jcode", "jcode", HOME / "AGENTS.md", "install-jcode.sh")
     _channel_skills(rep, "jcode", JCODE / "skills", cursor_skill_md_to_jcode, "install-jcode.sh")
+    _jcode_config_policy(rep, flatten_policy)
     _lessons(rep)
     _snapshots(rep)
     _extensions(rep)

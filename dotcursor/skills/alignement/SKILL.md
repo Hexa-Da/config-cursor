@@ -40,6 +40,7 @@ Exit 0 = pas de `DRIFT`. Exit 1 = écart inattendu.
 
 - OpenCode et jcode `SKILL.md` : le script compare au **transform** (`sync_opencode_skills.py`, `sync_jcode_skills.py`), pas au brut Cursor.
 - OpenCode garde-fou : `plugins/garde-fou.js` + `hooks/garde-fou{,-opencode}.py` → `install-opencode.sh`.
+- jcode `config.policy.toml` : clés policy vs `~/.jcode/config.toml` (même contrat que `merge_jcode_config_policy.py`) → `install-jcode.sh`. Le reste du fichier machine est ignoré.
 - Les user rules viennent de `dot<harness>/AGENTS.md` : OpenCode → `~/.config/opencode/AGENTS.md`, jcode → `~/AGENTS.md`. La variante Cursor n'est pas scriptable (Settings → Rules), donc non vérifiée.
 - `extensions.txt` n'est **pas** une source de vérité (`install.sh` ne les installe pas).
 - `__pycache__` / `.gitkeep` ignorés.
