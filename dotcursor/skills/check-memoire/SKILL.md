@@ -1,10 +1,10 @@
 ---
 name: check-memoire
 description: >-
-  Audits memoire bootstrap + ANNEXE compliance for the current mission,
-  reports gaps, and remediates by reading missing docs. Use when the user
-  asks check-memoire, /check-memoire, audit memoire, docs memoire chargés,
-  or whether the right annexes are loaded for this session.
+  Audits memoire bootstrap + ANNEXE compliance for the current mission and
+  reports gaps without remediating. Use when the user asks check-memoire,
+  /check-memoire, audit memoire, docs memoire chargés, or whether the right
+  annexes are loaded for this session.
 disable-model-invocation: true
 ---
 
@@ -12,10 +12,11 @@ disable-model-invocation: true
 
 Vérifie que les docs `memoire/` **requis pour la mission courante** sont
 présents et lus. **Pas** d’introspection du context window : conformité
-(docs requises vs lues / reconfirmées), pas contenu résiduel du prompt.
+(docs requises vs lues), pas contenu résiduel du prompt.
 
-Lecture seule. Aucune écriture sous `memoire/` ni rapport de session.
-Distinct de `alignement` (repo ↔ machine).
+Lecture seule. **Ne comble pas les GAP** (ne pas ouvrir les docs manquants
+pour « corriger » la session). Aucune écriture sous `memoire/` ni rapport
+de session. Distinct de `alignement` (repo ↔ machine).
 
 ## Checklist
 
@@ -25,8 +26,7 @@ Distinct de `alignement` (repo ↔ machine).
 - [ ] 3. Mission courante
 - [ ] 4. Annexes attendues (ANNEXE.md)
 - [ ] 5. Écarts OK | GAP | EXTRA
-- [ ] 6. Remédiation des GAP
-- [ ] 7. Rapport
+- [ ] 6. Rapport
 ```
 
 ## Étapes
@@ -41,8 +41,7 @@ Distinct de `alignement` (repo ↔ machine).
 
 2. **Toujours-on** — `memoire/PROJET.md`, `memoire/ANNEXE.md`,
    `tasks/lessons.md`. S’ils n’existent pas → **bloqué**. S’ils n’ont pas
-   encore été lus dans la session, ou si doute → **relire maintenant**
-   (vérifier à la source).
+   encore été lus dans la session → **GAP** (ne pas relire pour combler).
 
 3. **Mission** — déduire depuis le fil de discussion et `tasks/todo.md`
    s’il existe. Si ambiguë → **une** question, pas de guess.
@@ -51,16 +50,14 @@ Distinct de `alignement` (repo ↔ machine).
    exclusions). Produire l’ensemble attendu (`CONVENTIONS.md`,
    `ARCHITECTURE.md`, annexes nommées…). Ne pas inventer d’annexes hors
    catalogue. `memoire/session/` seulement si une annexe déclenchée y renvoie
-   ou reprise explicite.
+   ou reprise explicite. Si `ANNEXE.md` est GAP → ne pas l’ouvrir ; indiquer
+   les attendues comme indéterminées.
 
-5. **Écarts** — pour chaque attendu : `OK` (lu / reconfirmé dans cette
-   passe) ou `GAP` (à ouvrir). `EXTRA` uniquement si une annexe hors trigger
-   a été ouverte dans *cette* session (pas un inventaire disque).
+5. **Écarts** — pour chaque attendu : `OK` (déjà lu dans cette session) ou
+   `GAP` (non lu — **ne pas ouvrir**). `EXTRA` uniquement si une annexe hors
+   trigger a été ouverte dans *cette* session (pas un inventaire disque).
 
-6. **Remédiation** — ouvrir immédiatement tous les `GAP`. Ne pas ouvrir le
-   reste « au cas où ». Compter les lectures de remédiation pour le verdict.
-
-7. **Rapport** — utiliser le format ci-dessous. Une ligne de disclaimer
+6. **Rapport** — utiliser le format ci-dessous. Une ligne de disclaimer
    suffit ; pas de prose longue.
 
 ## Format de rapport
@@ -68,9 +65,9 @@ Distinct de `alignement` (repo ↔ machine).
 ```text
 check-memoire — <mission en 1 ligne>
 Toujours-on : PROJET / ANNEXE / lessons  → OK|GAP
-Attendues   : <fichier> → OK|GAP ; …
+Attendues   : <fichier> → OK|GAP ; … | indéterminées (ANNEXE GAP)
 Extra       : <fichier> ; … | —
-Verdict     : conforme | corrigé (N lectures) | bloqué (<raison>)
+Verdict     : conforme | écarts | bloqué (<raison>)
 Conformité docs requises vs lues — pas le context window.
 ```
 
@@ -78,6 +75,6 @@ Conformité docs requises vs lues — pas le context window.
 
 | Verdict | Sens |
 | --- | --- |
-| **conforme** | Toujours-on + attendues OK, aucun GAP restant |
-| **corrigé (N)** | GAP comblés par N lectures dans cette passe |
+| **conforme** | Toujours-on + attendues OK, aucun GAP |
+| **écarts** | Au moins un GAP (non comblé) |
 | **bloqué** | Harness / fichiers manquants, ou mission trop ambiguë |
