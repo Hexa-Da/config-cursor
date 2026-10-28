@@ -112,6 +112,11 @@ permission de créer la branche tout seul.
 En fin de fix : **proposer** le message (et la commande `git commit` /
 `git push` / MR) en une phrase ; **ne pas** les exécuter.
 
+Si création de MR explicitement demandée : `glab mr create` peut renvoyer
+**403** `insufficient_scope` (token sans écriture API) — alors pousser la
+branche et demandeer a l'utilisayeir de créer la MR **manuellement** dans 
+l’UI GitLab ; ne pas retenter ni pivoter sur un autre endpoint.
+
 ## Référence projet
 
 Si le repo a `memoire/PROJET.md` § GitLab : s’y conformer (host, `glab`
