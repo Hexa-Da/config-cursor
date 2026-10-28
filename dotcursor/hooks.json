@@ -15,6 +15,18 @@
         "failClosed": true,
         "timeout": 15
       }
+    ],
+    "sessionStart": [
+      {
+        "command": "node \"$HOME/Documents/ponytail/hooks/ponytail-activate.js\"",
+        "timeout": 15
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "node \"$HOME/Documents/ponytail/hooks/ponytail-mode-tracker.js\"",
+        "timeout": 15
+      }
     ]
   }
 }
