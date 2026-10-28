@@ -1,14 +1,15 @@
 ---
-name: check-memoire
+name: check-context
 description: >-
-  Audits memoire bootstrap + ANNEXE compliance for the current mission and
-  reports gaps without remediating. Use when the user asks check-memoire,
-  /check-memoire, audit memoire, docs memoire chargés, or whether the right
-  annexes are loaded for this session.
+  Audits session-context compliance: whether bootstrap + ANNEXE-triggered docs
+  for the current mission were loaded. Reports gaps without remediating. Use
+  when the user asks check-context, /check-context, docs chargés, or whether the
+  right annexes are loaded for this session. Does not audit long-term freshness
+  of memoire/ on disk (see skill memoire).
 disable-model-invocation: true
 ---
 
-# check-memoire — audit conformité
+# check-context — audit conformité session
 
 Vérifie que les docs `memoire/` **requis pour la mission courante** sont
 présents et lus. **Pas** d’introspection du context window : conformité
@@ -16,7 +17,8 @@ présents et lus. **Pas** d’introspection du context window : conformité
 
 Lecture seule. **Ne comble pas les GAP** (ne pas ouvrir les docs manquants
 pour « corriger » la session). Aucune écriture sous `memoire/` ni rapport
-de session. Distinct de `alignement` (repo ↔ machine).
+de session. Distinct de `alignement` (repo ↔ machine) et de `memoire`
+(fraîcheur / prune / annexes long terme sur le disque).
 
 ## Checklist
 
@@ -63,12 +65,12 @@ de session. Distinct de `alignement` (repo ↔ machine).
 ## Format de rapport
 
 ```text
-check-memoire — <mission en 1 ligne>
+check-context — <mission en 1 ligne>
 Toujours-on : PROJET / ANNEXE / lessons  → OK|GAP
 Attendues   : <fichier> → OK|GAP ; … | indéterminées (ANNEXE GAP)
 Extra       : <fichier> ; … | —
 Verdict     : conforme | écarts | bloqué (<raison>)
-Conformité docs requises vs lues — pas le context window.
+Conformité docs requises vs lues — pas le context window ; pas la fraîcheur memoire/.
 ```
 
 ## Verdicts

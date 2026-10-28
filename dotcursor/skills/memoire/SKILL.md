@@ -1,110 +1,116 @@
 ---
 name: memoire
-description: Maintains and expands memoire documentation for harness-based repositories. Use when the user asks to fill or update memoire docs, create specialized annexes, or define reading triggers in memoire/ANNEXE.md.
+description: >-
+  Audits and maintains long-term project memoire/ (spines + annexes): freshness
+  vs code, prune obsolete docs, create annexes when warranted. Use when the user
+  asks /memoire, to sync or prune memoire, check docs are up to date, or annex
+  a domain. Not for session-context compliance (see check-context).
 disable-model-invocation: true
 ---
 
 # memoire
 
-Rédige et maintient la documentation `memoire/` d’un repo (spines + annexes spécialisées), puis met à jour le catalogue de triggers dans `memoire/ANNEXE.md`.
+Audit et maintenance **full** de la mémoire long terme `memoire/` (tous sujets,
+sans gate de scope) : fraîcheur vs code, utilité des spines/annexes, prune du
+périmé, création d’annexe si justifiée. Orthogonal à `cloture-session` (pas
+d’enchaînement auto) et à `check-context` (contexte de **session**, pas le
+contenu disque de `memoire/`).
 
 ## Entrée
 
 Appliquer ce skill quand l’utilisateur demande par exemple :
 
-- remplir / enrichir `memoire/`
-- maintenir toutes les docs `memoire/`
-- créer de nouvelles annexes spécialisées
-- ajouter/ajuster les triggers de lecture dans `memoire/ANNEXE.md`
+- `/memoire`
+- synchroniser / vérifier / pruner `memoire/`
+- docs `memoire/` à jour
+- annexer un domaine dans `memoire/`
+
+Toujours en **full** — ne pas attendre une consigne de module ou de « full ».
 
 ## Workflow
 
 Copier cette checklist et la cocher pendant l’exécution :
 
 ```md
-- [ ] 1. Audit initial memoire/
-- [ ] 2. Extraire les invariants depuis le code
-- [ ] 3. Mettre à jour les spines
-- [ ] 4. Décider les annexes spécialisées à créer/mettre à jour
-- [ ] 5. Mettre à jour ANNEXE.md (triggers, exclusions, dépendances)
-- [ ] 6. Vérifier cohérence et récapituler
+- [ ] 1. Prérequis (spines)
+- [ ] 2. Indices session (≤10 rapports)
+- [ ] 3. Inventaire docs
+- [ ] 4. Cohérence code → docs
+- [ ] 5. Utilité / prune
+- [ ] 6. Création annexe si justifiée
+- [ ] 7. Catalogue ANNEXE.md
+- [ ] 8. Récap
 ```
 
-### 1) Audit initial memoire/
+### 1) Prérequis
 
-Vérifier l’existence de :
+Confirmer `memoire/` et les quatre spines :
 
 - `memoire/PROJET.md`
 - `memoire/ANNEXE.md`
 - `memoire/CONVENTIONS.md`
 - `memoire/ARCHITECTURE.md`
 
-Si un spine manque, le créer avec la structure du projet courant (sans inventer de techno absente).
+Si l’un manque → **stop** ; proposer `init-project` (ou variante canal). Ne pas
+bootstrapper les spines ici.
 
-### 2) Extraire les invariants depuis le code
+### 2) Indices session
 
-Lire d’abord les points à forte valeur :
+Lister jusqu’à **10** fichiers `memoire/session/AAAA-MM-JJ_HHmm_*.md` les plus
+récents (tri par nom). En extraire zones/modules touchés pour **prioriser** le
+balayage. Ces rapports ne sont **pas** source normative — le code prime.
 
-- fichier build principal (`build.gradle*`, `pom.xml`, etc.)
-- dossiers source principaux
-- tests
-- intégration/CI
+### 3) Inventaire docs
 
-Documenter uniquement des faits vérifiables dans le repo.
+Recenser :
 
-### 3) Mettre à jour les spines
+- les quatre spines ;
+- les annexes listées dans `ANNEXE.md` ;
+- les markdown orphelins sous `memoire/` (hors `session/`).
 
-Mettre à jour :
+### 4) Cohérence code → docs
 
-- `PROJET.md` : but, stack, concepts métier, entrées clés, hors-périmètre
-- `CONVENTIONS.md` : conventions de code/tests/build observées
-- `ARCHITECTURE.md` : cartographie packages/modules, patterns structurants, flux
+Croiser les invariants documentés avec le **code actuel** (prioriser les zones
+des indices, puis le reste). Documenter uniquement des faits vérifiables.
 
-Règles :
+Écriture **hybride** :
 
-- rester minimal et actionnable
-- éviter les inventaires temporaires
-- ne pas écrire de conventions non observées
+- **Direct** : fait contredit par le code, lien cassé, doublon spine/annexe
+  évident.
+- **Proposition** (liste à valider, pas d’écriture) : suppressions d’annexes,
+  fusions lourdes.
 
-### 4) Annexes spécialisées : décision
+Préférer les invariants aux inventaires (compteurs, dates d’état, branches).
 
-Créer (ou scinder) une annexe spécialisée si les 3 conditions sont vraies :
+### 5) Utilité / prune
 
-1. domaine avec trigger distinct ;
-2. domaine récurrent dans les missions ;
-3. contenu trop dense/hétérogène dans les spines.
+Candidat prune si : plus de code/chemin/concept correspondant **et** plus de
+trigger plausible dans `ANNEXE.md`. Edits légères en direct ; suppressions /
+fusions → proposition (étape 4).
 
-Ne pas créer d’annexe pour un ticket isolé, un état temporaire, ou une note jetable.
+### 6) Création annexe
 
-### 5) Mettre à jour `ANNEXE.md`
+Si un domaine est dense/hétérogène dans les spines (ou ressort des indices +
+code) : appliquer la grille « nouvelle annexe ? » dans [reference.md](reference.md)
+**et**, s’il existe, le cycle de vie / règles du `ANNEXE.md` du projet.
 
-Pour chaque annexe spécialisée, ajouter :
+Si OK : créer le fichier, déplacer le contenu hors spines si besoin, ajouter
+l’entrée catalogue (triggers / exclusions / dépendances). Sinon laisser dans
+spine. Pas d’annexe pour ticket isolé, état temporaire, ou note jetable.
 
-- **Triggers** : quand la lire
-- **Exclusions** : quand ne pas la lire
-- **Dépendances** : quelles autres annexes charger avec elle
+### 7) Catalogue `ANNEXE.md`
 
-Les triggers sont cumulatifs. Ne pas ouvrir d’autres annexes “au cas où”.
+Synchroniser le catalogue avec créations et prunes **validés** ; corriger les
+liens cassés directement. Gabarit d’entrée : [reference.md](reference.md).
 
-Utiliser le gabarit dans [reference.md](reference.md).
+### 8) Récap
 
-### 6) Vérifier et récapituler
-
-Avant de conclure :
-
-- vérifier que toutes les annexes référencées dans `ANNEXE.md` existent ;
-- vérifier qu’aucun placeholder vide ne reste dans les docs touchées ;
-- vérifier que les règles écrites correspondent au code actuel.
-
-Puis fournir un récapitulatif :
-
-- docs modifiées/créées ;
-- nouvelles annexes spécialisées ;
-- triggers ajoutés/modifiés ;
-- éventuels points à compléter par l’équipe.
+Fournir le récap (gabarit dans [reference.md](reference.md)) : docs touchées,
+annexes créées, propositions en attente, points équipe.
 
 ## Contraintes
 
 - Ne jamais modifier `tasks/lessons.md`.
-- Éviter les changements hors périmètre `memoire/` sauf demande explicite.
-- Préférer des mises à jour incrémentales lisibles plutôt qu’une prose longue.
+- Pas d’écriture hors `memoire/` sauf demande explicite.
+- Pas de rapport sous `memoire/session/` (réservé à `cloture-session`).
+- Mises à jour incrémentales ; pas de prose longue.

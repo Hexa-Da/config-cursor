@@ -1,4 +1,4 @@
-# Reference — memoire-docs-maintainer
+# Reference — memoire
 
 ## Gabarit d’entrée ANNEXE.md
 
@@ -23,16 +23,31 @@ Ne pas créer si :
 - le contenu tient en 3-8 lignes dans `CONVENTIONS.md` ou `ARCHITECTURE.md` ;
 - le sujet dépend d’une branche ou d’une date.
 
+Appliquer aussi, s’il existe, le cycle de vie / règles du `ANNEXE.md` du projet
+cible.
+
+## Grille rapide "prune annexe / pan de spine ?"
+
+Candidat prune si **les deux** :
+
+- plus de code, chemin ou concept correspondant dans le repo ;
+- plus de trigger plausible dans `ANNEXE.md`.
+
+Écriture : edits légères / faits faux → direct. Suppressions d’annexes et
+fusions lourdes → **proposition** à valider (pas d’écriture silencieuse).
+
 ## Gabarit de review final (réponse utilisateur)
 
 ```md
 Changements réalisés :
 - Spines mis à jour : ...
-- Annexes spécialisées créées/mises à jour : ...
-- Catalogue ANNEXE.md : triggers/exclusions/dépendances ajoutés pour ...
+- Annexes créées / mises à jour : ...
+- Catalogue ANNEXE.md : ...
+- Propositions en attente (prune / fusion) : ... | —
 
 Vérifications :
 - Références ANNEXE.md -> fichiers existants : OK/KO
 - Cohérence avec le code : OK/KO
+- Indices session utilisés (≤10) : ...
 - Points à compléter équipe : ...
 ```
