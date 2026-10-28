@@ -3,7 +3,7 @@ name: init-project-jcode
 description: >-
   Initialise un repo jcode avec tasks/ et memoire/ (sans .cursor).
   Crée et prérempli les fichiers méthodologiques. Bootstrap générique
-  dans ~/AGENTS.md via install-jcode.sh. Use when bootstrapping a
+  dans ~/.jcode/prompt-overlay.md via install-jcode.sh. Use when bootstrapping a
   jcode-only project, initializing tasks/ memoire/ without Cursor, or
   when the user asks for the jcode agent workflow structure.
 disable-model-invocation: true
@@ -13,12 +13,12 @@ disable-model-invocation: true
 
 Crée l'ossature `tasks/` et `memoire/` à la racine du repo, avec les fichiers préremplis pour le workflow agent (Cherny's rules, séparation méthode/savoir projet, clôture de session). **Ne crée pas** `.cursor/`, `opencode.jsonc`, ni `./AGENTS.md`.
 
-Équivalent jcode de `init-project` (Cursor) / `init-project-opencode` (OpenCode). Aligné avec `install-jcode.sh` : skills + bootstrap générique + user rules viennent de `~/AGENTS.md` (canon `config-cursor/dotjcode/AGENTS.md`) et `~/.jcode/skills/`.
+Équivalent jcode de `init-project` (Cursor) / `init-project-opencode` (OpenCode). Aligné avec `install-jcode.sh` : skills + bootstrap générique + user rules viennent de `~/.jcode/prompt-overlay.md` (canon `config-cursor/dotjcode/AGENTS.md`) et `~/.jcode/skills/`.
 
 ## Prérequis
 
 - Le repo cible existe déjà (même vide).
-- `install-jcode.sh` a déjà été joué au moins une fois (sinon le bootstrap générique n’est pas dans `~/AGENTS.md`).
+- `install-jcode.sh` a déjà été joué au moins une fois (sinon le bootstrap générique n’est pas dans `~/.jcode/prompt-overlay.md`).
 
 ## Workflow
 
@@ -39,7 +39,7 @@ Vérifier l'existence de chaque dossier/fichier cible. Ne jamais écraser un fic
 
 Ne pas créer `.cursor/`, `opencode.jsonc`, ni `./AGENTS.md` même s'ils sont absents. Si `.cursor/rules/bootstrap.mdc` ou `opencode.jsonc` existent déjà (projet mixte) : ne pas les toucher ; ce skill ne gère que l’ossature `tasks/` + `memoire/` pour jcode.
 
-Le bootstrap (lire `PROJET` + `ANNEXE` + `lessons`) est **générique** et vit uniquement dans `~/AGENTS.md` — **jamais** de `./AGENTS.md` projet.
+Le bootstrap (lire `PROJET` + `ANNEXE` + `lessons`) est **générique** et vit uniquement dans `~/.jcode/prompt-overlay.md` — **jamais** de `./AGENTS.md` projet ni de `~/AGENTS.md`.
 
 ### 2. Dossiers à créer
 
@@ -91,7 +91,7 @@ Ne pas ajouter `.cursor`, `opencode.jsonc`, ni `AGENTS.md` (le bootstrap jcode e
 ### 6. Récapituler
 
 Lister les fichiers créés et rappeler à l'utilisateur :
-- Bootstrap jcode = `~/AGENTS.md` (via `install-jcode.sh`) : lit `memoire/PROJET.md`, `memoire/ANNEXE.md` et `tasks/lessons.md`.
+- Bootstrap jcode = `~/.jcode/prompt-overlay.md` (via `install-jcode.sh`) : lit `memoire/PROJET.md`, `memoire/ANNEXE.md` et `tasks/lessons.md`.
 - Skills viennent de `~/.jcode/skills/` (même install), pas de ce skill.
 - Sous jcode, les skills sont **à la demande** (`/nom-du-skill` ou injection embedding).
 - `memoire/PROJET.md` est la source de vérité projet.
@@ -106,5 +106,5 @@ Lister les fichiers créés et rappeler à l'utilisateur :
 Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
 - `memoire/` = **savoir projet** — propre au repo.
-- Le câblage jcode générique vit dans `~/AGENTS.md` : lire `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
+- Le câblage jcode générique vit dans `~/.jcode/prompt-overlay.md` : lire `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
 - Les **conditions de lecture** des annexes vivent dans `memoire/ANNEXE.md`. `tasks/lessons.md` ne porte que la méthode : appliquer le catalogue attaché.

@@ -540,7 +540,7 @@ def main() -> int:
         rep, "OpenCode", OPENCODE / "skills", cursor_skill_md_to_opencode, "install-opencode.sh"
     )
     _opencode_hooks(rep)
-    _channel_agents(rep, "jcode", "jcode", HOME / "AGENTS.md", "install-jcode.sh")
+    _channel_agents(rep, "jcode", "jcode", JCODE / "prompt-overlay.md", "install-jcode.sh")
     _channel_skills(rep, "jcode", JCODE / "skills", cursor_skill_md_to_jcode, "install-jcode.sh")
     _jcode_config_policy(rep, flatten_policy)
     _lessons(rep)

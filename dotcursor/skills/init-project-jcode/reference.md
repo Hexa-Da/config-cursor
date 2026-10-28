@@ -2,7 +2,7 @@
 
 Templates **jcode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE / INDEX : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
 
-Le **bootstrap générique** (lire PROJET + ANNEXE + lessons) est dans `~/AGENTS.md` via `install-jcode.sh` / `config-cursor/dotjcode/AGENTS.md` — **jamais** de `./AGENTS.md` projet.
+Le **bootstrap générique** (lire PROJET + ANNEXE + lessons) est dans `~/.jcode/prompt-overlay.md` via `install-jcode.sh` / `config-cursor/dotjcode/AGENTS.md` — **jamais** de `./AGENTS.md` projet ni de `~/AGENTS.md`.
 
 ---
 
@@ -14,7 +14,7 @@ Fichier cible : `memoire/PROJET.md`
 # [NOM_PROJET] — Contexte projet pour agent IA
 
 > **Savoir projet** (domaine, stack, concepts métier). Lu au démarrage avec [`ANNEXE.md`](ANNEXE.md) et `tasks/lessons.md` (méthode) :
-> - **jcode** : bootstrap générique dans `~/AGENTS.md` (via `install-jcode.sh`)
+> - **jcode** : bootstrap générique dans `~/.jcode/prompt-overlay.md` (via `install-jcode.sh`)
 > - **Cursor** : `.cursor/rules/bootstrap.mdc` · **OpenCode** : `opencode.jsonc` → `instructions`
 >
 > Conditions de lecture des annexes : [`ANNEXE.md`](ANNEXE.md) ; `tasks/lessons.md` porte uniquement la méthode inter-projet.

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Install jcode-only config: ~/AGENTS.md + ~/.jcode/system-prompt.md (depuis dotjcode/)
+# Install jcode-only config: ~/.jcode/prompt-overlay.md + system-prompt.md (depuis dotjcode/)
 # + merge config.policy.toml → ~/.jcode/config.toml + ~/.jcode/skills.
-# Does not touch Cursor hooks/settings/storage. Bootstrap générique = ~/AGENTS.md ; ossature projet = skill init-project-jcode.
+# Does not touch Cursor hooks/settings/storage.
+# Bootstrap générique = ~/.jcode/prompt-overlay.md (pas ~/AGENTS.md : Cursor le charge en doublon des User Rules).
+# Ossature projet = skill init-project-jcode.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -38,12 +40,17 @@ else
   echo "→ jcode skills: skip (pas de $DOT_SRC/skills)"
 fi
 
-# ~/AGENTS.md (= user rules globales) : variante jcode de dotjcode/
+# User rules globales → prompt-overlay (couche jcode) : variante jcode de dotjcode/
+# Pas ~/AGENTS.md : Cursor remonte les parents et le charge en doublon des User Rules.
 if [[ -f "$ROOT/dotjcode/AGENTS.md" ]]; then
-  cp "$ROOT/dotjcode/AGENTS.md" "$HOME/AGENTS.md"
-  echo "→ jcode ~/AGENTS.md"
+  cp "$ROOT/dotjcode/AGENTS.md" "$JCODE_HOME_DIR/prompt-overlay.md"
+  echo "→ jcode prompt-overlay.md"
 else
-  echo "→ jcode ~/AGENTS.md: skip (absent du repo)"
+  echo "→ jcode prompt-overlay.md: skip (absent du repo)"
+fi
+if [[ -e "$HOME/AGENTS.md" ]]; then
+  rm -f "$HOME/AGENTS.md"
+  echo "→ purge legacy ~/AGENTS.md"
 fi
 
 # Base system prompt (couche Identity embarquée : remplacement complet, voir docs/SYSTEM_PROMPT_CONFIG.md)
@@ -68,5 +75,5 @@ else
   echo "→ jcode config.policy: skip (absent du repo)"
 fi
 
-echo "OK — Skills → $JCODE_SKILLS ; AGENTS.md → $HOME/AGENTS.md ; system-prompt → $JCODE_HOME_DIR/system-prompt.md"
-echo "     config.policy → $JCODE_HOME_DIR/config.toml (merge) ; bootstrap = ~/AGENTS.md."
+echo "OK — Skills → $JCODE_SKILLS ; overlay → $JCODE_HOME_DIR/prompt-overlay.md ; system-prompt → $JCODE_HOME_DIR/system-prompt.md"
+echo "     config.policy → $JCODE_HOME_DIR/config.toml (merge) ; bootstrap = prompt-overlay.md."

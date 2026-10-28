@@ -11,7 +11,7 @@ Depuis la racine du repo (`~/Documents/config-cursor`) :
 # Repo → machine OpenCode only (AGENTS.md + skills + plugin garde-fou)
 ./scripts/install-opencode.sh
 
-# Repo → machine jcode only (AGENTS.md, system-prompt, config.policy merge, skills → ~/.jcode)
+# Repo → machine jcode only (prompt-overlay, system-prompt, config.policy merge, skills → ~/.jcode)
 ./scripts/install-jcode.sh
 
 # Machine → repo (export config Cursor)

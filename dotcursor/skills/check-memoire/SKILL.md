@@ -35,7 +35,7 @@ de session. Distinct de `alignement` (repo ↔ machine).
    Détecter le câblage bootstrap :
    - Cursor : `.cursor/rules/bootstrap.mdc`
    - OpenCode : `opencode.jsonc` → `instructions`
-   - jcode : bootstrap global `~/AGENTS.md` (pas d’exigence d’`./AGENTS.md` projet)
+   - jcode : bootstrap global `~/.jcode/prompt-overlay.md` (pas d’exigence d’`./AGENTS.md` projet)
    Si harness / fichiers absents → **bloqué** ; proposer `init-project` /
    `init-project-opencode` / `init-project-jcode` selon le canal. Stop.
 
