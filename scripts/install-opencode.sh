@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install OpenCode-only config: AGENTS.md (depuis dotopencode/) + skills (frontmatter adapted)
-# + plugin/hooks garde-fou (auto-load ~/.config/opencode/plugins/).
+# + plugin garde-fou (auto-load ~/.config/opencode/plugins/).
 # Does not touch Cursor hooks/settings/storage. Project opencode.jsonc = init-project-opencode.
 set -euo pipefail
 
@@ -49,16 +49,17 @@ else
   echo "→ OpenCode AGENTS.md: skip (absent du repo)"
 fi
 
-# Garde-fou : plugin auto-load + scripts Python (base Cursor + wrapper OpenCode).
+# Garde-fou : plugin auto-load + scripts Python côte-à-côte (base Cursor + wrapper).
 # Pas de config.toml à éditer (contrairement à jcode pre_tool).
-mkdir -p "$OPENCODE_CONFIG/hooks" "$OPENCODE_CONFIG/plugins"
-cp "$DOT_SRC/hooks/garde-fou.py" "$DOT_OC/hooks/garde-fou-opencode.py" \
-  "$OPENCODE_CONFIG/hooks/"
-chmod +x "$OPENCODE_CONFIG/hooks/garde-fou.py" \
-  "$OPENCODE_CONFIG/hooks/garde-fou-opencode.py"
-cp "$DOT_OC/plugins/garde-fou.js" "$OPENCODE_CONFIG/plugins/garde-fou.js"
-echo "→ OpenCode hooks/plugin: garde-fou"
+mkdir -p "$OPENCODE_CONFIG/plugins"
+cp "$DOT_OC/plugins/garde-fou.js" \
+  "$DOT_OC/plugins/garde-fou-opencode.py" \
+  "$DOT_SRC/hooks/garde-fou.py" \
+  "$OPENCODE_CONFIG/plugins/"
+chmod +x "$OPENCODE_CONFIG/plugins/garde-fou.py" \
+  "$OPENCODE_CONFIG/plugins/garde-fou-opencode.py"
+echo "→ OpenCode plugins: garde-fou"
 
 echo "OK — Skills → $OPENCODE_CONFIG/skills ; AGENTS.md → $OPENCODE_CONFIG/AGENTS.md"
-echo "     Garde-fou → $OPENCODE_CONFIG/plugins/garde-fou.js (+ hooks/)"
+echo "     Garde-fou → $OPENCODE_CONFIG/plugins/garde-fou.js (+ .py)"
 echo "     Câblage projet (opencode.jsonc) : skill init-project-opencode, pas ce script."

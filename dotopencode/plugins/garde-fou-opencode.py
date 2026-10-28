@@ -2,7 +2,7 @@
 """Garde-fou sécurité pour le plugin OpenCode `tool.execute.before`.
 
 Réutilise la classification de garde-fou.py (même dossier).
-Contrat CLI (appelé par plugins/garde-fou.js) :
+Contrat CLI (appelé par garde-fou.js) :
   stdin JSON : {"tool": "...", "cwd": "...", "args": {...}}
   exit 0 = autorisé, exit 2 = bloqué (stderr renvoyé au modèle via throw).
 OpenCode n'a pas d'"ask" UI sur ce chemin : les cas ask sont bloqués

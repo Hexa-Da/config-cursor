@@ -195,12 +195,12 @@ def _opencode_hooks(rep: Report) -> None:
             OPENCODE / "plugins" / "garde-fou.js",
         ),
         (
-            CONFIG / "dotopencode" / "hooks" / "garde-fou-opencode.py",
-            OPENCODE / "hooks" / "garde-fou-opencode.py",
+            CONFIG / "dotopencode" / "plugins" / "garde-fou-opencode.py",
+            OPENCODE / "plugins" / "garde-fou-opencode.py",
         ),
         (
             CONFIG / "dotcursor" / "hooks" / "garde-fou.py",
-            OPENCODE / "hooks" / "garde-fou.py",
+            OPENCODE / "plugins" / "garde-fou.py",
         ),
     ]
     notes: list[str] = []
@@ -211,9 +211,9 @@ def _opencode_hooks(rep: Report) -> None:
         if not _cmp_files(src, dst):
             notes.append(src.name)
     if notes:
-        rep.drift("hooks OpenCode", ", ".join(notes) + " → install-opencode.sh")
+        rep.drift("plugins OpenCode", ", ".join(notes) + " → install-opencode.sh")
     else:
-        rep.ok("hooks OpenCode")
+        rep.ok("plugins OpenCode")
 
 
 def _dot_dir(rep: Report, name: str) -> None:

@@ -1,29 +1,18 @@
 /**
  * Plugin OpenCode — garde-fou sécurité (tool.execute.before).
  *
- * Délègue à hooks/garde-fou-opencode.py (classification partagée avec Cursor/jcode).
+ * Délègue à garde-fou-opencode.py (même dossier ; classification partagée Cursor/jcode).
  * Chargé automatiquement depuis ~/.config/opencode/plugins/ après install-opencode.sh.
  */
 import { spawnSync } from "node:child_process"
 import { existsSync } from "node:fs"
-import { homedir } from "node:os"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 
 const WATCHED = new Set(["bash", "write", "edit", "multiedit", "apply_patch", "replace"])
 
-function detectConfigDir() {
-  if (process.env.OPENCODE_CONFIG_DIR) return process.env.OPENCODE_CONFIG_DIR
-  if (process.env.XDG_CONFIG_HOME) return join(process.env.XDG_CONFIG_HOME, "opencode")
-  return join(homedir(), ".config", "opencode")
-}
-
 function resolveScript() {
-  const here = dirname(fileURLToPath(import.meta.url))
-  // Installé ou repo : plugins/garde-fou.js → ../hooks/garde-fou-opencode.py
-  const sibling = join(here, "..", "hooks", "garde-fou-opencode.py")
-  if (existsSync(sibling)) return sibling
-  return join(detectConfigDir(), "hooks", "garde-fou-opencode.py")
+  return join(dirname(fileURLToPath(import.meta.url)), "garde-fou-opencode.py")
 }
 
 export const GardeFouPlugin = async ({ directory }) => {
