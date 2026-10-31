@@ -13,12 +13,6 @@ Fichier cible : `memoire/PROJET.md`
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
 
-> **Savoir projet** (domaine, stack, concepts métier). Lu au démarrage avec [`ANNEXE.md`](ANNEXE.md) et `tasks/lessons.md` (méthode) :
-> - **jcode** : bootstrap générique dans `~/.jcode/prompt-overlay.md` (via `install-jcode.sh`)
-> - **Cursor** : `.cursor/rules/bootstrap.mdc` · **OpenCode** : `opencode.jsonc` → `instructions`
->
-> Conditions de lecture des annexes : [`ANNEXE.md`](ANNEXE.md) ; `tasks/lessons.md` porte uniquement la méthode inter-projet.
-
 ## But du projet
 
 <!-- Décrire en quelques phrases : quoi, pour qui, quel problème résolu. -->

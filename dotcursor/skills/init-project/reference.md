@@ -109,17 +109,14 @@ description: Contexte projet, catalogue d'annexes et méthode ;
 alwaysApply: true
 ---
 
-Contexte projet (source unique, attachée automatiquement) :
-
 @memoire/PROJET.md
-
-Catalogue projet — conditions de lecture des annexes :
+— Savoir projet : domaine, stack, concepts métier. Pas de méthode.
 
 @memoire/ANNEXE.md
-
-Méthode — leçons (toujours appliquer) :
+— Catalogue des conditions de lecture des annexes `memoire/`.
 
 @tasks/lessons.md
+— Méthode inter-projet (lecture seule). Toujours appliquer.
 ```
 
 ---
@@ -130,11 +127,6 @@ Fichier cible : `memoire/PROJET.md`
 
 ```markdown
 # [NOM_PROJET] — Contexte projet pour agent IA
-
-> **Savoir projet** (domaine, stack, concepts métier). Injecté automatiquement avec [`ANNEXE.md`](ANNEXE.md) et `tasks/lessons.md` (méthode) :
-> - **Cursor** : `.cursor/rules/bootstrap.mdc`
->
-> Conditions de lecture des annexes : [`ANNEXE.md`](ANNEXE.md) ; `tasks/lessons.md` porte uniquement la méthode inter-projet.
 
 ## But du projet
 
@@ -166,11 +158,8 @@ Catalogue des conditions de lecture. Adapter les triggers au repo ; ajouter une 
 ```markdown
 # [NOM_PROJET] — Catalogue des annexes
 
-> Source unique des conditions de lecture de `memoire/`.
 > Lire immédiatement toutes les annexes déclenchées ; les triggers sont cumulatifs.
 > Ne pas ouvrir une annexe « au cas où ».
-
-Toujours chargés par le bootstrap : [`PROJET.md`](PROJET.md), ce catalogue et `tasks/lessons.md`.
 
 ## Architecture
 

@@ -87,9 +87,9 @@ tasks
 ### 6. Récapituler
 
 Lister les fichiers créés et rappeler à l'utilisateur :
-- `.cursor/rules/bootstrap.mdc` est le point d'entrée Cursor always-on : injecte `memoire/PROJET.md`, `memoire/ANNEXE.md` et `tasks/lessons.md`.
+- `.cursor/rules/bootstrap.mdc` est le point d'entrée Cursor always-on : injecte `memoire/PROJET.md`, `memoire/ANNEXE.md` et `tasks/lessons.md`, et **définit leur rôle**
 - `memoire/PROJET.md` est la source de vérité projet.
-- `memoire/ANNEXE.md` est le catalogue des conditions de lecture des annexes `memoire/` ; `tasks/lessons.md` impose d'appliquer ce catalogue.
+- `memoire/ANNEXE.md` est le catalogue des conditions de lecture des annexes `memoire/` (entrées + cycle de vie).
 - Les annexes **spécifiques au projet** (ex. doc formulaires Vue3) ne font **pas** partie du template générique : les créer sous `memoire/` et **ajouter une entrée dans `ANNEXE.md`** — le câblage bootstrap reste fixe (3 injections).
 - `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
 - `tasks/lessons.md` : socle de méthode transversal (contraintes dures) — **lecture seule** pour l'agent ; `lessons-install.sh`.
@@ -100,4 +100,4 @@ Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
 - `memoire/` = **savoir projet** (domaine, conventions, architecture, catalogue d'annexes) — propre au repo.
 - Le câblage injecte les trois sans fusionner leur contenu : `.cursor/rules/bootstrap.mdc` → `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
-- Les **conditions de lecture** des annexes (CONVENTIONS, ARCHITECTURE, annexes spécialisées, session) vivent dans `memoire/ANNEXE.md` (savoir projet). `tasks/lessons.md` ne porte que la méthode : appliquer le catalogue attaché, triggers cumulatifs, ne pas ouvrir « au cas où ». Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.
+- Le **catalogue** (mode d’emploi, entrées, triggers, cycle de vie) vit dans `memoire/ANNEXE.md`. `tasks/lessons.md` rappelle d’appliquer le catalogue attaché. Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.
