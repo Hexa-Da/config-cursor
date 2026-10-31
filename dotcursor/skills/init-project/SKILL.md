@@ -78,7 +78,7 @@ Demander à l'utilisateur (ou déduire du repo) :
 Ajouter les entrées suivantes si absentes (câblage agent local, pas versionné) :
 
 ```
-### Docs Perso ###
+### Agentic Workflow ###
 .cursor
 memoire
 tasks
