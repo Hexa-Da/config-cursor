@@ -42,6 +42,10 @@ if [[ -f "$CURSOR_DOT/hooks/garde-fou.py" ]]; then
   cp "$CURSOR_DOT/hooks/garde-fou.py" "$DOT_DST/hooks/garde-fou.py"
   chmod +x "$DOT_DST/hooks/garde-fou.py" 2>/dev/null || true
 fi
+if [[ -f "$CURSOR_DOT/hooks/ponytail-ultra-activate.js" ]]; then
+  cp "$CURSOR_DOT/hooks/ponytail-ultra-activate.js" "$DOT_DST/hooks/ponytail-ultra-activate.js"
+  chmod +x "$DOT_DST/hooks/ponytail-ultra-activate.js" 2>/dev/null || true
+fi
 
 export_dot_dir() {
   local name="$1"
