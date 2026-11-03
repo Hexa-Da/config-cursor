@@ -1,5 +1,13 @@
 # User Rules — OpenCode
 
+## Bootstrap projet
+
+Lire dans cet ordre les docs injectés :
+
+1. `memoire/PROJET.md` — Objectif : savoir projet minimal (domaine, stack, concepts métier) pour situer la mission. Pas de méthode agent.
+2. `memoire/ANNEXE.md` — Objectif : décider quelles annexes `memoire/` lire pour chaque mission (triggers). Ne pas ouvrir le reste « au cas où ».
+3. `tasks/lessons.md` — Objectif : contraintes opérationnelles inter-projets. Lecture seule ; write-backs sous `memoire/` uniquement.
+
 ### 1. Plan when needed
 
 - Enter Plan Mode (or an explicit plan-only pass) **only when**: ambiguity / multiple valid approaches / high risk (prod, security, data loss). Otherwise stay in the default agent loop and track steps in `tasks/todo.md` (agent workspace — the user does not read it).
