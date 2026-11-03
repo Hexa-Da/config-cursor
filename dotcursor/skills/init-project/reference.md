@@ -133,9 +133,6 @@ Catalogue des conditions de lecture. Adapter les triggers au repo ; ajouter une 
 ```markdown
 # [NOM_PROJET] — Catalogue des annexes
 
-> Lire immédiatement toutes les annexes déclenchées ; les triggers sont cumulatifs.
-> Ne pas ouvrir une annexe « au cas où ».
-
 ## Architecture
 
 - **[`CONVENTIONS.md`](CONVENTIONS.md)** — Lire pour une implémentation non triviale transverse ou si
@@ -171,8 +168,6 @@ Fichier cible : `memoire/CONVENTIONS.md`
 ```markdown
 # [NOM_PROJET] — Conventions du projet
 
-> Annexe de [`PROJET.md`](PROJET.md). Conditions de lecture : [`ANNEXE.md`](ANNEXE.md).
-
 <!-- Ajouter ici les conventions au fil des sessions : style de code, nommage, patterns de test, checklists, pièges connus. -->
 ```
 
@@ -184,8 +179,6 @@ Fichier cible : `memoire/ARCHITECTURE.md`
 
 ```markdown
 # [NOM_PROJET] — Architecture détaillée
-
-> Annexe de [`PROJET.md`](PROJET.md). Conditions de lecture : [`ANNEXE.md`](ANNEXE.md).
 
 <!-- Ajouter ici la cartographie des packages, les patterns structurants, les flux de données. -->
 ```
