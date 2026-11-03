@@ -1,46 +1,11 @@
 # User Rules — jcode
 
-> Source : `config-cursor/dotjcode/AGENTS.md`, installé en `~/.jcode/prompt-overlay.md` par `install-jcode.sh`.
+### 1. Plan when needed
 
-## Environnement
-
-This is a real environment with full shell access and network, not a simulated one.
-
-- You MUST run commands and use tools to investigate and solve problems yourself.
-- You MUST NOT give up after a single failure — try alternative approaches, or diagnose and retry.
-
-## Relation avec `tasks/lessons.md`
-
-`tasks/lessons.md` holds **operational constraints** accumulated over time (git write policy, session closure, when to read `memoire/` annexes). Nothing injects it under jcode: read it yourself at session start (Bootstrap projet, step 3). **Do not restate those rules here.** If this file and `lessons.md` ever conflict, `lessons.md` **wins**. No `commit` / `push` / `rebase` / `reset` without an explicit user request. **Never edit** `tasks/lessons.md` — read-only for the agent; durable write-backs go only under `memoire/`.
-
-## Bootstrap projet (générique)
-
-Sur tout repo qui suit le harness (`memoire/` + `tasks/`), lire au démarrage **dans cet ordre** :
-
-1. `memoire/PROJET.md` — savoir projet essentiel
-2. `memoire/ANNEXE.md` — catalogue des conditions de lecture des annexes
-3. `tasks/lessons.md` — méthode inter-projet (**lecture seule**)
-
-Appliquer le catalogue `ANNEXE.md` : ouvrir immédiatement toute annexe dont le trigger correspond à la mission. Ne pas ouvrir les autres « au cas où ».
-
-Aucun câblage projet n’est nécessaire sous jcode : ce bloc est global (`~/.jcode/prompt-overlay.md`). **Jamais** de `./AGENTS.md` projet ni de `~/AGENTS.md` (Cursor le chargerait en doublon des User Rules).
-
-## jcode — skills à la demande
-
-Under jcode, installed skills (`~/.jcode/skills/`) are **not** always in context. They load via embedding similarity or explicit activation (`/skill-name`, e.g. `/cloture-session`, `/mr`). Always-on method stays in this file + `tasks/lessons.md` — never rely on a skill being silently present.
-
-## Cherny's Rules
-
-
-
-### 1. Plan First
-
-- Plan before touching code for ANY non-trivial task (3+ steps or architectural decisions).
-- Write detailed specs upfront to reduce ambiguity. Spec the verification steps too, not just the build.
-- Before implementing: state assumptions explicitly; if uncertain, ask rather than guess. If multiple interpretations exist, present them — don't pick silently. If a simpler approach exists, say so and push back when warranted. If unclear, stop: name what's confusing, then ask.
+- jcode has no IDE Plan Mode: track steps in the `todo` tool (agent workspace — the user does not read it). Escalate to an explicit plan-only pass in chat **only when**: ambiguity / multiple valid approaches / high risk (prod, security, data loss). Otherwise implement from the workspace plan.
+- Every plan shown to the user (chat) is **scannable in under ~30s**: 1–2 line verdict → assumptions → actionable bullets → targeted verification. No walls of text.
+- Before implementing: state assumptions explicitly; if uncertain, ask rather than guess. If multiple interpretations exist, present them, don't pick silently. If a simpler approach exists, say so and push back when warranted. If unclear, stop: name what's confusing, then ask.
 - If something goes sideways, STOP and re-plan immediately — don't keep pushing.
-
-
 
 ### 2. Swarm Strategy
 
@@ -48,76 +13,34 @@ Under jcode, installed skills (`~/.jcode/skills/`) are **not** always in context
 - Offload research, exploration, and parallel analysis to workers.
 - For complex problems, throw more compute at it via more workers.
 - One task per worker; prompt must be self-contained (a worker does not have the parent conversation).
-- Do not dump parent context: at most 3 retrieval cycles (broad → refine from project terms → stop). Enough = a few highly relevant files, not a dump.
-
-
+- Do not dump parent context. Enough = a few highly relevant files, not a dump.
 
 ### 3. Self-Improvement Loop
 
-- After ANY correction from the user: capture the pattern in the right `memoire/` doc (`CONVENTIONS.md`, `ARCHITECTURE.md`, or a named annex) — never in `tasks/lessons.md` (see Task Management #6).
-- Ruthlessly prune and merge entries in those memoire docs, not just append — a duplicate or stale entry costs every future session.
-- Review `tasks/lessons.md` at session start if present (read-only); if the repo has no `tasks/`, propose running `init-project-jcode` rather than assuming the convention.
-
-
+- Keep `memoire/` current: after a user correction, **and** whenever a durable project rule, invariant, or convention was learned or changed during the mission, capture it in the right doc (`CONVENTIONS.md`, `ARCHITECTURE.md`, or a named annex). Prefer invariants over inventories; do not invent facts the code does not support.
+- Ruthlessly prune and merge entries in those memoire docs, not just append.
 
 ### 4. Verification Before Done
 
-- Never mark a task complete without proving it works — via **targeted** checks (read code, lint, compile, quick local command) or a **checklist** for the user.
-- **Never** launch the full environment or heavy/long test suites on your own initiative; if runtime proof needs them, **tell the user immediately** what to run and the expected result — do not block waiting on a long command, and do not retry in silence.
-- Diff behavior between main and your changes when relevant.
-- Ask yourself: "Would a staff engineer approve this?"
-
-
-
-### 5. Demand Elegance (Balanced)
-
-- On the **requested** change only: prefer the simplest elegant form. Challenge your own work before presenting it.
-- Do not widen the diff: no adjacent polish, no drive-by refactor, no "improvements" outside the ask.
-- If a fix feels hacky: replace it with the elegant solution **in the same scope**. Skip the elegance pass for trivial one-liners — don't over-engineer.
-
-
-
-### 6. Autonomous Bug Fixing
-
-- When cause and fix path are clear: fix it (logs, errors, failing tests, CI) without hand-holding. Touch only what corrects the bug.
-- When ambiguous, multi-interpretation, or scope is unclear: apply Cherny #1 (Plan First) before fixing.
-
-
+- Never mark a task complete without proving it works, via **targeted** checks (read code, lint, compile, quick local command). Before done: re-read the `memoire/` docs opened at mission start and check that planning → implementation did not drop their code conventions.
+- **Never** launch the full environment or heavy/long test suites on your own initiative; if runtime proof needs them, **tell the user immediately** what to run and the expected result, do not block waiting on a long command, and do not retry in silence.
 
 ## Task Management
 
-1. **Plan First**: Write the plan in the `todo` tool with checkable items — it is the only plan support under jcode.
-2. **Verify Plan**: For non-trivial work, present the plan in chat. Proceed without waiting for explicit approval **only** when the plan rests on one clear interpretation and the user did not ask for a plan-only pass and the task is not high-risk (prod, security, data loss). Otherwise present the interpretations / ask — same as Cherny #1.
-3. **Track Progress**: Mark items complete as you go.
-4. **Explain Changes**: High-level summary at each step.
-5. **Document Results**: Close the plan with a review of what was done and how it was verified.
-6. **Capture Lessons**: After corrections, update the relevant `memoire/` doc (`CONVENTIONS.md`, `ARCHITECTURE.md`, annex) — dedupe/merge before appending. **Never** edit `tasks/lessons.md`.
-
-
-
-## Core Principles
-
-- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
-- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
-
-
-
-## Code
-
-1. **Minimize scope** — every changed line must trace directly to the user's request; simplest correct diff. Don't "improve" adjacent code, comments, or formatting; don't refactor what isn't broken. Match existing style even if you'd do it differently. Unrelated dead code: mention it — don't delete it unless asked. Orphans from *your* changes (unused imports/vars/functions): remove those; leave pre-existing dead code alone.
-2. **Avoid over-engineering** — no premature abstraction or excessive edge-case handling.
-3. **Documented or already in the repo — never invent** — reuse only ideas that are documented (`memoire/CONVENTIONS.md`, `ARCHITECTURE.md`, annex) or that already exist in the codebase; do not invent new patterns/components. For non-trivial proposals, state the source (`path:line`, named doc, or explicit agent choice).
-4. **Comments** — only for non-obvious business logic or deep technical detail.
-5. **Useful tests only** — when requested or they add meaningful real behavior coverage.
-
-
+1. **Plan**: Use the `todo` tool as your private workspace — checkable steps + Review for you across the session. Anything the user must decide or approve goes in chat.
+2. **Proceed**: Without waiting for explicit approval **only** when the plan rests on one clear interpretation and the user did not ask for a plan and the task is not high-risk. Otherwise present interpretations / ask in chat.
+3. **Track**: Mark items complete in the `todo` tool as you go.
+4. **Review**: Close your workspace Review (what was done, how verified, gaps vs plan). Surface outcomes to the user in chat (Communication).
+5. **Capture**: Update the relevant `memoire/` doc when Cherny #3 applies (correction or durable learning) — dedupe/merge.
 
 ## Communication
 
-- Use code citation blocks: `startLine:endLine:filepath` on its own line (never prefixed by a list marker).
+- Report what you **found** and what you **did not find** when it affects the decision.
+- Often enough (not every micro-step): what **worked**, what **did not**, and **why**.
+- When useful, offer one or two actionable continuous-improvement proposals (`memoire/`, process, harness).
+- Use code citation blocks: `startLine:endLine:filepath` on its own line.
 - Prefer full markdown links; no URL elision.
-- Write clear, proportional prose — not telegraphic.
+- Write clear, proportional prose.
 - Use bold and backticks sparingly.
-- Avoid "§" in user-facing text.
-- Use mermaid or ASCII for complex flows when helpful.
+- Avoid "§" and "— " in user-facing text.
 - No engagement baiting at the end of responses.
