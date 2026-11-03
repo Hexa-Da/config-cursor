@@ -44,6 +44,8 @@ mkdir -p "$CURSOR_DOT/hooks" "$CURSOR_USER"
 cp "$DOT_SRC/hooks.json" "$CURSOR_DOT/hooks.json"
 cp "$DOT_SRC/hooks/garde-fou.py" "$CURSOR_DOT/hooks/garde-fou.py"
 chmod +x "$CURSOR_DOT/hooks/garde-fou.py" 2>/dev/null || true
+cp "$DOT_SRC/hooks/ponytail-ultra-activate.js" "$CURSOR_DOT/hooks/ponytail-ultra-activate.js"
+chmod +x "$CURSOR_DOT/hooks/ponytail-ultra-activate.js" 2>/dev/null || true
 
 # Miroir exact du repo : --delete retire le surplus local (ex. skills orphelins).
 sync_dot_dir() {

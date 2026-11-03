@@ -18,13 +18,7 @@
     ],
     "sessionStart": [
       {
-        "command": "node \"$HOME/Documents/ponytail/hooks/ponytail-activate.js\"",
-        "timeout": 15
-      }
-    ],
-    "beforeSubmitPrompt": [
-      {
-        "command": "node \"$HOME/Documents/ponytail/hooks/ponytail-mode-tracker.js\"",
+        "command": "node \"$HOME/.cursor/hooks/ponytail-ultra-activate.js\"",
         "timeout": 15
       }
     ]
