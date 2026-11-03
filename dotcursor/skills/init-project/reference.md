@@ -37,19 +37,9 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel** (socle de méthode tr
 ```markdown
 # Lessons — méthode de l'agent
 
-### Git : lecture libre, écriture interdite
+### Politique git
 
-Ne **jamais** faire de commit (ni de `push`, `rebase`, `reset`… — toute écriture dans l'historique) **sauf demande explicite** (« fait un commit », « committe ça »). Sinon : lire librement l’état git (`status` / `diff` / `log`) quand utile ; **proposer** un message en fin de tâche.
-
-### Découpage : préférer plusieurs petites MR
-
-Découper une grosse feature en **plusieurs petites MR** qui s’enchaînent et restent livrables / vérifiables, plutôt qu’une seule grosse MR qui livre tout en une session.
-
-### Worktrees : principal si libre ; sinon un agent = un worktree = un `tasks/todo.md`
-
-- Confirmer le **worktree actif** ; toute action reste dans ce root.
-- **Toujours demander** avant de créer un worktree **ou** une branche.
-- Worktree secondaire **seulement** si le principal est occupé ; un agent = un worktree = un `tasks/todo.md` local.
+Lecture libre ; écriture (`commit`, `push`, `rebase`…) **uniquement sur demande explicite**, en fin de tâche, **proposer** un message de commit. Dès la planification d'une nouvelle mission, verifier l'état du worktree et en discuter avec l'utilisateur. Si le sujet est assez gros, proposer demblé un découpage en **plusieurs petites MR** enchaînées.
 
 ### Rapports de session : uniquement à la clôture, jamais un rapport passé
 
@@ -72,22 +62,6 @@ Découper une grosse feature en **plusieurs petites MR** qui s’enchaînent et 
 - Conventions absentes / ambiguës / contradictoires → **demander** avant de propager.
 - Écart cible vs legacy → aligner vers la cible et signaler la dette restante.
 
-### Outils déterministes avant le LLM pour le texte structuré
-
-Si le texte suit un motif répétitif : `rg` / regex / script d'abord. LLM seulement pour le flou (prose, décision, diagnostic). Ne pas dumper un fichier entier pour une recherche outil.
-
-### Vérifier à la source avant d'affirmer
-
-Ne jamais affirmer un fait vérifiable (contenu d'un doc ou d'une rule, version, comportement runtime) de mémoire ou par déduction : le vérifier à la source **actuelle** avant de l'écrire — une doc peut être en retard sur la réalité. Un **fait terrain** observé par l'utilisateur (log, écran, résultat de commande) prime : re-vérifier au lieu de défendre la conclusion.
-
-### Commentaires existants : conserver ou reformuler, ne pas effacer sans raison
-
-Lors d'une réécriture : **ne pas supprimer** les commentaires métier préexistants. Si le code autour change, **reformuler** pour rester exact ; n'enlever un commentaire que s'il est faux *et* sans valeur (sinon reformuler). Les stubs « migration en cours » périmés se reformulent ou se retirent seulement s'ils ne correspondent plus à rien.
-
-### Être critique avec l'utilisateur, pas complaisant
-
-Traiter chaque affirmation de l'utilisateur comme une **hypothèse à tester**, pas comme une vérité à valider. Ne jamais acquiescer pour faire plaisir. Chercher activement le contre-exemple (code, doc cible, autre couche, gabarit contraire) avant de conclure ; si l'utilisateur a tort ou est trop absolu, le dire clairement avec la preuve. Ne pas être contradictoire sur le trivial (typo, reformulation) — viser les claims qui orientent une décision technique.
-
 ### Mémoire projet : préférer les invariants aux inventaires
 
 - Documenter les règles, contrats et frontières utiles à une prochaine mission.
@@ -95,6 +69,14 @@ Traiter chaque affirmation de l'utilisateur comme une **hypothèse à tester**, 
 - En conflit documentaire, conserver le contenu aligné sur le code actuel et supprimer les faits périmés.
 - Enrichir ou pruner l'annexe spécialisée pendant la mission ; ne pas dupliquer le même fait dans une spine
 générale et une annexe.
+
+### Commentaires existants : conserver ou reformuler, ne pas effacer sans raison
+
+Lors d'une réécriture : **ne pas supprimer** les commentaires métier préexistants. Si le code autour change, **reformuler** pour rester exact ; n'enlever un commentaire que s'il est faux *et* sans valeur (sinon reformuler). 
+
+### Être critique avec l'utilisateur, pas complaisant
+
+Traiter chaque affirmation de l'utilisateur comme une **hypothèse à tester**, pas comme une vérité à valider. Ne jamais acquiescer pour faire plaisir. Chercher activement le contre-exemple (code, doc cible, autre couche, gabarit contraire) avant de conclure ; si l'utilisateur a tort ou est trop absolu, le dire clairement avec la preuve.
 ```
 
 ---
