@@ -1,6 +1,6 @@
 # Référence — init-project-opencode
 
-Templates **OpenCode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE / INDEX : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
+Templates **OpenCode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
 
 ---
 

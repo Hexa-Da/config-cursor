@@ -30,7 +30,7 @@ Copier la checklist et la cocher au fil de l'exécution :
 - [ ] 3. Créer les fichiers depuis les templates
 - [ ] 4. Personnaliser PROJET.md si possible
 - [ ] 5. Ajouter les entrées .gitignore
-- [ ] 6. Récapituler à l'utilisateur
+- [ ] 6. Récap : créés → câblage ; déjà présents → copies = strict, templates memoire/ = forme
 ```
 
 ### 1. Audit
@@ -90,16 +90,35 @@ Ne pas ajouter `.cursor`, `opencode.jsonc`, ni `AGENTS.md` (le bootstrap jcode e
 
 ### 6. Récapituler
 
-Lister les fichiers créés et rappeler à l'utilisateur :
-- Bootstrap jcode = `~/.jcode/prompt-overlay.md` (via `install-jcode.sh`) : lit `memoire/PROJET.md`, `memoire/ANNEXE.md` et `tasks/lessons.md`.
-- Skills viennent de `~/.jcode/skills/` (même install), pas de ce skill.
-- Sous jcode, les skills sont **à la demande** (`/nom-du-skill` ou injection embedding).
-- `memoire/PROJET.md` est la source de vérité projet.
-- `memoire/ANNEXE.md` est le catalogue des conditions de lecture (triggers ; pas « au cas où ») ; le bootstrap global impose de le lire.
-- Les annexes **spécifiques au projet** : sous `memoire/` + entrée dans `ANNEXE.md` — jamais dans le bootstrap global.
-- `tasks/todo.md` : rempli à chaque session, reset à la clôture (`/cloture-session`).
-- `tasks/lessons.md` : lecture seule agent ; `lessons-install.sh`.
-- Besoin Cursor → `init-project` ; OpenCode → `init-project-opencode`.
+**Cas A — aucun fichier cible n’existait** (tout vient d’être créé) :
+
+Lister les fichiers créés. Rappeler brièvement :
+- Bootstrap jcode = `~/.jcode/prompt-overlay.md` (via `install-jcode.sh`) : lit `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`
+- Skills = `~/.jcode/skills/` (à la demande) ; `memoire/` = savoir projet ; `tasks/` = méthode ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
+- Besoin Cursor → `init-project` ; OpenCode → `init-project-opencode`
+
+**Cas B — au moins un fichier cible existait déjà** (ne pas écraser) :
+
+À la place du rappel de câblage : comparer chaque fichier déjà présent à son § source (tableaux §3).
+
+Méthode (obligatoire) :
+1. Extraire le bloc canon du bon § (`../init-project/reference.md` pour todo/lessons/ANNEXE/CONVENTIONS/ARCHITECTURE ; [reference.md](reference.md) pour `PROJET.md`).
+2. **Copies canoniques** (`todo.md`, `lessons.md`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil.
+3. **Templates `memoire/`** (`PROJET.md`, `ANNEXE.md`, `CONVENTIONS.md`, `ARCHITECTURE.md`) : **pas** d’égalité texte. La personnalisation est attendue (nom projet à la place de `[NOM_PROJET]`, corps rempli, entrées d’annexes ajoutées). Vérifier uniquement la **forme générale** vs le template :
+   - titre H1 du type `# <Nom> — …` (suffixe aligné sur le template : Contexte projet / Catalogue des annexes / Conventions / Architecture)
+   - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire)
+   - pour `ANNEXE.md` : bloc d’intro catalogue + section « Cycle de vie d’une annexe » + section « Historique » (ou équivalent) ; entrées supplémentaires d’annexes = OK
+   - pour `CONVENTIONS.md` / `ARCHITECTURE.md` : lien vers `PROJET.md` / `ANNEXE.md` en tête si le template en a un
+   - Statut `FORME_OK` ou `FORME_ECART` (écarts = section manquante / titre hors gabarit / structure cassée — pas le contenu métier)
+4. Ne pas modifier les fichiers en écart dans cette étape ; seulement rapporter.
+
+Format de sortie (un tableau, puis détails seulement pour `DIVERGE` / `FORME_ECART`) :
+
+| Fichier | Mode | Statut | Écart |
+| ------- | ---- | ------ | ----- |
+| `path`  | copie / template | IDENTIQUE / DIVERGE / FORME_OK / FORME_ECART | résumé 1 ligne ou `—` |
+
+Pour chaque `DIVERGE` : diff unifié (hunks principaux si trop long). Pour chaque `FORME_ECART` : lister les manques structurels. Pas d’overwrite sauf demande explicite ensuite.
 
 ## Séparation méthode / savoir projet
 
@@ -107,4 +126,4 @@ Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
 - `memoire/` = **savoir projet** — propre au repo.
 - Le câblage jcode générique vit dans `~/.jcode/prompt-overlay.md` : lire `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
-- Les **conditions de lecture** des annexes vivent dans `memoire/ANNEXE.md`. `tasks/lessons.md` porte le reste de la méthode ops (git, clôture, …).
+- Le **catalogue** (mode d’emploi, entrées, triggers, cycle de vie) vit dans `memoire/ANNEXE.md` ; le bootstrap global en fixe l’objectif (quelles annexes ouvrir). Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le bootstrap global ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.

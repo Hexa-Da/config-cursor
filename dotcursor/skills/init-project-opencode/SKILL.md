@@ -29,7 +29,7 @@ Copier la checklist et la cocher au fil de l'exécution :
 - [ ] 3. Créer les fichiers depuis les templates
 - [ ] 4. Personnaliser PROJET.md si possible
 - [ ] 5. Ajouter les entrées .gitignore
-- [ ] 6. Récapituler à l'utilisateur
+- [ ] 6. Récap : créés → câblage ; déjà présents → copies = strict, templates memoire/ = forme
 ```
 
 ### 1. Audit
@@ -91,15 +91,35 @@ Ne pas ajouter `.cursor` (hors périmètre OpenCode-only).
 
 ### 6. Récapituler
 
-Lister les fichiers créés et rappeler à l'utilisateur :
-- `opencode.jsonc` est le point d'entrée OpenCode : `instructions` → `memoire/PROJET.md`, `memoire/ANNEXE.md` et `tasks/lessons.md`.
-- Skills / `AGENTS.md` viennent de `~/.config/opencode` (via `install-opencode.sh` ou `install.sh`), pas de ce skill.
-- `memoire/PROJET.md` est la source de vérité projet.
-- `memoire/ANNEXE.md` est le catalogue des conditions de lecture des annexes `memoire/` (triggers ; pas « au cas où ») ; le câblage `instructions` l’injecte.
-- Les annexes **spécifiques au projet** ne font **pas** partie du template générique : les créer sous `memoire/` et **ajouter une entrée dans `ANNEXE.md`** — le câblage `opencode.jsonc` reste fixe (3 injections).
-- `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
-- `tasks/lessons.md` : socle de méthode transversal (contraintes dures) — **lecture seule** pour l'agent ; `lessons-install.sh`.
-- Besoin Cursor plus tard → skill `init-project` (ajoute `.cursor/rules/bootstrap.mdc`).
+**Cas A — aucun fichier cible n’existait** (tout vient d’être créé) :
+
+Lister les fichiers créés. Rappeler brièvement :
+- `opencode.jsonc` injecte `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md` via `instructions` et en fixe le rôle
+- Skills / `AGENTS.md` = `~/.config/opencode` ; `memoire/` = savoir projet ; `tasks/` = méthode ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
+- Besoin Cursor → `init-project` (ajoute `.cursor/rules/bootstrap.mdc`)
+
+**Cas B — au moins un fichier cible existait déjà** (ne pas écraser) :
+
+À la place du rappel de câblage : comparer chaque fichier déjà présent à son § source (tableaux §3).
+
+Méthode (obligatoire) :
+1. Extraire le bloc canon du bon § (`../init-project/reference.md` pour todo/lessons/ANNEXE/CONVENTIONS/ARCHITECTURE ; [reference.md](reference.md) pour `opencode.jsonc` et `PROJET.md`).
+2. **Copies canoniques** (`todo.md`, `lessons.md`, `opencode.jsonc`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil.
+3. **Templates `memoire/`** (`PROJET.md`, `ANNEXE.md`, `CONVENTIONS.md`, `ARCHITECTURE.md`) : **pas** d’égalité texte. La personnalisation est attendue (nom projet à la place de `[NOM_PROJET]`, corps rempli, entrées d’annexes ajoutées). Vérifier uniquement la **forme générale** vs le template :
+   - titre H1 du type `# <Nom> — …` (suffixe aligné sur le template : Contexte projet / Catalogue des annexes / Conventions / Architecture)
+   - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire)
+   - pour `ANNEXE.md` : bloc d’intro catalogue + section « Cycle de vie d’une annexe » + section « Historique » (ou équivalent) ; entrées supplémentaires d’annexes = OK
+   - pour `CONVENTIONS.md` / `ARCHITECTURE.md` : lien vers `PROJET.md` / `ANNEXE.md` en tête si le template en a un
+   - Statut `FORME_OK` ou `FORME_ECART` (écarts = section manquante / titre hors gabarit / structure cassée — pas le contenu métier)
+4. Ne pas modifier les fichiers en écart dans cette étape ; seulement rapporter.
+
+Format de sortie (un tableau, puis détails seulement pour `DIVERGE` / `FORME_ECART`) :
+
+| Fichier | Mode | Statut | Écart |
+| ------- | ---- | ------ | ----- |
+| `path`  | copie / template | IDENTIQUE / DIVERGE / FORME_OK / FORME_ECART | résumé 1 ligne ou `—` |
+
+Pour chaque `DIVERGE` : diff unifié (hunks principaux si trop long). Pour chaque `FORME_ECART` : lister les manques structurels. Pas d’overwrite sauf demande explicite ensuite.
 
 ## Séparation méthode / savoir projet
 
@@ -107,4 +127,4 @@ Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
 - `memoire/` = **savoir projet** (domaine, conventions, architecture, catalogue d'annexes) — propre au repo.
 - Le câblage OpenCode injecte les trois sans fusionner leur contenu : `opencode.jsonc` → `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
-- Les **conditions de lecture** des annexes vivent dans `memoire/ANNEXE.md` (savoir projet). `tasks/lessons.md` porte le reste de la méthode ops (git, clôture, …). Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.
+- Le **catalogue** (mode d’emploi, entrées, triggers, cycle de vie) vit dans `memoire/ANNEXE.md` ; le câblage `instructions` en fixe l’objectif (quelles annexes ouvrir). Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.
