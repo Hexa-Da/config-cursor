@@ -11,13 +11,6 @@ Lecture libre ; écriture (`commit`, `push`, `rebase`…) **uniquement sur deman
 - Clôture = demande utilisateur → skill `cloture-session` → **nouveau** fichier.
 - Nommage rapport : `AAAA-MM-JJ_HHmm_slug.md` (horloge locale).
 
-### Annexes projet : appliquer le catalogue attaché
-
-- Le bootstrap du projet doit attacher le catalogue qui porte les conditions de lecture des annexes.
-- Lire immédiatement toutes les annexes dont le trigger correspond à la mission ; les triggers sont cumulatifs.
-- Ne pas ouvrir les autres annexes « au cas où ».
-- Les rapports de session sont historiques : les lire seulement lorsqu'une annexe déclenchée y renvoie.
-
 ### Ne pas transformer une dette legacy en « convention » sans vérifier la cible à jour
 
 - Avant d'aligner sur un pattern existant : vérifier la convention **cible** (`CONVENTIONS.md`, `ARCHITECTURE.md`) vs **dette**.

@@ -95,7 +95,7 @@ Lister les fichiers créés et rappeler à l'utilisateur :
 - `opencode.jsonc` est le point d'entrée OpenCode : `instructions` → `memoire/PROJET.md`, `memoire/ANNEXE.md` et `tasks/lessons.md`.
 - Skills / `AGENTS.md` viennent de `~/.config/opencode` (via `install-opencode.sh` ou `install.sh`), pas de ce skill.
 - `memoire/PROJET.md` est la source de vérité projet.
-- `memoire/ANNEXE.md` est le catalogue des conditions de lecture des annexes `memoire/` ; `tasks/lessons.md` impose d'appliquer ce catalogue.
+- `memoire/ANNEXE.md` est le catalogue des conditions de lecture des annexes `memoire/` (triggers ; pas « au cas où ») ; le câblage `instructions` l’injecte.
 - Les annexes **spécifiques au projet** ne font **pas** partie du template générique : les créer sous `memoire/` et **ajouter une entrée dans `ANNEXE.md`** — le câblage `opencode.jsonc` reste fixe (3 injections).
 - `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
 - `tasks/lessons.md` : socle de méthode transversal (contraintes dures) — **lecture seule** pour l'agent ; `lessons-install.sh`.
@@ -107,4 +107,4 @@ Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
 - `memoire/` = **savoir projet** (domaine, conventions, architecture, catalogue d'annexes) — propre au repo.
 - Le câblage OpenCode injecte les trois sans fusionner leur contenu : `opencode.jsonc` → `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
-- Les **conditions de lecture** des annexes vivent dans `memoire/ANNEXE.md` (savoir projet). `tasks/lessons.md` ne porte que la méthode : appliquer le catalogue attaché. Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.
+- Les **conditions de lecture** des annexes vivent dans `memoire/ANNEXE.md` (savoir projet). `tasks/lessons.md` porte le reste de la méthode ops (git, clôture, …). Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.

@@ -95,7 +95,7 @@ Lister les fichiers créés et rappeler à l'utilisateur :
 - Skills viennent de `~/.jcode/skills/` (même install), pas de ce skill.
 - Sous jcode, les skills sont **à la demande** (`/nom-du-skill` ou injection embedding).
 - `memoire/PROJET.md` est la source de vérité projet.
-- `memoire/ANNEXE.md` est le catalogue des conditions de lecture ; `tasks/lessons.md` impose d’appliquer ce catalogue.
+- `memoire/ANNEXE.md` est le catalogue des conditions de lecture (triggers ; pas « au cas où ») ; le bootstrap global impose de le lire.
 - Les annexes **spécifiques au projet** : sous `memoire/` + entrée dans `ANNEXE.md` — jamais dans le bootstrap global.
 - `tasks/todo.md` : rempli à chaque session, reset à la clôture (`/cloture-session`).
 - `tasks/lessons.md` : lecture seule agent ; `lessons-install.sh`.
@@ -107,4 +107,4 @@ Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
 - `memoire/` = **savoir projet** — propre au repo.
 - Le câblage jcode générique vit dans `~/.jcode/prompt-overlay.md` : lire `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
-- Les **conditions de lecture** des annexes vivent dans `memoire/ANNEXE.md`. `tasks/lessons.md` ne porte que la méthode : appliquer le catalogue attaché.
+- Les **conditions de lecture** des annexes vivent dans `memoire/ANNEXE.md`. `tasks/lessons.md` porte le reste de la méthode ops (git, clôture, …).
