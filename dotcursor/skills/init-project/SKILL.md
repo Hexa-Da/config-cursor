@@ -26,7 +26,7 @@ Copier la checklist et la cocher au fil de l'exécution :
 - [ ] 3. Créer les fichiers depuis les templates
 - [ ] 4. Personnaliser PROJET.md si possible
 - [ ] 5. Ajouter les entrées .gitignore
-- [ ] 6. Récapituler à l'utilisateur
+- [ ] 6. Récap : créés → câblage ; déjà présents → copies = strict, templates memoire/ = forme
 ```
 
 ### 1. Audit
@@ -86,13 +86,34 @@ tasks
 
 ### 6. Récapituler
 
-Lister les fichiers créés et rappeler à l'utilisateur :
-- `.cursor/rules/bootstrap.mdc` est le point d'entrée Cursor always-on : injecte `memoire/PROJET.md`, `memoire/ANNEXE.md` et `tasks/lessons.md`, et **définit leur rôle**
-- `memoire/PROJET.md` est la source de vérité projet.
-- `memoire/ANNEXE.md` est le catalogue des conditions de lecture des annexes `memoire/` (entrées + cycle de vie).
-- Les annexes **spécifiques au projet** (ex. doc formulaires Vue3) ne font **pas** partie du template générique : les créer sous `memoire/` et **ajouter une entrée dans `ANNEXE.md`** — le câblage bootstrap reste fixe (3 injections).
-- `tasks/todo.md` est rempli à chaque session, reset à la clôture (skill `cloture-session`).
-- `tasks/lessons.md` : socle de méthode transversal (contraintes dures) — **lecture seule** pour l'agent ; `lessons-install.sh`.
+**Cas A — aucun fichier cible n’existait** (tout vient d’être créé) :
+
+Lister les fichiers créés. Rappeler brièvement :
+- `.cursor/rules/bootstrap.mdc` injecte `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md` et en fixe le rôle
+- `memoire/` = savoir projet ; `tasks/` = méthode ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
+
+**Cas B — au moins un fichier cible existait déjà** (ne pas écraser) :
+
+À la place du rappel de câblage : comparer chaque fichier déjà présent à son § dans [reference.md](reference.md).
+
+Méthode (obligatoire) :
+1. Extraire le bloc canon du bon § de `reference.md` (tableaux §3).
+2. **Copies canoniques** (`todo.md`, `lessons.md`, `bootstrap.mdc`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil.
+3. **Templates `memoire/`** (`PROJET.md`, `ANNEXE.md`, `CONVENTIONS.md`, `ARCHITECTURE.md`) : **pas** d’égalité texte. La personnalisation est attendue (nom projet à la place de `[NOM_PROJET]`, corps rempli, entrées d’annexes ajoutées). Vérifier uniquement la **forme générale** vs le template :
+   - titre H1 du type `# <Nom> — …` (suffixe aligné sur le template : Contexte projet / Catalogue des annexes / Conventions / Architecture)
+   - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire)
+   - pour `ANNEXE.md` : bloc d’intro catalogue + section « Cycle de vie d’une annexe » + section « Historique » (ou équivalent) ; entrées supplémentaires d’annexes = OK
+   - pour `CONVENTIONS.md` / `ARCHITECTURE.md` : lien vers `PROJET.md` / `ANNEXE.md` en tête si le template en a un
+   - Statut `FORME_OK` ou `FORME_ECART` (écarts = section manquante / titre hors gabarit / structure cassée — pas le contenu métier)
+4. Ne pas modifier les fichiers en écart dans cette étape ; seulement rapporter.
+
+Format de sortie (un tableau, puis détails seulement pour `DIVERGE` / `FORME_ECART`) :
+
+| Fichier | Mode | Statut | Écart |
+| ------- | ---- | ------ | ----- |
+| `path`  | copie / template | IDENTIQUE / DIVERGE / FORME_OK / FORME_ECART | résumé 1 ligne ou `—` |
+
+Pour chaque `DIVERGE` : diff unifié (hunks principaux si trop long). Pour chaque `FORME_ECART` : lister les manques structurels. Pas d’overwrite sauf demande explicite ensuite.
 
 ## Séparation méthode / savoir projet
 
