@@ -40,7 +40,6 @@ mkdir -p "$CURSOR_DOT/hooks" "$CURSOR_USER"
 # ~/.cursor (hooks, skills, commands, agents)
 # Plugins marketplace : liés au compte Cursor, pas versionnés ici
 # (et ~/.cursor/plugins/ n'est qu'un cache de clones).
-# — ne pas écraser mcp.json s'il existe déjà
 cp "$DOT_SRC/hooks.json" "$CURSOR_DOT/hooks.json"
 cp "$DOT_SRC/hooks/garde-fou.py" "$CURSOR_DOT/hooks/garde-fou.py"
 chmod +x "$CURSOR_DOT/hooks/garde-fou.py" 2>/dev/null || true
@@ -72,9 +71,13 @@ sync_dot_dir agents
 # jcode only (prompt-overlay + ~/.jcode/skills) — source unique
 "$SCRIPT_DIR/install-jcode.sh"
 
-if [[ ! -f "$CURSOR_DOT/mcp.json" && -f "$DOT_SRC/mcp.json.example" ]]; then
+# mcp.json : canon repo → ~/.cursor (écrase ; pas de secrets dans le canon)
+if [[ -f "$DOT_SRC/mcp.json" ]]; then
+  cp "$DOT_SRC/mcp.json" "$CURSOR_DOT/mcp.json"
+  echo "→ mcp.json"
+elif [[ -f "$DOT_SRC/mcp.json.example" && ! -f "$CURSOR_DOT/mcp.json" ]]; then
   cp "$DOT_SRC/mcp.json.example" "$CURSOR_DOT/mcp.json"
-  echo "→ mcp.json créé depuis l'exemple (vide)"
+  echo "→ mcp.json créé depuis mcp.json.example"
 fi
 
 # Prefer ps (reliable on macOS Electron); fall back to pgrep.

@@ -114,10 +114,10 @@ print(f"→ extensions.txt ({len(ids)} ids)")
 PY
 fi
 
-# mcp : ne jamais écraser l'exemple avec des secrets — exporte seulement si absent
-if [[ -f "$CURSOR_DOT/mcp.json" && ! -f "$DOT_DST/mcp.json.example" ]]; then
-  cp "$CURSOR_DOT/mcp.json" "$DOT_DST/mcp.json.example"
-  echo "→ mcp.json.example créé (vérifie qu'il n'y a pas de secrets)"
+# mcp.json : machine → canon repo (vérifie qu'il n'y a pas de secrets avant commit)
+if [[ -f "$CURSOR_DOT/mcp.json" ]]; then
+  cp "$CURSOR_DOT/mcp.json" "$DOT_DST/mcp.json"
+  echo "→ mcp.json"
 fi
 
 echo "OK — revue git status, puis commit si tu veux figer l'export."

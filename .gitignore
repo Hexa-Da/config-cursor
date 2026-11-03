@@ -1,5 +1,4 @@
 # Secrets & machine-local
-mcp.json
 **/auth.json
 **/api_key.txt
 **/*.pem
