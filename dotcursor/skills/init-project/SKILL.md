@@ -51,11 +51,12 @@ Tous les contenus sont dans [reference.md](reference.md). Deux modes :
 
 **Copie canonique** — socle de méthode / câblage, copier tel quel (capital transversal entre projets) :
 
-| Fichier                       | § dans reference.md     | Rôle                                                                     |
-| ----------------------------- | ----------------------- | ------------------------------------------------------------------------ |
-| `tasks/todo.md`               | Copie todo              | Plan de travail de la session en cours                                   |
-| `tasks/lessons.md`            | Copie lessons           | Socle méthode transversal (lecture seule agent)                          |
-| `.cursor/rules/bootstrap.mdc` | Copie bootstrap.mdc     | Always-on Cursor : attache `PROJET.md` + `ANNEXE.md` + `lessons.md`      |
+| Fichier                            | § dans reference.md        | Rôle                                                                     |
+| ---------------------------------- | -------------------------- | ------------------------------------------------------------------------ |
+| `tasks/todo.md`                    | Copie todo                 | Plan de travail de la session en cours                                   |
+| `tasks/lessons.md`                 | Copie lessons              | Socle méthode transversal (lecture seule agent)                          |
+| `.cursor/rules/bootstrap.mdc`      | Copie bootstrap.mdc        | Always-on Cursor : attache `PROJET.md` + `ANNEXE.md` + `lessons.md`      |
+| `.cursor/rules/context-mode.mdc`   | Copie context-mode.mdc     | Always-on Cursor : routing MCP context-mode (sandbox contexte)           |
 
 **Template à personnaliser** — savoir projet, adapter au repo cible :
 
@@ -90,6 +91,7 @@ tasks
 
 Lister les fichiers créés. Rappeler brièvement :
 - `.cursor/rules/bootstrap.mdc` injecte `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md` et en fixe le rôle
+- `.cursor/rules/context-mode.mdc` route les analyses vers le MCP context-mode (sandbox)
 - `memoire/` = savoir projet ; `tasks/` = méthode ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
 
 **Cas B — au moins un fichier cible existait déjà** (ne pas écraser) :
@@ -98,7 +100,7 @@ Lister les fichiers créés. Rappeler brièvement :
 
 Méthode (obligatoire) :
 1. Extraire le bloc canon du bon § de `reference.md` (tableaux §3).
-2. **Copies canoniques** (`todo.md`, `lessons.md`, `bootstrap.mdc`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil.
+2. **Copies canoniques** (`todo.md`, `lessons.md`, `bootstrap.mdc`, `context-mode.mdc`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil.
 3. **Templates `memoire/`** (`PROJET.md`, `ANNEXE.md`, `CONVENTIONS.md`, `ARCHITECTURE.md`) : **pas** d’égalité texte. La personnalisation est attendue (nom projet à la place de `[NOM_PROJET]`, corps rempli, entrées d’annexes ajoutées). Vérifier uniquement la **forme générale** vs le template :
    - titre H1 du type `# <Nom> — …` (suffixe aligné sur le template : Contexte projet / Catalogue des annexes / Conventions / Architecture)
    - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire)
