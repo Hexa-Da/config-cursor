@@ -18,6 +18,7 @@ Procédure **générique**. Chemins repo par défaut : `memoire/session/`, `task
 - [ ] 2. Leçons durables → memoire/
 - [ ] 3. Tout en français, concis
 - [ ] 4. Reset tasks/todo.md au template vide
+- [ ] 5. ctx purge (mémoire context-mode du projet)
 ```
 
 ## Étapes
@@ -26,6 +27,7 @@ Procédure **générique**. Chemins repo par défaut : `memoire/session/`, `task
 2. **Leçons durables** : reporter les leçons réutilisables dans le document cible sous `memoire/` (`CONVENTIONS.md`, `ARCHITECTURE.md`, ou annexe) avec lien `(← [session](memoire/session/….md))`. **Ne jamais modifier** `tasks/lessons.md` (lecture seule ; méthode transversale → noter dans le rapport / signaler à l'utilisateur). **Si la session change un état déjà documenté** (valeur de conf, statut de branche « non mergée », compteur, pattern remplacé), **mettre à jour le passage existant** — pas seulement éviter les doublons. Critères, tri, anti-doublons et état documenté → [reference.md](reference.md).
 3. **Langue** : français, concis (économie de tokens futures sessions).
 4. **Reset todo** : réinitialiser `tasks/todo.md` au template vide (voir [reference.md](reference.md) § Template todo).
+5. **ctx purge** : appeler l’outil MCP `ctx_purge` avec `confirm: true` et `scope: "project"`. Irréversible : vide l’index FTS5 / events / stats context-mode du projet (pas les fichiers `memoire/`). Mentionner dans le chat que la purge est faite. Si le namespace MCP est absent, le signaler et ne pas bloquer la clôture.
 
 ## Référence détaillée
 
