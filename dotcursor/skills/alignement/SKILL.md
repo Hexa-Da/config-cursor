@@ -2,7 +2,7 @@
 name: alignement
 description: >-
   Checks config-cursor repo vs this machine (hooks, skills, settings,
-  mcp.json, cursor-storage, OpenCode, jcode, lessons). Use when the user asks
+  mcp.json, cursor-storage, OpenCode, jcode). Use when the user asks
   to verify alignment, alignement, repo vs machine, or whether install.sh /
   install-opencode.sh / install-jcode.sh / export.sh is needed.
 disable-model-invocation: true
@@ -11,7 +11,7 @@ disable-model-invocation: true
 # Alignement repo ↔ machine
 
 Vérif **en lecture**. Ne pas lancer `install.sh` / `install-opencode.sh` /
-`install-jcode.sh` / `export.sh` / `lessons-install.sh` sauf demande explicite.
+`install-jcode.sh` / `export.sh` sauf demande explicite.
 
 ## Checklist
 
@@ -34,7 +34,7 @@ Exit 0 = pas de `DRIFT`. Exit 1 = écart inattendu.
 | Statut | Sens |
 | --- | --- |
 | **OK** | Couche identique |
-| **DRIFT** | Écart à corriger. Le détail indique `install.sh` / `install-opencode.sh` / `install-jcode.sh` (repo → machine) ou `export.sh` (machine → repo) ou `lessons-install.sh` |
+| **DRIFT** | Écart à corriger. Le détail indique `install.sh` / `install-opencode.sh` / `install-jcode.sh` (repo → machine) ou `export.sh` (machine → repo) |
 | **INFO** | Attendu : extensions indicatives, Cursor ouvert, worktree sale |
 | **SKIP** | Fichier / couche absente |
 

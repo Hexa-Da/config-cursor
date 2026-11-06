@@ -39,7 +39,7 @@ Vérifier l'existence de chaque dossier/fichier cible. Ne jamais écraser un fic
 
 Ne pas créer `.cursor/`, `opencode.jsonc`, ni `./AGENTS.md` même s'ils sont absents. Si `.cursor/rules/bootstrap.mdc` ou `opencode.jsonc` existent déjà (projet mixte) : ne pas les toucher ; ce skill ne gère que l’ossature `tasks/` + `memoire/` pour jcode.
 
-Le bootstrap (lire `PROJET` + `ANNEXE` + `lessons`) est **générique** et vit uniquement dans `~/.jcode/prompt-overlay.md` — **jamais** de `./AGENTS.md` projet ni de `~/AGENTS.md`.
+Le bootstrap (lire `PROJET` + `ANNEXE`) est **générique** et vit uniquement dans `~/.jcode/prompt-overlay.md` — **jamais** de `./AGENTS.md` projet ni de `~/AGENTS.md`.
 
 ### 2. Dossiers à créer
 
@@ -103,7 +103,7 @@ Lister les fichiers créés. Rappeler brièvement :
 
 Méthode (obligatoire) :
 1. Extraire le bloc canon du bon § (`../init-project/reference.md` pour todo/lessons/ANNEXE/CONVENTIONS/ARCHITECTURE ; [reference.md](reference.md) pour `PROJET.md`).
-2. **Copies canoniques** (`todo.md`, `lessons.md`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil.
+2. **Copies canoniques** (`todo.md`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil. `tasks/lessons.md` : **pas** d’égalité stricte (inbox locale qui accumule) — présence + titre `# Lessons` → `FORME_OK` / `FORME_ECART` / absent.
 3. **Templates `memoire/`** (`PROJET.md`, `ANNEXE.md`, `CONVENTIONS.md`, `ARCHITECTURE.md`) : **pas** d’égalité texte. La personnalisation est attendue (nom projet à la place de `[NOM_PROJET]`, corps rempli, entrées d’annexes ajoutées). Vérifier uniquement la **forme générale** vs le template :
    - titre H1 du type `# <Nom> — …` (suffixe aligné sur le template : Contexte projet / Catalogue des annexes / Conventions / Architecture)
    - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire)

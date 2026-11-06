@@ -24,7 +24,7 @@ de session. Distinct de `alignement` (repo ↔ machine) et de `memoire`
 
 ```
 - [ ] 1. Prérequis harness
-- [ ] 2. Toujours-on (PROJET / ANNEXE / lessons)
+- [ ] 2. Toujours-on (PROJET / ANNEXE)
 - [ ] 3. Mission courante
 - [ ] 4. Annexes attendues (ANNEXE.md)
 - [ ] 5. Écarts OK | GAP | EXTRA
@@ -67,7 +67,7 @@ de session. Distinct de `alignement` (repo ↔ machine) et de `memoire`
 
 ```text
 check-context — <mission en 1 ligne>
-Toujours-on : PROJET / ANNEXE / lessons  → OK|GAP
+Toujours-on : PROJET / ANNEXE  → OK|GAP
 Attendues   : <fichier> → OK|GAP ; … | indéterminées (ANNEXE GAP)
 Extra       : <fichier> ; … | —
 Verdict     : conforme | écarts | bloqué (<raison>)

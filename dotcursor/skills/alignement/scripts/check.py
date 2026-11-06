@@ -415,76 +415,6 @@ def _channel_skills(rep: Report, label: str, dst: Path, transform, hint: str) ->
         rep.ok(name)
 
 
-def _lessons(rep: Report) -> None:
-    canon = CONFIG / "tasks" / "lessons.md"
-    if not canon.is_file():
-        rep.skip("lessons.md", "pas de canon")
-        return
-    try:
-        raw = subprocess.check_output(
-            ["find", str(HOME / "Documents"), "-type", "f", "-path", "*/tasks/lessons.md"],
-            text=True,
-        )
-    except (OSError, subprocess.CalledProcessError) as exc:
-        rep.skip("lessons.md", str(exc))
-        return
-    drifted: list[str] = []
-    n = 0
-    for line in raw.splitlines():
-        path = Path(line)
-        if path.resolve() == canon.resolve():
-            continue
-        n += 1
-        if not filecmp.cmp(canon, path, shallow=False):
-            drifted.append(str(path))
-    if drifted:
-        rep.drift("lessons.md", f"{len(drifted)} copie(s) ≠ canon → lessons-install.sh")
-        for path in drifted:
-            rep.info("lessons copie", path)
-    else:
-        extra = f" ({n} projet(s))" if n else " (aucun projet hors canon)"
-        rep.ok("lessons.md", extra.strip())
-
-
-def _snapshots(rep: Report) -> None:
-    canon = CONFIG / "tasks" / "lessons.md"
-    patch = LIB / "patch_lessons_snapshot.sh"
-    dests = [
-        OPENCODE / "skills" / "init-project" / "reference.md",
-        JCODE / "skills" / "init-project" / "reference.md",
-        CURSOR / "skills" / "init-project" / "reference.md",
-        CONFIG / "dotcursor" / "skills" / "init-project" / "reference.md",
-    ]
-    if not patch.is_file() or not canon.is_file():
-        rep.skip("snapshots init-project", "script ou canon absent")
-        return
-    stale: list[str] = []
-    for dest in dests:
-        if not dest.is_file():
-            stale.append(f"absent: {dest}")
-            continue
-        fd, tmp_name = tempfile.mkstemp(suffix=".md")
-        os.close(fd)
-        tmp = Path(tmp_name)
-        try:
-            shutil.copy2(dest, tmp)
-            proc = subprocess.run(
-                [str(patch), str(canon), str(tmp)],
-                capture_output=True,
-                text=True,
-            )
-            if proc.returncode != 0:
-                stale.append(f"{dest}: patch fail")
-            elif not filecmp.cmp(dest, tmp, shallow=False):
-                stale.append(str(dest))
-        finally:
-            tmp.unlink(missing_ok=True)
-    if stale:
-        rep.drift("snapshots init-project", "; ".join(stale) + " → lessons-install.sh")
-    else:
-        rep.ok("snapshots init-project")
-
-
 def _extensions(rep: Report) -> None:
     ext_json = CURSOR / "extensions" / "extensions.json"
     listing = CONFIG / "extensions.txt"
@@ -562,8 +492,6 @@ def main() -> int:
     _channel_agents(rep, "jcode", "jcode", JCODE / "prompt-overlay.md", "install-jcode.sh")
     _channel_skills(rep, "jcode", JCODE / "skills", cursor_skill_md_to_jcode, "install-jcode.sh")
     _jcode_config_policy(rep, flatten_policy)
-    _lessons(rep)
-    _snapshots(rep)
     _extensions(rep)
     if _cursor_running():
         rep.info("Cursor", "ouvert — install.sh skipperait cursor-storage")

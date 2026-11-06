@@ -104,7 +104,7 @@ Lister les fichiers créés. Rappeler brièvement :
 
 Méthode (obligatoire) :
 1. Extraire le bloc canon du bon § (`../init-project/reference.md` pour todo/lessons/ANNEXE/CONVENTIONS/ARCHITECTURE ; [reference.md](reference.md) pour `opencode.jsonc` et `PROJET.md`).
-2. **Copies canoniques** (`todo.md`, `lessons.md`, `opencode.jsonc`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil.
+2. **Copies canoniques** (`todo.md`, `opencode.jsonc`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil. `tasks/lessons.md` : **pas** d’égalité stricte (inbox locale qui accumule) — présence + titre `# Lessons` → `FORME_OK` / `FORME_ECART` / absent.
 3. **Templates `memoire/`** (`PROJET.md`, `ANNEXE.md`, `CONVENTIONS.md`, `ARCHITECTURE.md`) : **pas** d’égalité texte. La personnalisation est attendue (nom projet à la place de `[NOM_PROJET]`, corps rempli, entrées d’annexes ajoutées). Vérifier uniquement la **forme générale** vs le template :
    - titre H1 du type `# <Nom> — …` (suffixe aligné sur le template : Contexte projet / Catalogue des annexes / Conventions / Architecture)
    - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire)
