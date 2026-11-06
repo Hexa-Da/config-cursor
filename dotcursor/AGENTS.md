@@ -43,9 +43,9 @@ Read freely; write (`commit`, `push`, `rebase`…) **only on explicit request**,
 
 ## Session reports
 
-- **Forbidden** outside an explicit close: any write under `memoire/session/`.
-- End of plan = Review in `tasks/todo.md` and lessons in `memoire/` if needed, no session report at that step.
-- Close = user request → skill `cloture-session` → **new** file.
+- **Forbidden** outside an explicit close: any write under `memoire/session/`, and any write to `tasks/lessons.md`.
+- End of plan = Review in `tasks/todo.md` and durable project lessons in `memoire/` if needed, no report at that step.
+- Close = user request → skill `cloture-session` → **new** session file ; optional dated entries in `tasks/lessons.md`.
 - Report naming: `AAAA-MM-JJ_HHmm_slug.md` (local clock).
 
 ## Code comments

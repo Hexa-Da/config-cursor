@@ -55,7 +55,7 @@ Contenus OpenCode-only dans [reference.md](reference.md). Sections partagées (t
 | Fichier            | Source                                      | Rôle                                                                |
 | ------------------ | ------------------------------------------- | ------------------------------------------------------------------- |
 | `tasks/todo.md`    | init-project/reference.md → Copie todo      | Plan de travail de la session en cours                              |
-| `tasks/lessons.md` | init-project/reference.md → Copie lessons   | Socle méthode transversal (lecture seule agent)                     |
+| `tasks/lessons.md` | init-project/reference.md → Copie lessons   | Inbox locale frictions méthode/harness (écriture à la clôture)  |
 | `opencode.jsonc`   | reference.md (ce skill) → Copie opencode.jsonc | Injecte `PROJET.md` + `ANNEXE.md` via `instructions` |
 
 **Template à personnaliser** — savoir projet, adapter au repo cible :

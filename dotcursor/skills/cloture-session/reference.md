@@ -28,7 +28,30 @@ Une leçon réutilisable est promue si elle répond en plus **oui** à au moins 
 | ------------------------------------------------ | --------------------------------- | ------------------------------------------------------------------------------- |
 | Checklist procédurale, convention de code, piège | `memoire/CONVENTIONS.md`          | checklist multi-couches d'ajout d'une donnée (modèle → migration → UI → export) |
 | Rôle d'un package, pattern, flux technique       | `memoire/ARCHITECTURE.md`         | pattern de composants, flux de génération de code                               |
-| Méthode de travail (valable tous projets)        | *(ne pas écrire)*                 | `tasks/lessons.md` est **lecture seule** pour l'agent — noter dans le rapport de session et signaler à l'utilisateur |
+| Friction méthode / harness / outil / consigne    | `tasks/lessons.md` (inbox)        | consigne contradictoire, outil manquant, règle always-on trop chère             |
+
+**Hors inbox** : récit de ce qui a été fait → rapport de session ; invariant code/projet → `memoire/` seulement.
+
+## Inbox frictions (`tasks/lessons.md`)
+
+Écriture **uniquement à la clôture**. Une entrée = une friction **promuable** (l’utilisateur pourra la copier dans `AGENTS.md` ou un skill). Sinon : n’écrire rien.
+
+Critères d’une entrée valide (tous requis) :
+
+- **Friction** : ce qui a bloqué ou dégradé le travail (pas un résumé de ticket).
+- **Contexte** : harness / consigne / outil concerné.
+- **Changement proposé** : `AGENTS` | `skill:<nom>` | `rien` (si `rien`, l’entrée ne sert qu’à documenter un piège ponctuel — préférer omettre).
+
+Gabarit (à coller dans `tasks/lessons.md`, hors du commentaire HTML) :
+
+```markdown
+### YYYY-MM-DD — titre court
+- Friction : …
+- Contexte : (harness / consigne / outil)
+- Changement proposé : AGENTS | skill:nom | rien
+```
+
+Interdit dans ce fichier : savoir projet, checklist code, journal de session, prose libre hors gabarit.
 
 ---
 

@@ -54,7 +54,7 @@ Tous les contenus sont dans [reference.md](reference.md). Deux modes :
 | Fichier                            | § dans reference.md        | Rôle                                                                     |
 | ---------------------------------- | -------------------------- | ------------------------------------------------------------------------ |
 | `tasks/todo.md`                    | Copie todo                 | Plan de travail de la session en cours                                   |
-| `tasks/lessons.md`                 | Copie lessons              | Socle méthode transversal (lecture seule agent)                          |
+| `tasks/lessons.md`                 | Copie lessons              | Inbox locale frictions méthode/harness (écriture à la clôture)           |
 | `.cursor/rules/bootstrap.mdc`      | Copie bootstrap.mdc        | Always-on Cursor : attache `PROJET.md` + `ANNEXE.md`                     |
 | `.cursor/rules/context-mode.mdc`   | Copie context-mode.mdc     | Always-on Cursor : routing MCP context-mode (sandbox contexte)           |
 
