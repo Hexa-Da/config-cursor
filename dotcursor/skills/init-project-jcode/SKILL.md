@@ -93,8 +93,8 @@ Ne pas ajouter `.cursor`, `opencode.jsonc`, ni `AGENTS.md` (le bootstrap jcode e
 **Cas A — aucun fichier cible n’existait** (tout vient d’être créé) :
 
 Lister les fichiers créés. Rappeler brièvement :
-- Bootstrap jcode = `~/.jcode/prompt-overlay.md` (via `install-jcode.sh`) : lit `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`
-- Skills = `~/.jcode/skills/` (à la demande) ; `memoire/` = savoir projet ; `tasks/` = méthode ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
+- Bootstrap jcode = `~/.jcode/prompt-overlay.md` (via `install-jcode.sh`) : lit `PROJET.md` + `ANNEXE.md`
+- Skills = `~/.jcode/skills/` (à la demande) ; méthode = `prompt-overlay` / AGENTS ; `memoire/` = savoir projet ; `tasks/` = workspace session ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
 - Besoin Cursor → `init-project` ; OpenCode → `init-project-opencode`
 
 **Cas B — au moins un fichier cible existait déjà** (ne pas écraser) :
@@ -123,7 +123,8 @@ Pour chaque `DIVERGE` : diff unifié (hunks principaux si trop long). Pour chaqu
 ## Séparation méthode / savoir projet
 
 Règle fondamentale à ne **jamais** violer :
-- `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
+- Méthode agent = **User Rules** (`~/.jcode/prompt-overlay.md`) — pas un fichier projet injecté.
+- `tasks/` = **workspace session** (`todo.md`, `lessons.md`) — propre au déroulement local.
 - `memoire/` = **savoir projet** — propre au repo.
-- Le câblage jcode générique vit dans `~/.jcode/prompt-overlay.md` : lire `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
+- Le câblage jcode générique vit dans `~/.jcode/prompt-overlay.md` : lire `PROJET.md` + `ANNEXE.md`.
 - Le **catalogue** (mode d’emploi, entrées, triggers, cycle de vie) vit dans `memoire/ANNEXE.md` ; le bootstrap global en fixe l’objectif (quelles annexes ouvrir). Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le bootstrap global ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.

@@ -6,7 +6,6 @@ Lire au démarrage **dans cet ordre** :
 
 1. `memoire/PROJET.md` — Objectif : savoir projet minimal (domaine, stack, concepts métier) pour situer la mission. Pas de méthode agent.
 2. `memoire/ANNEXE.md` — Objectif : décider quelles annexes `memoire/` lire pour chaque mission (triggers). Ne pas ouvrir le reste « au cas où ».
-3. `tasks/lessons.md` — Objectif : contraintes opérationnelles inter-projets. Lecture seule ; write-backs sous `memoire/` uniquement.
 
 ### 1. Plan when needed
 

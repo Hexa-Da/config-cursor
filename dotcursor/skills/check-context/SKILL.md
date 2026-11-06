@@ -33,7 +33,7 @@ de session. Distinct de `alignement` (repo ↔ machine) et de `memoire`
 
 ## Étapes
 
-1. **Prérequis harness** — confirmer `memoire/` et `tasks/lessons.md`.
+1. **Prérequis harness** — confirmer `memoire/`.
    Détecter le câblage bootstrap :
    - Cursor : `.cursor/rules/bootstrap.mdc`
    - OpenCode : `opencode.jsonc` → `instructions`
@@ -41,9 +41,10 @@ de session. Distinct de `alignement` (repo ↔ machine) et de `memoire`
    Si harness / fichiers absents → **bloqué** ; proposer `init-project` /
    `init-project-opencode` / `init-project-jcode` selon le canal. Stop.
 
-2. **Toujours-on** — `memoire/PROJET.md`, `memoire/ANNEXE.md`,
-   `tasks/lessons.md`. S’ils n’existent pas → **bloqué**. S’ils n’ont pas
-   encore été lus dans la session → **GAP** (ne pas relire pour combler).
+2. **Toujours-on** — `memoire/PROJET.md`, `memoire/ANNEXE.md`.
+   S’ils n’existent pas → **bloqué**. S’ils n’ont pas encore été lus dans la
+   session → **GAP** (ne pas relire pour combler). Méthode agent = User Rules
+   (`AGENTS.md` / overlay), pas un fichier projet always-on.
 
 3. **Mission** — déduire depuis le fil de discussion et `tasks/todo.md`
    s’il existe. Si ambiguë → **une** question, pas de guess.

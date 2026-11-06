@@ -1,8 +1,8 @@
 # Référence — init-project-jcode
 
-Templates **jcode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
+Templates **jcode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE : copier depuis [`../init-project/reference.md`](../init-project/reference.md).
 
-Le **bootstrap générique** (lire PROJET + ANNEXE + lessons) est dans `~/.jcode/prompt-overlay.md` via `install-jcode.sh` / `config-cursor/dotjcode/AGENTS.md` — **jamais** de `./AGENTS.md` projet ni de `~/AGENTS.md`.
+Le **bootstrap générique** (lire PROJET + ANNEXE) est dans `~/.jcode/prompt-overlay.md` via `install-jcode.sh` / `config-cursor/dotjcode/AGENTS.md` — **jamais** de `./AGENTS.md` projet ni de `~/AGENTS.md`.
 
 ---
 

@@ -55,7 +55,7 @@ Tous les contenus sont dans [reference.md](reference.md). Deux modes :
 | ---------------------------------- | -------------------------- | ------------------------------------------------------------------------ |
 | `tasks/todo.md`                    | Copie todo                 | Plan de travail de la session en cours                                   |
 | `tasks/lessons.md`                 | Copie lessons              | Socle méthode transversal (lecture seule agent)                          |
-| `.cursor/rules/bootstrap.mdc`      | Copie bootstrap.mdc        | Always-on Cursor : attache `PROJET.md` + `ANNEXE.md` + `lessons.md`      |
+| `.cursor/rules/bootstrap.mdc`      | Copie bootstrap.mdc        | Always-on Cursor : attache `PROJET.md` + `ANNEXE.md`                     |
 | `.cursor/rules/context-mode.mdc`   | Copie context-mode.mdc     | Always-on Cursor : routing MCP context-mode (sandbox contexte)           |
 
 **Template à personnaliser** — savoir projet, adapter au repo cible :
@@ -90,9 +90,9 @@ tasks
 **Cas A — aucun fichier cible n’existait** (tout vient d’être créé) :
 
 Lister les fichiers créés. Rappeler brièvement :
-- `.cursor/rules/bootstrap.mdc` injecte `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md` et en fixe le rôle
+- `.cursor/rules/bootstrap.mdc` injecte `PROJET.md` + `ANNEXE.md` et en fixe le rôle
 - `.cursor/rules/context-mode.mdc` route les analyses vers le MCP context-mode (sandbox)
-- `memoire/` = savoir projet ; `tasks/` = méthode ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
+- Méthode agent = `AGENTS.md` ; `memoire/` = savoir projet ; `tasks/` = workspace session ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
 
 **Cas B — au moins un fichier cible existait déjà** (ne pas écraser) :
 
@@ -120,7 +120,8 @@ Pour chaque `DIVERGE` : diff unifié (hunks principaux si trop long). Pour chaqu
 ## Séparation méthode / savoir projet
 
 Règle fondamentale à ne **jamais** violer :
-- `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
+- Méthode agent = **User Rules** (`AGENTS.md`) — pas un fichier projet injecté.
+- `tasks/` = **workspace session** (`todo.md`, `lessoms.md`) — propre au déroulement local.
 - `memoire/` = **savoir projet** (domaine, conventions, architecture, catalogue d'annexes) — propre au repo.
-- Le câblage injecte les trois sans fusionner leur contenu : `.cursor/rules/bootstrap.mdc` → `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
+- Le câblage injecte les deux sans fusionner leur contenu : `.cursor/rules/bootstrap.mdc` → `PROJET.md` + `ANNEXE.md`.
 - Le **catalogue** (mode d’emploi, entrées, triggers, cycle de vie) vit dans `memoire/ANNEXE.md` ; le bootstrap en fixe l’objectif (quelles annexes ouvrir). Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.

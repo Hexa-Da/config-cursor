@@ -56,7 +56,7 @@ Contenus OpenCode-only dans [reference.md](reference.md). Sections partagées (t
 | ------------------ | ------------------------------------------- | ------------------------------------------------------------------- |
 | `tasks/todo.md`    | init-project/reference.md → Copie todo      | Plan de travail de la session en cours                              |
 | `tasks/lessons.md` | init-project/reference.md → Copie lessons   | Socle méthode transversal (lecture seule agent)                     |
-| `opencode.jsonc`   | reference.md (ce skill) → Copie opencode.jsonc | Injecte `PROJET.md` + `ANNEXE.md` + `lessons.md` via `instructions` |
+| `opencode.jsonc`   | reference.md (ce skill) → Copie opencode.jsonc | Injecte `PROJET.md` + `ANNEXE.md` via `instructions` |
 
 **Template à personnaliser** — savoir projet, adapter au repo cible :
 
@@ -94,8 +94,8 @@ Ne pas ajouter `.cursor` (hors périmètre OpenCode-only).
 **Cas A — aucun fichier cible n’existait** (tout vient d’être créé) :
 
 Lister les fichiers créés. Rappeler brièvement :
-- `opencode.jsonc` injecte `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md` via `instructions` et en fixe le rôle
-- Skills / `AGENTS.md` = `~/.config/opencode` ; `memoire/` = savoir projet ; `tasks/` = méthode ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
+- `opencode.jsonc` injecte `PROJET.md` + `ANNEXE.md` via `instructions` et en fixe le rôle
+- Skills / `AGENTS.md` = `~/.config/opencode` (méthode) ; `memoire/` = savoir projet ; `tasks/` = workspace session ; annexes spécialisées = entrée dans `ANNEXE.md` uniquement
 - Besoin Cursor → `init-project` (ajoute `.cursor/rules/bootstrap.mdc`)
 
 **Cas B — au moins un fichier cible existait déjà** (ne pas écraser) :
@@ -124,7 +124,8 @@ Pour chaque `DIVERGE` : diff unifié (hunks principaux si trop long). Pour chaqu
 ## Séparation méthode / savoir projet
 
 Règle fondamentale à ne **jamais** violer :
-- `tasks/` = **méthode** (comment l'agent travaille) — portable entre projets.
+- Méthode agent = **User Rules** (`~/.config/opencode/AGENTS.md`) — pas un fichier projet injecté.
+- `tasks/` = **workspace session** (`todo.md`, `lessons.md`) — propre au déroulement local.
 - `memoire/` = **savoir projet** (domaine, conventions, architecture, catalogue d'annexes) — propre au repo.
-- Le câblage OpenCode injecte les trois sans fusionner leur contenu : `opencode.jsonc` → `PROJET.md` + `ANNEXE.md` + `tasks/lessons.md`.
+- Le câblage OpenCode injecte les deux sans fusionner leur contenu : `opencode.jsonc` → `PROJET.md` + `ANNEXE.md`.
 - Le **catalogue** (mode d’emploi, entrées, triggers, cycle de vie) vit dans `memoire/ANNEXE.md` ; le câblage `instructions` en fixe l’objectif (quelles annexes ouvrir). Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.

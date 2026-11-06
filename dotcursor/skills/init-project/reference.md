@@ -80,7 +80,7 @@ Fichier cible : `.cursor/rules/bootstrap.mdc` — copier **tel quel**.
 
 ```
 ---
-description: Contexte projet, catalogue d'annexes et méthode ;
+description: Contexte projet et catalogue d'annexes ;
 alwaysApply: true
 ---
 
@@ -89,9 +89,6 @@ alwaysApply: true
 
 @memoire/ANNEXE.md
 — Objectif : décider quelles annexes `memoire/` lire pour chaque mission (triggers). Ne pas ouvrir le reste « au cas où ».
-
-@tasks/lessons.md
-— Objectif : contraintes opérationnelles inter-projets. Lecture seule ; write-backs sous `memoire/` uniquement.
 ```
 
 ---

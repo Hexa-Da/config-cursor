@@ -1,6 +1,6 @@
 # Référence — init-project-opencode
 
-Templates **OpenCode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE : copier depuis [`../init-project/reference.md`](../init-project/reference.md) (snapshot lessons unique, synchronisé par `lessons-export.sh`).
+Templates **OpenCode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE : copier depuis [`../init-project/reference.md`](../init-project/reference.md).
 
 ---
 
@@ -14,8 +14,7 @@ Fichier cible : `opencode.jsonc` — copier **tel quel** (câblage OpenCode ; pa
   // Contexte injecté à chaque session (équivalent .cursor/rules/bootstrap.mdc)
   "instructions": [
     "memoire/PROJET.md",
-    "memoire/ANNEXE.md",
-    "tasks/lessons.md"
+    "memoire/ANNEXE.md"
   ]
 }
 ```
