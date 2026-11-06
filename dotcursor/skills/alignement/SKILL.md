@@ -2,8 +2,8 @@
 name: alignement
 description: >-
   Checks config-cursor repo vs this machine (hooks, skills, settings,
-  cursor-storage, OpenCode, jcode, lessons). Use when the user asks to verify
-  alignment, alignement, repo vs machine, or whether install.sh /
+  mcp.json, cursor-storage, OpenCode, jcode, lessons). Use when the user asks
+  to verify alignment, alignement, repo vs machine, or whether install.sh /
   install-opencode.sh / install-jcode.sh / export.sh is needed.
 disable-model-invocation: true
 ---
@@ -42,6 +42,7 @@ Exit 0 = pas de `DRIFT`. Exit 1 = écart inattendu.
 - OpenCode garde-fou : `plugins/garde-fou.js` + `plugins/garde-fou{,-opencode}.py` → `install-opencode.sh`.
 - jcode `config.policy.toml` : clés policy vs `~/.jcode/config.toml` (même contrat que `merge_jcode_config_policy.py`) → `install-jcode.sh`. Le reste du fichier machine est ignoré.
 - Les user rules viennent de `dot<harness>/AGENTS.md` : OpenCode → `~/.config/opencode/AGENTS.md`, jcode → `~/.jcode/prompt-overlay.md`. La variante Cursor n'est pas scriptable (Settings → Rules), donc non vérifiée.
+- `mcp.json` : byte-identique `dotcursor/mcp.json` ↔ `~/.cursor/mcp.json` (canon = repo).
 - `extensions.txt` n'est **pas** une source de vérité (`install.sh` ne les installe pas).
 - `__pycache__` / `.gitkeep` ignorés.
 - Cursor ouvert → ne pas conclure qu'il faut `install.sh` pour `cursor-storage` (overwrite au quit).

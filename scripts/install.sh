@@ -74,7 +74,12 @@ sync_dot_dir agents
 # mcp.json : canon repo → ~/.cursor (écrase ; pas de secrets dans le canon)
 if [[ -f "$DOT_SRC/mcp.json" ]]; then
   cp "$DOT_SRC/mcp.json" "$CURSOR_DOT/mcp.json"
-  echo "→ mcp.json"
+  if cmp -s "$DOT_SRC/mcp.json" "$CURSOR_DOT/mcp.json"; then
+    echo "→ mcp.json OK (identique au repo)"
+  else
+    echo "⚠ mcp.json: copie divergente après cp — vérifie $CURSOR_DOT/mcp.json" >&2
+    exit 1
+  fi
 elif [[ -f "$DOT_SRC/mcp.json.example" && ! -f "$CURSOR_DOT/mcp.json" ]]; then
   cp "$DOT_SRC/mcp.json.example" "$CURSOR_DOT/mcp.json"
   echo "→ mcp.json créé depuis mcp.json.example"

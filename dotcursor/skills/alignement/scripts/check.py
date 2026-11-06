@@ -271,6 +271,24 @@ def _keybindings(rep: Report) -> None:
         rep.drift("keybindings.json", "contenu différent" + hint)
 
 
+def _mcp(rep: Report) -> None:
+    a = CONFIG / "dotcursor" / "mcp.json"
+    b = CURSOR / "mcp.json"
+    if not a.is_file() and not b.is_file():
+        rep.skip("mcp.json", "absent des deux côtés")
+        return
+    if not a.is_file() or not b.is_file():
+        rep.drift("mcp.json", "un côté absent → install.sh / export.sh")
+        return
+    if _cmp_files(a, b):
+        rep.ok("mcp.json")
+        return
+    hint = ""
+    if _cursor_running():
+        hint = " (Cursor ouvert — Settings MCP peut réécrire le fichier)"
+    rep.drift("mcp.json", "contenu différent" + hint + " → install.sh / export.sh")
+
+
 def _storage(rep: Report, export_storage) -> None:
     db = CURSOR_USER / "globalStorage" / "state.vscdb"
     repo = CONFIG / "user" / "cursor-storage.json"
@@ -534,6 +552,7 @@ def main() -> int:
     _dot_dir(rep, "agents")
     _settings(rep)
     _keybindings(rep)
+    _mcp(rep)
     _storage(rep, export_storage)
     _channel_agents(rep, "OpenCode", "opencode", OPENCODE / "AGENTS.md", "install-opencode.sh")
     _channel_skills(
