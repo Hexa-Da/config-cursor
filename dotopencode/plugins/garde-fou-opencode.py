@@ -26,6 +26,7 @@ _SHELL_TOOLS: frozenset[str] = frozenset({"bash"})
 _WRITE_TOOLS: frozenset[str] = frozenset(
     {"write", "edit", "multiedit", "apply_patch", "replace"}
 )
+_READ_TOOLS: frozenset[str] = frozenset({"read"})
 _PATCH_PATH_RE: re.Pattern[str] = re.compile(
     r"^\*\*\* (?:Add File|Update File|Delete File|Move to): (.+)$",
     re.MULTILINE,
@@ -106,6 +107,20 @@ def main() -> int:
                     f"« {resolved or raw_path} ». N'insiste pas ; "
                     "l'utilisateur doit le faire lui-même."
                 )
+        return 0
+
+    if tool in _READ_TOOLS:
+        home = os.path.expanduser("~")
+        for raw_path in _paths_from_args(args, base):
+            resolved = base._resolve_path(raw_path, cwd)
+            if base._is_secret_read_path(resolved, home):
+                return _block(
+                    "Garde-fou DENY : lecture d'un chemin secret "
+                    f"« {resolved or raw_path} ». N'insiste pas ; "
+                    "l'utilisateur doit le faire lui-même."
+                )
+        return 0
+
     return 0
 
 

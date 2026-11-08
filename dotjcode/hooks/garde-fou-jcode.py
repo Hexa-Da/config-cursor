@@ -23,6 +23,7 @@ _SHELL_TOOLS: frozenset[str] = frozenset({"bash"})
 _WRITE_TOOLS: frozenset[str] = frozenset(
     {"write", "edit", "multiedit", "apply_patch", "replace"}
 )
+_READ_TOOLS: frozenset[str] = frozenset({"read"})
 
 
 def _load_base() -> Any:
@@ -90,6 +91,21 @@ def main() -> int:
                     f"« {resolved or raw_path} ». N'insiste pas ; "
                     "l'utilisateur doit le faire lui-même."
                 )
+        return 0
+
+    if tool in _READ_TOOLS:
+        home = os.path.expanduser("~")
+        raw = base._extract_tool_path(tool_input)
+        if raw:
+            resolved = base._resolve_path(raw, cwd)
+            if base._is_secret_read_path(resolved, home):
+                return _block(
+                    "Garde-fou DENY : lecture d'un chemin secret "
+                    f"« {resolved or raw} ». N'insiste pas ; "
+                    "l'utilisateur doit le faire lui-même."
+                )
+        return 0
+
     return 0
 
 

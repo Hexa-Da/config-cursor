@@ -11,7 +11,7 @@
     "preToolUse": [
       {
         "command": "$HOME/.cursor/hooks/garde-fou.py",
-        "matcher": "Write|Delete|StrReplace",
+        "matcher": "Write|Delete|StrReplace|Read",
         "failClosed": true,
         "timeout": 15
       }
