@@ -11,8 +11,6 @@ Fichier cible : `tasks/todo.md`
 ```markdown
 # Todo — tâche en cours
 
-> Plan de travail de la session qui suit les Cherny's rules.
-
 ## Tâche
 
 <!-- Titre court de la tâche en cours -->
@@ -231,9 +229,6 @@ Fichier cible : `memoire/PROJET.md`
 
 Fichier cible : `memoire/ANNEXE.md`
 
-Catalogue des conditions de lecture (triggers / exclusions / dépendances). Adapter
-les triggers au repo ; ajouter une entrée par annexe spécialisée.
-
 ```markdown
 # [NOM_PROJET] — Catalogue des annexes
 
@@ -241,6 +236,7 @@ les triggers au repo ; ajouter une entrée par annexe spécialisée.
   aucune annexe spécialisée ne couvre la convention. Ignorer pour question, audit ou correction triviale.
 - **[`ARCHITECTURE.md`](ARCHITECTURE.md)** — Lire pour interaction multi-modules, nouvelle frontière ou
   nouveau pattern. Ignorer si cible et pattern sont déjà identifiés.
+- ...
 
 <!-- Entrée par annexe spécialisée : triggers / exclusions / dépendances. Cycle de vie → skill memoire. -->
 ```

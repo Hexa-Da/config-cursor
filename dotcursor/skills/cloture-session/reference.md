@@ -116,11 +116,9 @@ Fichier cible après reset : `tasks/todo.md`
 ```markdown
 # Todo — tâche en cours
 
-> Plan de travail de la session qui suit les Cherny's rules. Distinct de `memoire/`.
-
 ## Tâche
 
-
+<!-- Titre court de la tâche en cours -->
 
 ## Plan
 
@@ -130,4 +128,5 @@ Fichier cible après reset : `tasks/todo.md`
 
 ## Review
 
+<!-- À remplir en fin de tâche : ce qui a été fait, comment ça a été vérifié, écarts par rapport au plan. -->
 ```

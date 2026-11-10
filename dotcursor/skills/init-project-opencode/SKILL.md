@@ -48,7 +48,9 @@ memoire/session/
 
 ### 3. Fichiers à créer
 
-Contenus OpenCode-only dans [reference.md](reference.md). Sections partagées (todo, lessons, ANNEXE, CONVENTIONS, ARCHITECTURE) : lire [`../init-project/reference.md`](../init-project/reference.md).
+Contenu OpenCode-only : [reference.md](reference.md) (`opencode.jsonc`).
+Sections partagées (todo, lessons, PROJET, ANNEXE, CONVENTIONS, ARCHITECTURE) :
+[`../init-project/reference.md`](../init-project/reference.md).
 
 **Copie canonique** — socle de méthode / câblage, copier tel quel :
 
@@ -62,7 +64,7 @@ Contenus OpenCode-only dans [reference.md](reference.md). Sections partagées (t
 
 | Fichier                    | Source                                         | Rôle                            |
 | -------------------------- | ---------------------------------------------- | ------------------------------- |
-| `memoire/PROJET.md`        | reference.md (ce skill) → Template PROJET.md   | Savoir projet essentiel         |
+| `memoire/PROJET.md`        | init-project/reference.md → Template PROJET.md | Savoir projet essentiel         |
 | `memoire/ANNEXE.md`        | init-project/reference.md → Template ANNEXE.md | Catalogue conditions de lecture |
 | `memoire/CONVENTIONS.md`   | init-project/reference.md → Template CONVENTIONS | Conventions code/test         |
 | `memoire/ARCHITECTURE.md`  | init-project/reference.md → Template ARCHITECTURE | Structure / patterns         |
@@ -103,13 +105,13 @@ Lister les fichiers créés. Rappeler brièvement :
 À la place du rappel de câblage : comparer chaque fichier déjà présent à son § source (tableaux §3).
 
 Méthode (obligatoire) :
-1. Extraire le bloc canon du bon § (`../init-project/reference.md` pour todo/lessons/ANNEXE/CONVENTIONS/ARCHITECTURE ; [reference.md](reference.md) pour `opencode.jsonc` et `PROJET.md`).
+1. Extraire le bloc canon du bon § (`../init-project/reference.md` pour todo/lessons/PROJET/ANNEXE/CONVENTIONS/ARCHITECTURE ; [reference.md](reference.md) pour `opencode.jsonc`).
 2. **Copies canoniques** (`todo.md`, `opencode.jsonc`) : égalité textuelle **stricte** avec le bloc (trim final newline toléré uniquement). Statut `IDENTIQUE` ou `DIVERGE`. Comparer via code (`diff` unifié / `ctx_execute`) — pas à l’œil. `tasks/lessons.md` : **pas** d’égalité stricte (inbox locale qui accumule) — présence + titre `# Lessons` → `FORME_OK` / `FORME_ECART` / absent.
 3. **Templates `memoire/`** (`PROJET.md`, `ANNEXE.md`, `CONVENTIONS.md`, `ARCHITECTURE.md`) : **pas** d’égalité texte. La personnalisation est attendue (nom projet à la place de `[NOM_PROJET]`, corps rempli, entrées d’annexes ajoutées). Vérifier uniquement la **forme générale** vs le template :
    - titre H1 du type `# <Nom> — …` (suffixe aligné sur le template : Contexte projet / Catalogue des annexes / Conventions / Architecture)
-   - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire)
-   - pour `ANNEXE.md` : bloc d’intro catalogue + section « Historique » (ou équivalent) ; entrées d’annexes (triggers) = OK ; pas de section méthode « cycle de vie » (vit dans le skill `memoire`)
-   - pour `CONVENTIONS.md` / `ARCHITECTURE.md` : lien vers `PROJET.md` / `ANNEXE.md` en tête si le template en a un
+   - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire) — `ANNEXE.md` / `CONVENTIONS.md` / `ARCHITECTURE.md` : pas de H2 obligatoires dans le template
+   - pour `ANNEXE.md` : liste à puces (CONVENTIONS + ARCHITECTURE + spécialisées) ; pas de section méthode « cycle de vie » (vit dans le skill `memoire`)
+   - pas de bandeau `> Annexe de [PROJET.md]…`
    - Statut `FORME_OK` ou `FORME_ECART` (écarts = section manquante / titre hors gabarit / structure cassée — pas le contenu métier)
 4. Ne pas modifier les fichiers en écart dans cette étape ; seulement rapporter.
 

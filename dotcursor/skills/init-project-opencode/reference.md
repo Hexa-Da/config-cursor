@@ -1,6 +1,7 @@
 # Référence — init-project-opencode
 
-Templates **OpenCode-only**. Pour todo / lessons / ANNEXE / CONVENTIONS / ARCHITECTURE : copier depuis [`../init-project/reference.md`](../init-project/reference.md).
+Templates **OpenCode-only**. Pour todo / lessons / PROJET / ANNEXE / CONVENTIONS /
+ARCHITECTURE : copier depuis [`../init-project/reference.md`](../init-project/reference.md).
 
 ---
 
@@ -17,32 +18,4 @@ Fichier cible : `opencode.jsonc` — copier **tel quel** (câblage OpenCode ; pa
     "memoire/ANNEXE.md"
   ]
 }
-```
-
----
-
-## Template PROJET.md
-
-Fichier cible : `memoire/PROJET.md`
-
-```markdown
-# [NOM_PROJET] — Contexte projet pour agent IA
-
-## But du projet
-
-<!-- Décrire en quelques phrases : quoi, pour qui, quel problème résolu. -->
-
-## Stack technique
-
-| Couche          | Technologie |
-| --------------- | ----------- |
-| Backend         |             |
-| Base de données |             |
-| Frontend        |             |
-| Tests           |             |
-| Build           |             |
-
-## Concepts métier essentiels
-
-<!-- Lister les 3-5 concepts clés du domaine que l'agent doit connaître pour travailler efficacement. -->
 ```
