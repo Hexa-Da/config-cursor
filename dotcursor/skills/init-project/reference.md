@@ -6,12 +6,12 @@ Templates des fichiers à générer. Copier tels quels sauf les placeholders `[�
 
 ## Copie todo
 
-Fichier cible : `tasks/todo.md` — copier **tel quel**.
+Fichier cible : `tasks/todo.md`
 
 ```markdown
 # Todo — tâche en cours
 
-> Plan de travail de la session qui suit les Cherny's rules. Distinct de `memoire/`.
+> Plan de travail de la session qui suit les Cherny's rules.
 
 ## Tâche
 
@@ -32,10 +32,10 @@ Fichier cible : `tasks/todo.md` — copier **tel quel**.
 
 ## Copie lessons
 
-Fichier cible : `tasks/lessons.md` — copier **tel quel**.
+Fichier cible : `tasks/lessons.md`
 
 ```markdown
-# Lessons
+# Lessons - friction harnais
 
 <!--
 ### YYYY-MM-DD — titre court
@@ -49,7 +49,7 @@ Fichier cible : `tasks/lessons.md` — copier **tel quel**.
 
 ## Copie bootstrap.mdc
 
-Fichier cible : `.cursor/rules/bootstrap.mdc` — copier **tel quel**.
+Fichier cible : `.cursor/rules/bootstrap.mdc`
 
 ```
 ---
@@ -68,7 +68,7 @@ alwaysApply: true
 
 ## Copie context-mode.mdc
 
-Fichier cible : `.cursor/rules/context-mode.mdc` — copier **tel quel**.
+Fichier cible : `.cursor/rules/context-mode.mdc`
 
 ```
 ---
@@ -153,7 +153,7 @@ After /clear or /compact: knowledge base and session stats preserved. Use `ctx p
 
 ## Copie ponytail.mdc
 
-Fichier cible : `.cursor/rules/ponytail.mdc` — copier **tel quel**.
+Fichier cible : `.cursor/rules/ponytail.mdc`
 
 ```
 ---
@@ -237,17 +237,12 @@ les triggers au repo ; ajouter une entrée par annexe spécialisée.
 ```markdown
 # [NOM_PROJET] — Catalogue des annexes
 
-## Architecture
-
 - **[`CONVENTIONS.md`](CONVENTIONS.md)** — Lire pour une implémentation non triviale transverse ou si
   aucune annexe spécialisée ne couvre la convention. Ignorer pour question, audit ou correction triviale.
 - **[`ARCHITECTURE.md`](ARCHITECTURE.md)** — Lire pour interaction multi-modules, nouvelle frontière ou
   nouveau pattern. Ignorer si cible et pattern sont déjà identifiés.
 
-## Historique
-
-`memoire/session/` n’est pas normatif : lire seulement pour reprendre explicitement un travail passé ou
-suivre un lien depuis une annexe déclenchée.
+<!-- Entrée par annexe spécialisée : triggers / exclusions / dépendances. Cycle de vie → skill memoire. -->
 ```
 
 ---
