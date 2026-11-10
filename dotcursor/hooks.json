@@ -15,12 +15,6 @@
         "failClosed": true,
         "timeout": 15
       }
-    ],
-    "sessionStart": [
-      {
-        "command": "node \"$HOME/.cursor/hooks/ponytail-ultra-activate.js\"",
-        "timeout": 15
-      }
     ]
   }
 }
