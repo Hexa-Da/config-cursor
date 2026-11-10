@@ -9,7 +9,15 @@ import { existsSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 
-const WATCHED = new Set(["bash", "write", "edit", "multiedit", "apply_patch", "replace"])
+const WATCHED = new Set([
+  "bash",
+  "write",
+  "edit",
+  "multiedit",
+  "apply_patch",
+  "replace",
+  "read",
+])
 
 function resolveScript() {
   return join(dirname(fileURLToPath(import.meta.url)), "garde-fou-opencode.py")
