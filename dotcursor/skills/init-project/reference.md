@@ -231,7 +231,8 @@ Fichier cible : `memoire/PROJET.md`
 
 Fichier cible : `memoire/ANNEXE.md`
 
-Catalogue des conditions de lecture. Adapter les triggers au repo ; ajouter une entrée par annexe spécialisée.
+Catalogue des conditions de lecture (triggers / exclusions / dépendances). Adapter
+les triggers au repo ; ajouter une entrée par annexe spécialisée.
 
 ```markdown
 # [NOM_PROJET] — Catalogue des annexes
@@ -242,19 +243,6 @@ Catalogue des conditions de lecture. Adapter les triggers au repo ; ajouter une 
   aucune annexe spécialisée ne couvre la convention. Ignorer pour question, audit ou correction triviale.
 - **[`ARCHITECTURE.md`](ARCHITECTURE.md)** — Lire pour interaction multi-modules, nouvelle frontière ou
   nouveau pattern. Ignorer si cible et pattern sont déjà identifiés.
-
-## Cycle de vie d’une annexe
-
-- **Créer ou scinder** si un domaine possède un trigger distinct, revient dans plusieurs missions et rend
-  une annexe existante hétérogène ou conflictuelle. Ne pas créer pour un ticket, une entité isolée, un
-  inventaire ou un état temporaire.
-- Toute création doit déplacer le contenu sans duplication, ajouter ici ses triggers, exclusions et
-  dépendances, puis mettre à jour les spines concernées.
-- **Fusionner ou supprimer** si l’annexe n’a plus de trigger propre, ne contient plus de règle durable,
-  duplique une autre source ou n’est plus utile après un changement d’architecture.
-- Avant suppression, déplacer les seules règles encore valides vers l’annexe cible, retirer ici l’entrée
-  et les liens entrants, puis vérifier qu’aucune référence au fichier ne subsiste.
-- Le nom décrit un domaine stable (`CONVENTIONS.md`, `ARCHITECTURE.md`), jamais une branche, un ticket ou une date.
 
 ## Historique
 

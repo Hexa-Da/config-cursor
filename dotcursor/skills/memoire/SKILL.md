@@ -84,15 +84,13 @@ Préférer les invariants aux inventaires (compteurs, dates d’état, branches)
 
 ### 5) Utilité / prune
 
-Candidat prune si : plus de code/chemin/concept correspondant **et** plus de
-trigger plausible dans `ANNEXE.md`. Edits légères en direct ; suppressions /
-fusions → proposition (étape 4).
+Appliquer « Fusionner ou supprimer » dans [reference.md](reference.md). Edits
+légères en direct ; suppressions / fusions → proposition (étape 4).
 
 ### 6) Création annexe
 
 Si un domaine est dense/hétérogène dans les spines (ou ressort des indices +
-code) : appliquer la grille « nouvelle annexe ? » dans [reference.md](reference.md)
-**et**, s’il existe, le cycle de vie / règles du `ANNEXE.md` du projet.
+code) : appliquer « Créer ou scinder » dans [reference.md](reference.md).
 
 Si OK : créer le fichier, déplacer le contenu hors spines si besoin, ajouter
 l’entrée catalogue (triggers / exclusions / dépendances). Sinon laisser dans

@@ -108,7 +108,7 @@ Méthode (obligatoire) :
 3. **Templates `memoire/`** (`PROJET.md`, `ANNEXE.md`, `CONVENTIONS.md`, `ARCHITECTURE.md`) : **pas** d’égalité texte. La personnalisation est attendue (nom projet à la place de `[NOM_PROJET]`, corps rempli, entrées d’annexes ajoutées). Vérifier uniquement la **forme générale** vs le template :
    - titre H1 du type `# <Nom> — …` (suffixe aligné sur le template : Contexte projet / Catalogue des annexes / Conventions / Architecture)
    - sections H2 requises présentes (mêmes intitulés que le template, ordre libre sauf si le template impose une logique claire)
-   - pour `ANNEXE.md` : bloc d’intro catalogue + section « Cycle de vie d’une annexe » + section « Historique » (ou équivalent) ; entrées supplémentaires d’annexes = OK
+   - pour `ANNEXE.md` : bloc d’intro catalogue + section « Historique » (ou équivalent) ; entrées d’annexes (triggers) = OK ; pas de section méthode « cycle de vie » (vit dans le skill `memoire`)
    - pour `CONVENTIONS.md` / `ARCHITECTURE.md` : lien vers `PROJET.md` / `ANNEXE.md` en tête si le template en a un
    - Statut `FORME_OK` ou `FORME_ECART` (écarts = section manquante / titre hors gabarit / structure cassée — pas le contenu métier)
 4. Ne pas modifier les fichiers en écart dans cette étape ; seulement rapporter.
@@ -128,4 +128,4 @@ Règle fondamentale à ne **jamais** violer :
 - `tasks/` = **workspace session** (`todo.md`, `lessons.md`) — propre au déroulement local.
 - `memoire/` = **savoir projet** (domaine, conventions, architecture, catalogue d'annexes) — propre au repo.
 - Le câblage OpenCode injecte les deux sans fusionner leur contenu : `opencode.jsonc` → `PROJET.md` + `ANNEXE.md`.
-- Le **catalogue** (mode d’emploi, entrées, triggers, cycle de vie) vit dans `memoire/ANNEXE.md` ; le câblage `instructions` en fixe l’objectif (quelles annexes ouvrir). Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.
+- Le **catalogue** (entrées, triggers, exclusions, dépendances) vit dans `memoire/ANNEXE.md` ; le câblage `instructions` en fixe l’objectif (quelles annexes ouvrir). Le **cycle de vie** des annexes (créer / scinder / fusionner / supprimer) vit dans le skill `memoire`. Les annexes spécifiques s'ajoutent **uniquement** dans `ANNEXE.md` (et le fichier annexe) — jamais dans le câblage ni dans le template générique au-delà de CONVENTIONS / ARCHITECTURE.
