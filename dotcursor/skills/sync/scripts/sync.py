@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Write init-project rule canons into ~/Documents harness projects.
+"""Write init-project rule canons (.mdc) into ~/Documents harness projects.
 
 Always syncs (no dry-run). Exit 1 if any file is still not IDENTIQUE after write.
+Does not touch tasks/ or memoire/ (agent-driven in the sync skill).
 """
 from __future__ import annotations
 
