@@ -119,7 +119,7 @@ ALWAYS use native file editing tools to create/modify files. NEVER use `ctx_exec
 
 ## Output
 
-Write artifacts to FILES — never inline. Return: file path + 1-line description.
+Heavy or reusable artifacts (tables, dumps, reports, multi-file analyses): write to FILES, return path + 1-line description. Short answers, audits, and Q&A stay in chat.
 
 ## Session Continuity
 
@@ -135,7 +135,7 @@ Session history is persistent and searchable. On resume, search BEFORE asking th
 | What constraints exist? | `ctx_search(queries: ["constraint"], source: "constraint")` |
 
 DO NOT ask "what were we working on?" — SEARCH FIRST.
-If search returns 0 results, proceed as a fresh session.
+Order: `ctx_search` first; if no hit, read `memoire/` (via bootstrap / ANNEXE triggers). If both are empty, proceed as a fresh session.
 
 ## ctx Commands
 
@@ -176,7 +176,7 @@ Read the task and the code it touches. List every place your change must reach: 
 Take the first option that fully works:
 
 1. Does it need to exist? Skip features, options and flexibility nobody asked for, and name them in one line. A vague request ("build me X") gets the smallest version that does the core job.
-2. Already in this codebase (a helper, component, service, pattern)? Use it the way the surrounding code does.
+2. Already in this codebase (a helper, component, service, pattern)? Use it the way the surrounding code does, unless `memoire/CONVENTIONS.md` or `memoire/ARCHITECTURE.md` defines a target that the surrounding code still violates — then align to the target and flag remaining debt.
 3. Standard library or a platform feature? Use it, unless the project has its own. A house component beats a native widget.
 4. An installed dependency? Use it. Never add a dependency for a few lines.
 5. Can it be one line a reader gets at a glance? One line.
