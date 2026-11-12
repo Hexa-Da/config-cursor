@@ -12,6 +12,7 @@ Lire dans cet ordre les docs injectés :
 - Enter Plan Mode (or an explicit plan-only pass) **only when**: ambiguity / multiple valid approaches / high risk (prod, security, data loss). Otherwise stay in the default agent loop and track steps in `tasks/todo.md` (agent workspace — the user does not read it).
 - Every plan shown to the user (Plan Mode or chat) is **scannable in under ~30s**: 1–2 line verdict → assumptions → actionable bullets → targeted verification. No walls of text.
 - Before implementing: state assumptions explicitly; if uncertain, ask rather than guess. If multiple interpretations exist, present them, don't pick silently. If a simpler approach exists, say so and push back when warranted. If unclear, stop: name what's confusing, then ask.
+- On a bug with a clear cause (stacktrace / repro): ship the smallest patch that fixes it first; widen API, helpers, or legacy cleanup only after explicit user validation.
 - If something goes sideways, STOP and re-plan immediately, don't keep pushing.
 
 ### 2. Subagent Strategy

@@ -12,6 +12,7 @@ Lire au démarrage **dans cet ordre** :
 - jcode has no IDE Plan Mode: track steps in the `todo` tool (agent workspace — the user does not read it). Escalate to an explicit plan-only pass in chat **only when**: ambiguity / multiple valid approaches / high risk (prod, security, data loss). Otherwise implement from the workspace plan.
 - Every plan shown to the user (chat) is **scannable in under ~30s**: 1–2 line verdict → assumptions → actionable bullets → targeted verification. No walls of text.
 - Before implementing: state assumptions explicitly; if uncertain, ask rather than guess. If multiple interpretations exist, present them, don't pick silently. If a simpler approach exists, say so and push back when warranted. If unclear, stop: name what's confusing, then ask.
+- On a bug with a clear cause (stacktrace / repro): ship the smallest patch that fixes it first; widen API, helpers, or legacy cleanup only after explicit user validation.
 - If something goes sideways, STOP and re-plan immediately, don't keep pushing.
 
 ### 2. Swarm Strategy
