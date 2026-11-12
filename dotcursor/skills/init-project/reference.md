@@ -35,12 +35,7 @@ Fichier cible : `tasks/lessons.md`
 ```markdown
 # Lessons - friction harnais
 
-<!--
-### YYYY-MM-DD — titre court
-- Friction : …
-- Contexte : (harness / consigne / outil)
-- Changement proposé : AGENTS | skill:nom | rien
--->
+<!-- À remplir à la clôture : entrées datées de friction harnais. -->
 ```
 
 ---
