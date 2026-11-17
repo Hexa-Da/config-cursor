@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Garde-fou sécurité pour le plugin OpenCode `tool.execute.before`.
+"""Garde-fou sécurité pour le plugin OpenCode 2 (`ctx.tool.hook("execute.before")`).
 
 Réutilise la classification de garde-fou.py (même dossier).
 Contrat CLI (appelé par garde-fou.js) :
@@ -7,6 +7,8 @@ Contrat CLI (appelé par garde-fou.js) :
   exit 0 = autorisé, exit 2 = bloqué (stderr renvoyé au modèle via throw).
 OpenCode n'a pas d'"ask" UI sur ce chemin : les cas ask sont bloqués
 avec un message demandant l'accord explicite de l'utilisateur.
+
+Noms d'outils : canon V2 (`shell`, `patch`) + alias V1 (`bash`, `apply_patch`).
 """
 from __future__ import annotations
 
@@ -22,9 +24,9 @@ _TIP_OPENCODE: str = (
     "Borne la commande (sous-dossier précis, -maxdepth 1..3, `rg PAT .`) "
     "ou utilise les outils grep / glob OpenCode."
 )
-_SHELL_TOOLS: frozenset[str] = frozenset({"bash"})
+_SHELL_TOOLS: frozenset[str] = frozenset({"shell", "bash"})
 _WRITE_TOOLS: frozenset[str] = frozenset(
-    {"write", "edit", "multiedit", "apply_patch", "replace"}
+    {"write", "edit", "multiedit", "patch", "apply_patch", "replace"}
 )
 _READ_TOOLS: frozenset[str] = frozenset({"read"})
 _PATCH_PATH_RE: re.Pattern[str] = re.compile(

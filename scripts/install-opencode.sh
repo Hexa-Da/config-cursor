@@ -49,8 +49,8 @@ else
   echo "→ OpenCode AGENTS.md: skip (absent du repo)"
 fi
 
-# Garde-fou : plugin auto-load + scripts Python côte-à-côte (base Cursor + wrapper).
-# Pas de config.toml à éditer (hook plugin OpenCode).
+# Garde-fou : plugin OpenCode 2 auto-discover sous plugins/
+# + scripts Python côte-à-côte (base Cursor + wrapper).
 mkdir -p "$OPENCODE_CONFIG/plugins"
 cp "$DOT_OC/plugins/garde-fou.js" \
   "$DOT_OC/plugins/garde-fou-opencode.py" \
