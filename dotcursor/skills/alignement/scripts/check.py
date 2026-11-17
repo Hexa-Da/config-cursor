@@ -166,32 +166,25 @@ def _hooks(rep: Report) -> None:
 
 
 def _opencode_hooks(rep: Report) -> None:
-    """Plugin + scripts garde-fou OpenCode (install-opencode.sh)."""
-    pairs = [
-        (
-            CONFIG / "dotopencode" / "plugins" / "garde-fou.js",
-            OPENCODE / "plugins" / "garde-fou.js",
-        ),
-        (
-            CONFIG / "dotopencode" / "plugins" / "garde-fou-opencode.py",
-            OPENCODE / "plugins" / "garde-fou-opencode.py",
-        ),
-        (
-            CONFIG / "dotcursor" / "hooks" / "garde-fou.py",
-            OPENCODE / "plugins" / "garde-fou.py",
-        ),
-    ]
+    """Single-file OpenCode V2 plugin garde-fou (install-opencode.sh)."""
+    src = CONFIG / "dotopencode" / "plugins" / "garde-fou.js"
+    dst = OPENCODE / "plugins" / "garde-fou.js"
     notes: list[str] = []
-    for src, dst in pairs:
-        if not src.is_file():
-            notes.append(f"absent repo: {src.name}")
-            continue
-        if not _cmp_files(src, dst):
-            notes.append(src.name)
+    if not src.is_file():
+        notes.append("absent repo: dotopencode/plugins/garde-fou.js")
+    elif not _cmp_files(src, dst):
+        notes.append("plugins/garde-fou.js")
+    for orphan in (
+        OPENCODE / "plugins" / "garde-fou-opencode.py",
+        OPENCODE / "plugins" / "garde-fou.py",
+        OPENCODE / "hooks" / "garde-fou.py",
+    ):
+        if orphan.is_file():
+            notes.append(f"orphelin {orphan.relative_to(OPENCODE)}")
     if notes:
-        rep.drift("plugins OpenCode", ", ".join(notes) + " → install-opencode.sh")
+        rep.drift("garde-fou OpenCode", ", ".join(notes) + " → install-opencode.sh")
     else:
-        rep.ok("plugins OpenCode")
+        rep.ok("garde-fou OpenCode")
 
 
 def _dot_dir(rep: Report, name: str) -> None:

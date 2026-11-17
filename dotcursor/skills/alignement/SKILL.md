@@ -39,7 +39,7 @@ Exit 0 = pas de `DRIFT`. Exit 1 = écart inattendu.
 | **SKIP** | Fichier / couche absente |
 
 - OpenCode `SKILL.md` : le script compare au **transform** (`sync_opencode_skills.py`), pas au brut Cursor.
-- OpenCode garde-fou : plugin V2 `plugins/garde-fou.js` + `plugins/garde-fou{,-opencode}.py` → `install-opencode.sh`.
+- OpenCode garde-fou : un seul plugin V2 `dotopencode/plugins/garde-fou.js` → `~/.config/opencode/plugins/` via `install-opencode.sh` (indépendant de Cursor).
 - Les user rules viennent de `dot<harness>/AGENTS.md` : OpenCode → `~/.config/opencode/AGENTS.md`. La variante Cursor n'est pas scriptable (Settings → Rules), donc non vérifiée.
 - `mcp.json` : byte-identique `dotcursor/mcp.json` ↔ `~/.cursor/mcp.json` (canon = repo).
 - `extensions.txt` n'est **pas** une source de vérité (`install.sh` ne les installe pas).
