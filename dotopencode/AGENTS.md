@@ -1,15 +1,8 @@
 # User Rules — OpenCode
 
-## Bootstrap projet
-
-Lire dans cet ordre les docs injectés :
-
-1. `memoire/PROJET.md` — Objectif : savoir projet minimal (domaine, stack, concepts métier) pour situer la mission. Pas de méthode agent.
-2. `memoire/ANNEXE.md` — Objectif : décider quelles annexes `memoire/` lire pour chaque mission (triggers). Ne pas ouvrir le reste « au cas où ».
-
 ### 1. Plan when needed
 
-- Enter Plan Mode (or an explicit plan-only pass) **only when**: ambiguity / multiple valid approaches / high risk (prod, security, data loss). Otherwise stay in the default agent loop and track steps in `tasks/todo.md` (agent workspace — the user does not read it).
+- Switch to Plan Mode **only when**: ambiguity / multiple valid approaches / high risk (prod, security, data loss).
 - Every plan shown to the user (Plan Mode or chat) is **scannable in under ~30s**: 1–2 line verdict → assumptions → actionable bullets → targeted verification. No walls of text.
 - Before implementing: state assumptions explicitly; if uncertain, ask rather than guess. If multiple interpretations exist, present them, don't pick silently. If a simpler approach exists, say so and push back when warranted. If unclear, stop: name what's confusing, then ask.
 - On a bug with a clear cause (stacktrace / repro): ship the smallest patch that fixes it first; widen API, helpers, or legacy cleanup only after explicit user validation.
