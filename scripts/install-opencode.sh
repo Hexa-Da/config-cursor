@@ -50,7 +50,7 @@ else
 fi
 
 # Garde-fou : plugin auto-load + scripts Python côte-à-côte (base Cursor + wrapper).
-# Pas de config.toml à éditer (contrairement à jcode pre_tool).
+# Pas de config.toml à éditer (hook plugin OpenCode).
 mkdir -p "$OPENCODE_CONFIG/plugins"
 cp "$DOT_OC/plugins/garde-fou.js" \
   "$DOT_OC/plugins/garde-fou-opencode.py" \

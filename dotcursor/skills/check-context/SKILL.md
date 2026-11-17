@@ -37,9 +37,8 @@ de session. Distinct de `alignement` (repo ↔ machine) et de `memoire`
    Détecter le câblage bootstrap :
    - Cursor : `.cursor/rules/bootstrap.mdc`
    - OpenCode : `opencode.jsonc` → `instructions`
-   - jcode : bootstrap global `~/.jcode/prompt-overlay.md` (pas d’exigence d’`./AGENTS.md` projet)
    Si harness / fichiers absents → **bloqué** ; proposer `init-project` /
-   `init-project-opencode` / `init-project-jcode` selon le canal. Stop.
+   `init-project-opencode` selon le canal. Stop.
 
 2. **Toujours-on** — `memoire/PROJET.md`, `memoire/ANNEXE.md`.
    S’ils n’existent pas → **bloqué**. S’ils n’ont pas encore été lus dans la

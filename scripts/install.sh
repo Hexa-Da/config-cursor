@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Install this Cursor config onto the current machine (macOS / Linux / Windows+Git Bash).
 # OpenCode mirror (AGENTS.md + skills + plugin garde-fou) : délégué à install-opencode.sh.
-# jcode mirror (prompt-overlay + ~/.jcode/skills) : délégué à install-jcode.sh.
-# User rules par harness : dot{cursor,opencode,jcode}/AGENTS.md ;
+# User rules par harness : dot{cursor,opencode}/AGENTS.md ;
 # la variante Cursor se colle à la main (Settings → Rules), non scriptable.
 set -euo pipefail
 
@@ -65,9 +64,6 @@ sync_dot_dir agents
 
 # OpenCode only (AGENTS.md + skills) — source unique
 "$SCRIPT_DIR/install-opencode.sh"
-
-# jcode only (prompt-overlay + ~/.jcode/skills) — source unique
-"$SCRIPT_DIR/install-jcode.sh"
 
 # mcp.json : canon repo → ~/.cursor (écrase ; pas de secrets dans le canon)
 if [[ -f "$DOT_SRC/mcp.json" ]]; then
@@ -137,5 +133,4 @@ fi
 echo "OK — Reload Window si settings/keybindings / hooks ne se rechargent pas."
 echo "     Vérifie Settings → General (layout) + Agents/Review après restart (storage)."
 echo "     OpenCode : voir sortie de install-opencode.sh ci-dessus."
-echo "     jcode    : voir sortie de install-jcode.sh ci-dessus."
 echo "     Cursor user rules : coller dotcursor/AGENTS.md dans Settings → Rules (non scriptable)."

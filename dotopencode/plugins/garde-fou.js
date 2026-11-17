@@ -1,7 +1,7 @@
 /**
  * Plugin OpenCode — garde-fou sécurité (tool.execute.before).
  *
- * Délègue à garde-fou-opencode.py (même dossier ; classification partagée Cursor/jcode).
+ * Délègue à garde-fou-opencode.py (même dossier ; classification partagée avec Cursor).
  * Chargé automatiquement depuis ~/.config/opencode/plugins/ après install-opencode.sh.
  */
 import { spawnSync } from "node:child_process"

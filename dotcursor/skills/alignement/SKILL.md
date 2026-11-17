@@ -2,16 +2,16 @@
 name: alignement
 description: >-
   Checks config-cursor repo vs this machine (hooks, skills, settings,
-  mcp.json, cursor-storage, OpenCode, jcode). Use when the user asks
+  mcp.json, cursor-storage, OpenCode). Use when the user asks
   to verify alignment, alignement, repo vs machine, or whether install.sh /
-  install-opencode.sh / install-jcode.sh / export.sh is needed.
+  install-opencode.sh / export.sh is needed.
 disable-model-invocation: true
 ---
 
 # Alignement repo ↔ machine
 
 Vérif **en lecture**. Ne pas lancer `install.sh` / `install-opencode.sh` /
-`install-jcode.sh` / `export.sh` sauf demande explicite.
+`export.sh` sauf demande explicite.
 
 ## Checklist
 
@@ -34,14 +34,13 @@ Exit 0 = pas de `DRIFT`. Exit 1 = écart inattendu.
 | Statut | Sens |
 | --- | --- |
 | **OK** | Couche identique |
-| **DRIFT** | Écart à corriger. Le détail indique `install.sh` / `install-opencode.sh` / `install-jcode.sh` (repo → machine) ou `export.sh` (machine → repo) |
+| **DRIFT** | Écart à corriger. Le détail indique `install.sh` / `install-opencode.sh` (repo → machine) ou `export.sh` (machine → repo) |
 | **INFO** | Attendu : extensions indicatives, Cursor ouvert, worktree sale |
 | **SKIP** | Fichier / couche absente |
 
-- OpenCode et jcode `SKILL.md` : le script compare au **transform** (`sync_opencode_skills.py`, `sync_jcode_skills.py`), pas au brut Cursor.
+- OpenCode `SKILL.md` : le script compare au **transform** (`sync_opencode_skills.py`), pas au brut Cursor.
 - OpenCode garde-fou : `plugins/garde-fou.js` + `plugins/garde-fou{,-opencode}.py` → `install-opencode.sh`.
-- jcode `config.policy.toml` : clés policy vs `~/.jcode/config.toml` (même contrat que `merge_jcode_config_policy.py`) → `install-jcode.sh`. Le reste du fichier machine est ignoré.
-- Les user rules viennent de `dot<harness>/AGENTS.md` : OpenCode → `~/.config/opencode/AGENTS.md`, jcode → `~/.jcode/prompt-overlay.md`. La variante Cursor n'est pas scriptable (Settings → Rules), donc non vérifiée.
+- Les user rules viennent de `dot<harness>/AGENTS.md` : OpenCode → `~/.config/opencode/AGENTS.md`. La variante Cursor n'est pas scriptable (Settings → Rules), donc non vérifiée.
 - `mcp.json` : byte-identique `dotcursor/mcp.json` ↔ `~/.cursor/mcp.json` (canon = repo).
 - `extensions.txt` n'est **pas** une source de vérité (`install.sh` ne les installe pas).
 - `__pycache__` / `.gitkeep` ignorés.
