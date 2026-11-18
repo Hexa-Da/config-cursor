@@ -58,11 +58,7 @@ def harness_projects(root: Path) -> list[Path]:
     for child in sorted(root.iterdir(), key=lambda p: p.name.lower()):
         if not child.is_dir() or child.name.startswith("."):
             continue
-        if (
-            (child / "memoire").is_dir()
-            and (child / "tasks").is_dir()
-            and (child / ".cursor" / "rules").is_dir()
-        ):
+        if (child / "memoire").is_dir() and (child / ".cursor" / "rules").is_dir():
             projects.append(child)
     return projects
 

@@ -7,6 +7,7 @@ Cursor injects harness blocks into `<user_rules>` (labels like `committing-chang
 - Switch to Plan Mode **only when**: ambiguity / multiple valid approaches / high risk (prod, security, data loss).
 - Every plan shown to the user (Plan Mode or chat) is **scannable in under ~30s**: 1–2 line verdict → assumptions → actionable bullets → targeted verification. No walls of text.
 - Before implementing: state assumptions explicitly; if uncertain, ask rather than guess. If multiple interpretations exist, present them, don't pick silently. If a simpler approach exists, say so and push back when warranted. If unclear, stop: name what's confusing, then ask.
+- Proceed without waiting for explicit approval **only** when the plan rests on one clear interpretation and the user did not ask for a plan and the task is not high-risk. Otherwise present interpretations / ask in chat.
 - On a bug with a clear cause (stacktrace / repro): ship the smallest patch that fixes it first; widen API, helpers, or legacy cleanup only after explicit user validation.
 - If something goes sideways, STOP and re-plan immediately, don't keep pushing.
 
@@ -34,19 +35,11 @@ Cursor injects harness blocks into `<user_rules>` (labels like `committing-chang
 
 Read freely; write (`commit`, `push`, `rebase`…) **only on explicit request**, at end of task, **propose** a commit message. When planning a new mission, check the worktree state and discuss it with the user. If the subject is large enough, propose up front a split into **several small chained commits**.
 
-## Task Management
-
-1. **Plan**: Use `tasks/todo.md` as your private workspace, checkable steps + Review for you across the session. Anything the user must decide or approve goes in chat / Plan Mode.
-2. **Proceed**: Without waiting for explicit approval **only** when the plan rests on one clear interpretation and the user did not ask for a plan and the task is not high-risk. Otherwise present interpretations / ask in chat.
-3. **Track**: Mark items complete in `tasks/todo.md` as you go.
-4. **Review**: Close your workspace Review in `tasks/todo.md` (what was done, how verified, gaps vs plan). Surface outcomes to the user in chat (Communication).
-5. **Capture**: Update the relevant `memoire/` doc when #3 applies (correction or durable learning), dedupe/merge.
-
 ## Session reports
 
-- **Forbidden** outside an explicit close: any write under `memoire/session/`, and any write to `tasks/lessons.md`.
-- End of plan = Review in `tasks/todo.md` and durable project lessons in `memoire/` if needed, no report at that step.
-- Close = user request → skill `cloture-session` → **new** session file ; optional dated entries in `tasks/lessons.md`.
+- **Forbidden** outside an explicit close: any write under `memoire/session/`.
+- End of plan = outcomes in chat and durable project lessons in `memoire/` if needed, no session report at that step.
+- Close = user request → skill `cloture-session` → **new** session file under `memoire/session/`. Harness frictions: state them in chat only (no inbox file); promote to `AGENTS.md` / a skill only if the user asks.
 - Report naming: `AAAA-MM-JJ_HHmm_slug.md` (local clock).
 
 ## Code comments

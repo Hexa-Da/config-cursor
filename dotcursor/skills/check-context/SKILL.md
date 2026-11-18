@@ -45,8 +45,9 @@ de session. Distinct de `alignement` (repo ↔ machine) et de `memoire`
    session → **GAP** (ne pas relire pour combler). Méthode agent = User Rules
    (`AGENTS.md` / overlay), pas un fichier projet always-on.
 
-3. **Mission** — déduire depuis le fil de discussion et `tasks/todo.md`
-   s’il existe. Si ambiguë → **une** question, pas de guess.
+3. **Mission** — déduire depuis le fil de discussion (et
+   `memoire/session/` seulement si reprise explicite). Si ambiguë → **une**
+   question, pas de guess.
 
 4. **Annexes attendues** — appliquer `ANNEXE.md` (triggers cumulatifs,
    exclusions). Produire l’ensemble attendu (`CONVENTIONS.md`,

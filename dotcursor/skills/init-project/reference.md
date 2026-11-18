@@ -4,42 +4,6 @@ Templates des fichiers à générer. Copier tels quels sauf les placeholders `[�
 
 ---
 
-## Copie todo
-
-Fichier cible : `tasks/todo.md`
-
-```markdown
-# Todo — tâche en cours
-
-## Tâche
-
-<!-- Titre court de la tâche en cours -->
-
-## Plan
-
-- [ ] Étape 1
-- [ ] Étape 2
-- [ ] Étape 3
-
-## Review
-
-<!-- À remplir en fin de tâche : ce qui a été fait, comment ça a été vérifié, écarts par rapport au plan. -->
-```
-
----
-
-## Copie lessons
-
-Fichier cible : `tasks/lessons.md`
-
-```markdown
-# Lessons - friction harnais
-
-<!-- À remplir à la clôture : entrées datées de friction harnais. -->
-```
-
----
-
 ## Copie bootstrap.mdc
 
 Fichier cible : `.cursor/rules/bootstrap.mdc`

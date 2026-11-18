@@ -24,25 +24,25 @@ Une leçon réutilisable est promue si elle répond en plus **oui** à au moins 
 
 ## Où reporter une leçon durable
 
-| Nature de la leçon                               | Document cible                    | Exemple                                                                         |
-| ------------------------------------------------ | --------------------------------- | ------------------------------------------------------------------------------- |
-| Checklist procédurale, convention de code, piège | `memoire/CONVENTIONS.md`          | checklist multi-couches d'ajout d'une donnée (modèle → migration → UI → export) |
-| Rôle d'un package, pattern, flux technique       | `memoire/ARCHITECTURE.md`         | pattern de composants, flux de génération de code                               |
-| Friction méthode / harness / outil / consigne    | `tasks/lessons.md` (inbox)        | consigne contradictoire, outil manquant, règle always-on trop chère             |
+| Nature de la leçon                               | Document cible                         | Exemple                                                                         |
+| ------------------------------------------------ | -------------------------------------- | ------------------------------------------------------------------------------- |
+| Checklist procédurale, convention de code, piège | `memoire/CONVENTIONS.md`               | checklist multi-couches d'ajout d'une donnée (modèle → migration → UI → export) |
+| Rôle d'un package, pattern, flux technique       | `memoire/ARCHITECTURE.md`              | pattern de composants, flux de génération de code                               |
+| Friction méthode / harness / outil / consigne    | chat seulement (pas de fichier inbox)  | consigne contradictoire, outil manquant, règle always-on trop chère             |
 
-**Hors inbox** : récit de ce qui a été fait → rapport de session ; invariant code/projet → `memoire/` seulement.
+Récit de ce qui a été fait → rapport de session ; invariant code/projet → `memoire/` seulement.
 
-## Inbox frictions (`tasks/lessons.md`)
+## Frictions harness (chat)
 
-Écriture **uniquement à la clôture**. Une entrée = une friction **promuable** (l’utilisateur pourra la copier dans `AGENTS.md` ou un skill). Sinon : n’écrire rien.
+Énoncé **uniquement à la clôture**, dans le chat. Une entrée = une friction **promuable** vers `AGENTS.md` ou un skill. Sinon : `0`.
 
-Critères d’une entrée valide (tous requis) :
+Critères (tous requis) :
 
 - **Friction** : ce qui a bloqué ou dégradé le travail (pas un résumé de ticket).
 - **Contexte** : harness / consigne / outil concerné.
-- **Changement proposé** : `AGENTS` | `skill:<nom>` | `rien` (si `rien`, l’entrée ne sert qu’à documenter un piège ponctuel — préférer omettre).
+- **Changement proposé** : `AGENTS` | `skill:<nom>` | `rien` (si `rien`, préférer omettre).
 
-Gabarit (à coller dans `tasks/lessons.md`, hors du commentaire HTML) :
+Gabarit chat :
 
 ```markdown
 ### YYYY-MM-DD — titre court
@@ -51,7 +51,7 @@ Gabarit (à coller dans `tasks/lessons.md`, hors du commentaire HTML) :
 - Changement proposé : AGENTS | skill:nom | rien
 ```
 
-Interdit dans ce fichier : savoir projet, checklist code, journal de session, prose libre hors gabarit.
+Ne pas écrire ces entrées dans un fichier projet. Patch `AGENTS.md` / skill seulement sur demande explicite.
 
 ---
 
@@ -104,29 +104,4 @@ Pour chaque changement significatif :
 - **Commits** :
   - `premier message`
   - `second message`
-```
-
----
-
-
-## Template todo
-
-Fichier cible après reset : `tasks/todo.md`
-
-```markdown
-# Todo — tâche en cours
-
-## Tâche
-
-<!-- Titre court de la tâche en cours -->
-
-## Plan
-
-- [ ] Étape 1
-- [ ] Étape 2
-- [ ] Étape 3
-
-## Review
-
-<!-- À remplir en fin de tâche : ce qui a été fait, comment ça a été vérifié, écarts par rapport au plan. -->
 ```

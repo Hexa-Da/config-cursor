@@ -18,16 +18,16 @@ qui ont déjà le harness agent. Source unique : `init-project/reference.md`
 
 | Inclus | Exclus |
 | ------ | ------ |
-| `.cursor/rules/bootstrap.mdc` | `tasks/todo.md`, `tasks/lessons.md` |
-| `.cursor/rules/context-mode.mdc` | tout `memoire/*` |
-| `.cursor/rules/ponytail.mdc` | autres fichiers sous `.cursor/rules/` |
+| `.cursor/rules/bootstrap.mdc` | tout `memoire/*` |
+| `.cursor/rules/context-mode.mdc` | autres fichiers sous `.cursor/rules/` |
+| `.cursor/rules/ponytail.mdc` | |
 
 ## Harness cible
 
-Enfant direct de `~/Documents` avec les trois dossiers :
+Enfant direct de `~/Documents` avec :
 
 ```
-memoire/   tasks/   .cursor/rules/
+memoire/   .cursor/rules/
 ```
 
 ## Workflow

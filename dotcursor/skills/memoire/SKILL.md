@@ -110,5 +110,4 @@ annexes créées, propositions en attente, points équipe.
 
 - Pas d’écriture hors `memoire/` sauf demande explicite.
 - Pas de rapport sous `memoire/session/` (réservé à `cloture-session`).
-- Pas d’écriture dans `tasks/lessons.md` (réservé à `cloture-session`).
 - Mises à jour incrémentales ; pas de prose longue.
