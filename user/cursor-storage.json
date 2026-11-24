@@ -1,7 +1,10 @@
 {
     "_meta": {
         "schema": 1,
-        "note": "Filtered Agents/Review + Layout prefs from state.vscdb. Not glass/session sizes. Quit Cursor before install.sh for this layer."
+        "note": "Filtered Agents/Review + Layout prefs from state.vscdb. Includes applicationUser.cppEnabled (Cursor Tab). Not glass/session sizes. Quit Cursor before install.sh for this layer."
+    },
+    "applicationUser": {
+        "cppEnabled": false
     },
     "cursor": {
         "agentLayout.quickMenu.lastSelectedLayoutId": "default-agent",

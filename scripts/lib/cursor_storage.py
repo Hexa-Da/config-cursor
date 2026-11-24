@@ -49,6 +49,13 @@ CURSOR_KEYS_LAYOUT: frozenset[str] = frozenset(
 
 CURSOR_KEYS: frozenset[str] = CURSOR_KEYS_AGENTS | CURSOR_KEYS_LAYOUT
 
+# Top-level keys inside the applicationUser reactive blob (not cursor/* rows).
+APPLICATION_USER_TOP_KEYS: frozenset[str] = frozenset(
+    {
+        "cppEnabled",  # Cursor Tab master switch (overrides settings.json alone)
+    }
+)
+
 COMPOSER_STATE_KEYS: frozenset[str] = frozenset(
     {
         "autoApproveModeTransitions",
@@ -82,6 +89,7 @@ MODES4_FIELDS: tuple[str, ...] = (
 
 META_NOTE = (
     "Filtered Agents/Review + Layout prefs from state.vscdb. "
+    "Includes applicationUser.cppEnabled (Cursor Tab). "
     "Not glass/session sizes. Quit Cursor before install.sh for this layer."
 )
 
@@ -175,6 +183,7 @@ def export_storage(db_path: Path, out_path: Path) -> int:
             cursor_out[key] = _decode_item_value(row[0])
 
         composer_out: dict[str, Any] = {}
+        app_user_out: dict[str, Any] = {}
         cur.execute("SELECT value FROM ItemTable WHERE key=?", (APPLICATION_USER_KEY,))
         row = cur.fetchone()
         if row is not None:
@@ -182,21 +191,26 @@ def export_storage(db_path: Path, out_path: Path) -> int:
                 app_user = json.loads(row[0])
             except json.JSONDecodeError:
                 app_user = {}
-            cs = app_user.get("composerState") if isinstance(app_user, dict) else None
-            if isinstance(cs, dict):
-                for key in sorted(COMPOSER_STATE_KEYS):
-                    if key not in cs:
-                        continue
-                    if key == "modes4":
-                        composer_out[key] = _slim_modes4(cs[key])
-                    else:
-                        composer_out[key] = cs[key]
+            if isinstance(app_user, dict):
+                for key in sorted(APPLICATION_USER_TOP_KEYS):
+                    if key in app_user:
+                        app_user_out[key] = app_user[key]
+                cs = app_user.get("composerState")
+                if isinstance(cs, dict):
+                    for key in sorted(COMPOSER_STATE_KEYS):
+                        if key not in cs:
+                            continue
+                        if key == "modes4":
+                            composer_out[key] = _slim_modes4(cs[key])
+                        else:
+                            composer_out[key] = cs[key]
     finally:
         con.close()
 
     payload = {
         "_meta": {"schema": SCHEMA, "note": META_NOTE},
         "cursor": cursor_out,
+        "applicationUser": app_user_out,
         "composerState": composer_out,
     }
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -206,7 +220,8 @@ def export_storage(db_path: Path, out_path: Path) -> int:
     )
     print(
         f"→ cursor-storage.json "
-        f"({len(cursor_out)} cursor keys, {len(composer_out)} composerState keys)"
+        f"({len(cursor_out)} cursor keys, {len(app_user_out)} applicationUser keys, "
+        f"{len(composer_out)} composerState keys)"
     )
     return 0
 
@@ -238,6 +253,9 @@ def import_storage(in_path: Path, db_path: Path) -> int:
         return 1
 
     cursor_in = data.get("cursor") if isinstance(data.get("cursor"), dict) else {}
+    app_user_in = (
+        data.get("applicationUser") if isinstance(data.get("applicationUser"), dict) else {}
+    )
     composer_in = (
         data.get("composerState") if isinstance(data.get("composerState"), dict) else {}
     )
@@ -263,14 +281,15 @@ def import_storage(in_path: Path, db_path: Path) -> int:
             )
             n_cursor += 1
 
+        n_app_user = 0
         n_composer = 0
         cur.execute("SELECT value FROM ItemTable WHERE key=?", (APPLICATION_USER_KEY,))
         row = cur.fetchone()
         if row is None:
-            if composer_in:
+            if app_user_in or composer_in:
                 print(
                     "→ cursor-storage: warning — blob applicationUser absent, "
-                    "composerState non appliqué"
+                    "applicationUser/composerState non appliqués"
                 )
         else:
             try:
@@ -279,6 +298,11 @@ def import_storage(in_path: Path, db_path: Path) -> int:
                 app_user = {}
             if not isinstance(app_user, dict):
                 app_user = {}
+            for key, value in app_user_in.items():
+                if key not in APPLICATION_USER_TOP_KEYS:
+                    continue
+                app_user[key] = value
+                n_app_user += 1
             cs = app_user.get("composerState")
             if not isinstance(cs, dict):
                 cs = {}
@@ -303,7 +327,10 @@ def import_storage(in_path: Path, db_path: Path) -> int:
     finally:
         con.close()
 
-    print(f"→ cursor-storage: importé ({n_cursor} cursor, {n_composer} composerState)")
+    print(
+        f"→ cursor-storage: importé "
+        f"({n_cursor} cursor, {n_app_user} applicationUser, {n_composer} composerState)"
+    )
     return 0
 
 
