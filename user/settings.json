@@ -12,6 +12,7 @@
     "window.titleBarStyle": "native",
     "diffEditor.renderSideBySide": false,
     "cursor.composer.editorConversationDensity": "compact-ungrouped",
+    "cursor.cpp.enable": false,
     "cursor.cpp.enablePartialAccepts": true,
     "git.autofetch": true,
     "git.openRepositoryInParentFolders": "never",
