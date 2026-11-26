@@ -4,7 +4,7 @@
     "workbench.editor.showTabs": "multiple",
     "workbench.editorAssociations": {
         "*.pdf": "pdf.preview",
-        "*.html": "cweijan.htmlViewer"
+        "*.html": "default"
     },
     "cursor.composer.usageSummaryDisplay": "always",
     "window.autoDetectColorScheme": false,
