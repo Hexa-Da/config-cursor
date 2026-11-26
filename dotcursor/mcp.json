@@ -1,7 +1,14 @@
 {
   "mcpServers": {
     "context-mode": {
-      "command": "context-mode"
+      "command": "context-mode",
+      "args": [
+        "server",
+        "--agent",
+        "vscode",
+        "--workspace-folder",
+        "${workspaceFolder}"
+      ]
     }
   }
 }
